@@ -34,6 +34,8 @@ var notificationWithButton ="";
 var miId = "";
 var db = firebase.firestore();
 var colUsuarios = db.collection("Usuarios");
+var emailLogin="";
+var passLogin="";
 
 /*export default (props, { $, $f7, $on }) => {
   $on('pageInit', () => {
@@ -81,8 +83,6 @@ $$(document).on('page:init', '.page[data-name="registro"]', function (e) {
     nombre = $$('#registroNombre').val();
     nacimiento = $$('#registroNacimiento').val();
 
-    miId = email;
-
     console.log("email: " + email);
     console.log("contraseña: " + password);
 
@@ -105,7 +105,7 @@ $$(document).on('page:init', '.page[data-name="registro"]', function (e) {
       Nombre: nombre, FechaNacimiento: nacimiento
     };
 
-    colUsuarios.doc(miId).set(datos);
+    colUsuarios.doc(email).set(datos);
 })
 
 $$(document).on('page:init', '.page[data-name="index"]', function (e) {
@@ -115,7 +115,20 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
   $$('#btnRegistro').on('click', fnRegistro);
 
   function fnIngreso() {
-    mainView.router.navigate('/ingreso/');
+    emailLogin = $$('#usuarioLogin').val();
+    passLogin = $$('#passwordLogin').val();
+    $$('#ingresoLogin').on('click', fnLogueado);
+  }
+
+  function fnLogueado() {
+    firebase.auth().signInWithEmailAndPassword(emailLogin, passLogin)
+      .then((user) => {
+        mainView.router.navigate('/ingreso/');
+      })
+      .catch((error) => {
+        errorCode = error.code;
+        errorMessage = error.message;
+      });
   }
 
   function fnRegistro() {
