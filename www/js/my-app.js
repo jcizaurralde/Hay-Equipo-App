@@ -122,13 +122,14 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
 
   function fnLogueado() {
     firebase.auth().signInWithEmailAndPassword(emailLogin, passLogin)
-      .then((user) => {
-        mainView.router.navigate('/ingreso/');
-      })
       .catch((error) => {
         errorCode = error.code;
         errorMessage = error.message;
       });
+    console.log("email: "+ emailLogin);
+    console.log("email: " + passLogin);
+    console.log("carga la vista ingreso");
+    mainView.router.navigate('/ingreso/');
   }
 
   function fnRegistro() {
