@@ -14,7 +14,7 @@
                         <div class="item-inner">
                             <div class="item-title item-label">Correo electrónico</div>
                             <div class="item-input-wrap">
-                                <input type="email" placeholder="Tu e-mail" />
+                                <input type="email" placeholder="Tu e-mail" value="" id="registroEmail" />
                                 <span class="input-clear-button"></span>
                             </div>
                         </div>
@@ -27,7 +27,7 @@
                         <div class="item-inner">
                             <div class="item-title item-label">Contraseña</div>
                             <div class="item-input-wrap">
-                                <input type="password" placeholder="Tu contraseña" />
+                                <input type="password" placeholder="Tu contraseña" value="" id="registroPassword" />
                                 <span class="input-clear-button"></span>
                             </div>
                         </div>
@@ -40,7 +40,7 @@
                         <div class="item-inner">
                             <div class="item-title item-label">Repetir contraseña</div>
                             <div class="item-input-wrap">
-                                <input type="password" placeholder="Repite tu contraseña" />
+                                <input type="password" placeholder="Repite tu contraseña" value="" id="registroPassword2" />
                                 <span class="input-clear-button"></span>
                             </div>
                         </div>
@@ -53,20 +53,7 @@
                         <div class="item-inner">
                             <div class="item-title item-label">Nombre</div>
                             <div class="item-input-wrap">
-                                <input type="password" placeholder="Tu Nombre" />
-                                <span class="input-clear-button"></span>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="item-content item-input">
-                        <div class="item-media">
-                            <i class="icon demo-list-icon"></i>
-                        </div>
-                        <div class="item-inner">
-                            <div class="item-title item-label">Apellido</div>
-                            <div class="item-input-wrap">
-                                <input type="password" placeholder="Tu Apellido" />
+                                <input type="text" placeholder="Tu Nombre" value="" id="registroNombre" />
                                 <span class="input-clear-button"></span>
                             </div>
                         </div>
@@ -79,12 +66,24 @@
                         <div class="item-inner">
                             <div class="item-title item-label">Fecha de nacimiento</div>
                             <div class="item-input-wrap">
-                                <input type="date" value="1995-04-30" placeholder="Completa tu fecha de nacimiento" />
+                                <input type="date" value="1995-04-30" placeholder="Completa tu fecha de nacimiento" value="" id="registroNacimiento"/>
                             </div>
                         </div>
                     </li>
             
                 </ul>
+            </div>
+
+            <div class="block block-strong">
+                <p class="row">
+                    <button class="col button button-raised button-fill" id="btnRegRegistrar">Registrarme</button>
+                </p>
+            </div>
+
+            <div class="block block-strong">
+                <p class="row">
+                    <button class="col button button-raised button-fill" id="btnRegVolver">Volver</button>
+                </p>
             </div>
 
         </div>

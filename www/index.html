@@ -10,7 +10,7 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">-->
 
     <!-- Required meta tags-->
     <meta charset="utf-8">
@@ -45,7 +45,7 @@
                 <div class="navbar-bg"></div>
                 <div class="navbar-inner">
                     <!-- <div class="left"><i class="icon icon-back"></i></div>-->
-                    <div class="title">NO HAY EQUIPO</div>
+                    <div class="title">HAY EQUIPO APP</div>
                 <!-- <div class="right"><i class="icon icon-forward"></i></div> -->
                 </div>
             </div>
@@ -55,58 +55,72 @@
                 <div class="page-content">
                     <div class="block">
                       
-                        <div class="list inline-labels no-hairlines-md">
-                            <ul> 
-                                <li class="item-content item-input">
-                                    <div class="item-media">
-                                        <i class="icon demo-list-icon"></i>
+                        <div class="block block-strong">
+                            <p>
+                                <!-- Open in login screen that already in DOM-->
+                                <a href="#" class="button button-fill button-raised login-screen-open" id="btnIngresar" data-login-screen=".login-screen">Ingresar
+                                </a>
+                            </p>
+                        </div>
+                        
+                        <div class="login-screen">
+                            <div class="view">
+                                <div class="page">
+                                    <div class="page-content login-screen-content">
+                                        <div class="login-screen-title">HAY EQUIPO APP</div>
+                                        <form>
+                                            <div class="list">
+                                                <ul>
+                                                    <li class="item-content item-input">
+                                                        <div class="item-inner">
+                                                            <div class="item-title item-label">Usuario</div>
+                                                            <div class="item-input-wrap">
+                                                                <input type="email" name="usuarioLogin" id="usuarioLogin" placeholder="Tu usuario" />
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li class="item-content item-input">
+                                                        <div class="item-inner">
+                                                            <div class="item-title item-label">Contraseña</div>
+                                                            <div class="item-input-wrap">
+                                                                <input type="password" name="passwordLogin"  id="passwordLogin" placeholder="Tu contraseña" />
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="list">
+                                                <ul>
+                                                    <li><a class="list-button" href="#">Ingresar</a></li>
+                                                </ul>
+                                            </div>
+                                        </form>
                                     </div>
-                                    <div class="item-inner">
-                                        <div class="item-title item-label">Correo electrónico</div> 
-                                        <div class="item-input-wrap">
-                                            <input type="email" placeholder="Tu e-mail" />
-                                            <span class="input-clear-button"></span>
-                                        </div>
-                                    </div>
-                                </li>
-
-                                <li class="item-content item-input">
-                                    <div class="item-media">
-                                        <i class="icon demo-list-icon"></i>
-                                    </div>
-                                    <div class="item-inner">
-                                        <div class="item-title item-label">Contraseña</div> 
-                                        <div class="item-input-wrap">
-                                            <input type="password" placeholder="Tu contraseña" />
-                                            <span class="input-clear-button"></span>
-                                        </div>
-                                    </div>
-                                </li>
-
-                            </ul>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="block block-strong">
+                        <!--<div class="block block-strong">
                             <p class="row">
                                 <button class="col button button-large button-raised button-fill" id="btnIngresar">Ingresar</button>
                             </p>
-                        </div>
+                        </div>-->
 
                         <div class="block block-strong">
                             <p class="row">
-                                <button class="col button button-large" id="btnIngresarF">Ingresar con Facebook</button>
+                                <button class="col button button-raised" id="btnIngresarF">Ingresar con Facebook</button>
                             </p>
                         </div>
 
                         <div class="block block-strong">
                             <p class="row">
-                                <button class="col button button-large" id="btnIngresarG">Ingresar con Google</button>
+                                <button class="col button button-raised" id="btnIngresarG">Ingresar con Google</button>
                             </p>
                         </div>
 
                         <div class="block block-strong">
                             <p class="row">
-                                <button class="col button button-large button-raised button-fill" id="btnRegistro">Registro</button>
+                                <button class="col button button-raised button-fill" id="btnRegistro">Registro</button>
                             </p>
                         </div>
                         
@@ -116,6 +130,26 @@
         </div>
     </div>
 
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>
+    
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyA0XMGUv_HnSwX8TSGxrpRqj7FoLPwWv9U",
+            authDomain: "hay-equipo-app-900bf.firebaseapp.com",
+            projectId: "hay-equipo-app-900bf",
+            storageBucket: "hay-equipo-app-900bf.appspot.com",
+            messagingSenderId: "385326655266",
+            appId: "1:385326655266:web:d3a8b08e6ff240625ca77b"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
 
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="lib/framework7/framework7-bundle.min.js"></script>

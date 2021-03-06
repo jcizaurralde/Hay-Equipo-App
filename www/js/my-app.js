@@ -25,9 +25,16 @@ var app = new Framework7({
 
 var mainView = app.views.create('.view-main');
 
+var email = "";
+var password = "";
+var password2 = "";
+var nombre = "";
+var nacimiento = "";
+
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function() {
     console.log("Device is ready!");
+
 });
 
 // Option 1. Using one 'page:init' handler for all pages
@@ -41,6 +48,42 @@ $$(document).on('page:init', '.page[data-name="ingreso"]', function (e) {
     // Do something here when page with data-name="about" attribute loaded and initialized
     console.log(e);
     
+})
+
+$$(document).on('page:init', '.page[data-name="registro"]', function (e) {
+  // Do something here when page with data-name="about" attribute loaded and initialized
+  console.log(e);
+  $$('#btnRegRegistrar').on('click', fnRegistrar);
+  
+  function fnRegistrar() {
+    email = $$('#registroEmail').val();
+    password = $$('#registroPassword').val();
+    password2 = $$('#registroPassword2').val();
+    nombre = $$('#registroNombre').val();
+    nacimiento = $$('#registroNacimiento').val();
+
+    console.log("email: " + email);
+    console.log("contraseña: " + password);
+
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+        .catch(function (error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          if (errorCode == 'auth/weak-password') {
+            alert('Clave muy débil.');
+          } else {
+            alert(errorMessage);
+          }
+          console.log(error);
+        });
+      alert("Usuario Registrado");
+      mainView.router.navigate('/index/');
+    } 
+
+  $$('#btnRegVolver').on('click', function fnVuelveIndex() {
+    mainView.router.navigate('/index/');
+  });
 })
 
 $$(document).on('page:init', '.page[data-name="index"]', function (e) {
@@ -57,5 +100,6 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
     mainView.router.navigate('/registro/');
   }
 
+  
 
 })
