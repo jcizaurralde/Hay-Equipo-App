@@ -30,6 +30,22 @@ var password = "";
 var password2 = "";
 var nombre = "";
 var nacimiento = "";
+var notificationWithButton ="";
+var miId = "";
+var db = firebase.firestore();
+var colUsuarios = db.collection("Usuarios");
+
+/*export default (props, { $, $f7, $on }) => {
+  $on('pageInit', () => {
+      snotificationWithButton = $f7.notification.create({
+      icon: '<i class="icon demo-icon">7</i>',
+      title: 'Framework7',
+      subtitle: 'Notification with close button',
+      text: 'Usuario registrado exitosamente, verifique su casilla de correo para validar',
+      closeButton: true,
+    });
+  })
+}*/
 
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function() {
@@ -54,20 +70,24 @@ $$(document).on('page:init', '.page[data-name="registro"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
   $$('#btnRegRegistrar').on('click', fnRegistrar);
+  $$('#btnRegVolver').on('click', function fnVuelveIndex() {
+    mainView.router.navigate('/index/');
+  });
   
   function fnRegistrar() {
     email = $$('#registroEmail').val();
     password = $$('#registroPassword').val();
-    password2 = $$('#registroPassword2').val();
+    /*password2 = $$('#registroPassword2').val();*/
     nombre = $$('#registroNombre').val();
     nacimiento = $$('#registroNacimiento').val();
+
+    miId = email;
 
     console.log("email: " + email);
     console.log("contraseña: " + password);
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
         .catch(function (error) {
-          // Handle Errors here.
           var errorCode = error.code;
           var errorMessage = error.message;
           if (errorCode == 'auth/weak-password') {
@@ -77,13 +97,15 @@ $$(document).on('page:init', '.page[data-name="registro"]', function (e) {
           }
           console.log(error);
         });
-      alert("Usuario Registrado");
+      /*notificationWithButton.open();*/
       mainView.router.navigate('/index/');
-    } 
+    }
+    
+    var datos = {
+      Nombre: nombre, FechaNacimiento: nacimiento
+    };
 
-  $$('#btnRegVolver').on('click', function fnVuelveIndex() {
-    mainView.router.navigate('/index/');
-  });
+    colUsuarios.doc(miId).set(datos);
 })
 
 $$(document).on('page:init', '.page[data-name="index"]', function (e) {
