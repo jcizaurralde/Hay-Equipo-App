@@ -31,23 +31,19 @@ var password2 = "";
 var nombre = "";
 var nacimiento = "";
 var notificationWithButton ="";
-var miId = "";
 var db = firebase.firestore();
 var colUsuarios = db.collection("Usuarios");
 var emailLogin="";
 var passLogin="";
 
-/*export default (props, { $, $f7, $on }) => {
-  $on('pageInit', () => {
-      snotificationWithButton = $f7.notification.create({
-      icon: '<i class="icon demo-icon">7</i>',
-      title: 'Framework7',
-      subtitle: 'Notification with close button',
-      text: 'Usuario registrado exitosamente, verifique su casilla de correo para validar',
-      closeButton: true,
-    });
-  })
-}*/
+/*var notificationWithButton = $$.notification.create({
+icon: '<i class="icon demo-icon">7</i>',
+title: 'Framework7',
+subtitle: 'Notification with close button',
+text: 'Usuario registrado exitosamente, verifique su casilla de correo para validar',
+closeButton: true,
+});*/
+
 
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function() {
@@ -115,19 +111,25 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
   $$('#btnRegistro').on('click', fnRegistro);
 
   function fnIngreso() {
-    emailLogin = $$('#usuarioLogin').val();
-    passLogin = $$('#passwordLogin').val();
-    $$('#ingresoLogin').on('click', fnLogueado);
+    $$('.login-screen').on('loginscreen:opened', function (e) {
+      console.log('Login screen opened');
+      $$('#ingresoLogin').on('click', fnLogueado);
+    });
   }
 
   function fnLogueado() {
+    emailLogin = $$('#usuarioLogin').val();
+    passLogin = $$('#passwordLogin').val();
     firebase.auth().signInWithEmailAndPassword(emailLogin, passLogin)
+      .then((user) => {
+      })
       .catch((error) => {
         errorCode = error.code;
         errorMessage = error.message;
       });
-    console.log("email: "+ emailLogin);
-    console.log("email: " + passLogin);
+      
+    console.log("email: " + emailLogin);
+    console.log("contraseña: " + passLogin);
     console.log("carga la vista ingreso");
     mainView.router.navigate('/ingreso/');
   }
