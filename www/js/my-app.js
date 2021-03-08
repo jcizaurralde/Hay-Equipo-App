@@ -31,10 +31,11 @@ var password2 = "";
 var nombre = "";
 var nacimiento = "";
 var notificationWithButton ="";
-var db = firebase.firestore();
-var colUsuarios = db.collection("Usuarios");
 var emailLogin="";
 var passLogin="";
+var db = "";
+var colUsuarios ="";
+var nombreLogin = "";
 
 /*var notificationWithButton = $$.notification.create({
 icon: '<i class="icon demo-icon">7</i>',
@@ -48,7 +49,8 @@ closeButton: true,
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function() {
     console.log("Device is ready!");
-
+    db = firebase.firestore();
+    colUsuarios = db.collection("Usuarios");
 });
 
 // Option 1. Using one 'page:init' handler for all pages
@@ -61,6 +63,18 @@ $$(document).on('page:init', function (e) {
 $$(document).on('page:init', '.page[data-name="ingreso"]', function (e) {
     // Do something here when page with data-name="about" attribute loaded and initialized
     console.log(e);
+    nombreLogin = colUsuarios.doc(emailLogin).get()
+        .then(function (querySnapshot) {
+          querySnapshot.forEach(function (doc) {
+            console.log("data:" + doc.datos().nombre);
+          });
+        })
+          .catch(function (error) {
+            console.log("Error: ", error);
+          });
+
+    
+      $$('#bienvenida').text('Hola' + nombreLogin + '!');
     
 })
 
@@ -83,6 +97,10 @@ $$(document).on('page:init', '.page[data-name="registro"]', function (e) {
     console.log("contraseña: " + password);
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then((user) => {
+          var datos = {Nombre: nombre, FechaNacimiento: nacimiento };
+          colUsuarios.doc(email).set(datos);
+        })
         .catch(function (error) {
           var errorCode = error.code;
           var errorMessage = error.message;
@@ -97,11 +115,8 @@ $$(document).on('page:init', '.page[data-name="registro"]', function (e) {
       mainView.router.navigate('/index/');
     }
     
-    var datos = {
-      Nombre: nombre, FechaNacimiento: nacimiento
-    };
-
-    colUsuarios.doc(email).set(datos);
+    
+    
 })
 
 $$(document).on('page:init', '.page[data-name="index"]', function (e) {
@@ -122,16 +137,19 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
     passLogin = $$('#passwordLogin').val();
     firebase.auth().signInWithEmailAndPassword(emailLogin, passLogin)
       .then((user) => {
+        console.log("email: " + emailLogin);
+        console.log("contraseña: " + passLogin);
+        console.log("carga la vista ingreso");
+        $$('.login-screen').removeClass('login-screen').addClass('login-screen-close');
+        mainView.router.navigate('/ingreso/');
+        
       })
       .catch((error) => {
         errorCode = error.code;
         errorMessage = error.message;
       });
       
-    console.log("email: " + emailLogin);
-    console.log("contraseña: " + passLogin);
-    console.log("carga la vista ingreso");
-    mainView.router.navigate('/ingreso/');
+    
   }
 
   function fnRegistro() {

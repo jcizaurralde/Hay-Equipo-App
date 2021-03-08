@@ -32,7 +32,7 @@
     <link rel="stylesheet" href="css/app.css">
 </head>
 
-<body class="cuerpo">
+<body id="cuerpo">
     <div id="app">
         <div class="statusbar"></div>
         <div class="view view-main">
@@ -118,19 +118,11 @@
         </div>
     </div>
 
-
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>
-
+    <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-auth.js"></script>
-
     <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-firestore.js"></script>
     
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-         https://firebase.google.com/docs/web/setup#available-libraries -->
-    
     <script>
-        // Your web app's Firebase configuration
         var firebaseConfig = {
             apiKey: "AIzaSyA0XMGUv_HnSwX8TSGxrpRqj7FoLPwWv9U",
             authDomain: "hay-equipo-app-900bf.firebaseapp.com",
@@ -139,7 +131,6 @@
             messagingSenderId: "385326655266",
             appId: "1:385326655266:web:d3a8b08e6ff240625ca77b"
         };
-        // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
     </script>
 
