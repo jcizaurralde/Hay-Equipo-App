@@ -18,6 +18,7 @@ var app = new Framework7({
       { path: '/ingreso/', url: 'ingreso.html', },
       { path: '/index/', url: 'index.html', },
       { path: '/registro/', url: 'registro.html', },
+      { path: '/mi-equipo/', url: 'mi-equipo.html', },
     
     ]
     // ... other parameters
@@ -62,25 +63,39 @@ $$(document).on('page:init', function (e) {
 // Option 2. Using live 'page:init' event handlers for each page
 $$(document).on('page:init', '.page[data-name="ingreso"]', function (e) {
     // Do something here when page with data-name="about" attribute loaded and initialized
-    console.log(e); 
-  var usuRef = colUsuarios.doc(emailLogin);
-  usuRef.get().then((doc) => {
-    if (doc.exists) {
-      console.log("Document data:", doc.data());
-      console.log("Nombre: ", doc.data().Nombre);
-      nombreLogin = doc.data().Nombre;
-      console.log("Nombre del usuario: " + nombreLogin);
-      $$('#bienvenida').text('Hola ' + nombreLogin + ' !');
-    } else {
-      // doc.data() will be undefined in this case
-      console.log("No such document!");
-    }
-  }).catch((error) => {
-    console.log("Error getting document:", error);
-  });
-  
-      
+    console.log(e);
     
+    $$('#btnLogout').on('click', fnLogout);
+    $$('#btnVolverMenu').on('click', fnCierraPanel);
+    $$('#btnMiequipo').on('click', fnMiequipo);
+    
+    var usuRef = colUsuarios.doc(emailLogin);
+    usuRef.get().then((doc) => {
+      if (doc.exists) {
+        console.log("Document data:", doc.data());
+        console.log("Nombre: ", doc.data().Nombre);
+        nombreLogin = doc.data().Nombre;
+        console.log("Nombre del usuario: " + nombreLogin);
+        $$('#bienvenida').text('Hola ' + nombreLogin + ' !');
+      } else {
+        console.log("No such document!");
+      }
+    }).catch((error) => {
+      console.log("Error getting document:", error);
+    });
+    
+    function fnLogout() {
+      mainView.router.navigate('/index/');
+    }
+
+    function fnCierraPanel() {
+      $$('#panelMenu').removeClass('panel-cover panel-init').addClass('panel-cover');
+    }
+
+    function fnMiequipo() {
+      mainView.router.navigate('/mi-equipo/');
+    }
+
 })
 
 $$(document).on('page:init', '.page[data-name="registro"]', function (e) {
@@ -122,6 +137,12 @@ $$(document).on('page:init', '.page[data-name="registro"]', function (e) {
     
     
     
+})
+
+$$(document).on('page:init', '.page[data-name="mi-equipo"]', function (e) {
+  // Do something here when page with data-name="about" attribute loaded and initialized
+  console.log(e);
+
 })
 
 $$(document).on('page:init', '.page[data-name="index"]', function (e) {
