@@ -1,28 +1,40 @@
 <!-- We don't need a full layout in this file because this page will be parsed with Ajax.  -->
 <div class="page" data-name="ingreso">
-    
     <div class="page-content">
-        <div class="block-title" id="bienvenida"></div>
-        <div class="block block-strong">
-            <h2>Selecciona una opción</h2>
-
-            <div class="row" style="height: 90px">
-                <button class="col-50 button button-raised button-fill" style="height: 70px;">Mi equipo</button>
-                <button class="col-50 button button-raised button-fill" style="height: 70px;">Reservar cancha</button>
+        <div class="block">
+            <div class="row" style="height: 40px">
+                    <a href="#" class="button button-small panel-toggle display-flex" data-panel="left">
+                        <i class="f7-icons">bars</i>
+                    </a>
+                    <h2 class="text-align-center" id="bienvenida"></h2>
             </div>
-            <div class="row" style="height: 90px">
-                <button class="col-50 button button-raised button-fill" style="height: 70px;">Busca rival</button>
-                <button class="col-50 button button-raised button-fill" style="height: 70px;">Chat</button>
-            </div>
-            <div class="row" style="height: 90px">
-                <button class="col-50 button button-raised button-fill" style="height: 70px;">Torneos</button>
-                <button class="col-50 button button-raised button-fill" style="height: 70px;">Ranking</button>
-            </div>
-
-            <div class="row">
-                <button class="col-100 button button-raised button-fill">Novedades</button>
-            </div>
-
         </div>
+        
+            <div class="block block-strong">
+                    <div class="searchbar searchbar-inline">
+                        <div class="searchbar-input-wrap">
+                            <input type="text" placeholder="" />
+                            <i class="searchbar-icon"></i>
+                            <div class="input-clear-button"></div>
+                        </div>
+                    </div>
+                <h3 class="text-align-center">Selecciona una opción</h3>
+                <div class="row" style="height: 90px">
+                    <button class="col-50 button button-raised button-fill" style="height: 70px;">Mi equipo</button>
+                    <button class="col-50 button button-raised button-fill" style="height: 70px;">Reservar cancha</button>
+                </div>
+                <div class="row" style="height: 90px">
+                    <button class="col-50 button button-raised button-fill" style="height: 70px;">Busca rival</button>
+                    <button class="col-50 button button-raised button-fill" style="height: 70px;">Chat</button>
+                </div>
+                <div class="row" style="height: 90px">
+                    <button class="col-50 button button-raised button-fill" style="height: 70px;">Torneos</button>
+                    <button class="col-50 button button-raised button-fill" style="height: 70px;">Ranking</button>
+                </div>
+
+                <div class="row">
+                    <button class="col-100 button button-raised button-fill">Novedades</button>
+                </div>
+            </div>     
     </div>
 </div>

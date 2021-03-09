@@ -62,19 +62,24 @@ $$(document).on('page:init', function (e) {
 // Option 2. Using live 'page:init' event handlers for each page
 $$(document).on('page:init', '.page[data-name="ingreso"]', function (e) {
     // Do something here when page with data-name="about" attribute loaded and initialized
-    console.log(e);
-    nombreLogin = colUsuarios.doc(emailLogin).get()
-        .then(function (querySnapshot) {
-          querySnapshot.forEach(function (doc) {
-            console.log("data:" + doc.datos().nombre);
-          });
-        })
-          .catch(function (error) {
-            console.log("Error: ", error);
-          });
-
-    
-      $$('#bienvenida').text('Hola' + nombreLogin + '!');
+    console.log(e); 
+  var usuRef = colUsuarios.doc(emailLogin);
+  usuRef.get().then((doc) => {
+    if (doc.exists) {
+      console.log("Document data:", doc.data());
+      console.log("Nombre: ", doc.data().Nombre);
+      nombreLogin = doc.data().Nombre;
+      console.log("Nombre del usuario: " + nombreLogin);
+      $$('#bienvenida').text('Hola ' + nombreLogin + ' !');
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+    }
+  }).catch((error) => {
+    console.log("Error getting document:", error);
+  });
+  
+      
     
 })
 
