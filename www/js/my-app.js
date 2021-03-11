@@ -38,6 +38,7 @@ var db = "";
 var colUsuarios ="";
 var nombreLogin = "";
 
+//REVISAR ESTA NOTIFICACION
 /*var notificationWithButton = $$.notification.create({
 icon: '<i class="icon demo-icon">7</i>',
 title: 'Framework7',
@@ -64,11 +65,9 @@ $$(document).on('page:init', function (e) {
 $$(document).on('page:init', '.page[data-name="ingreso"]', function (e) {
     // Do something here when page with data-name="about" attribute loaded and initialized
     console.log(e);
-    
     $$('#btnLogout').on('click', fnLogout);
-    $$('#btnVolverMenu').on('click', fnCierraPanel);
+    /*$$('#btnVolverMenu').on('click', fnCierraPanel);*/
     $$('#btnMiequipo').on('click', fnMiequipo);
-    
     var usuRef = colUsuarios.doc(emailLogin);
     usuRef.get().then((doc) => {
       if (doc.exists) {
@@ -83,19 +82,33 @@ $$(document).on('page:init', '.page[data-name="ingreso"]', function (e) {
     }).catch((error) => {
       console.log("Error getting document:", error);
     });
-    
+
+    //Esta funcion hay que corregirla, solo con singOut()
     function fnLogout() {
-      mainView.router.navigate('/index/');
+      var cierraCesion = () => {
+        var user = firebase.auth().currentUser;
+        if (user) {
+          firebase.auth().signOut()
+            .then(() => {
+              console.log('Cerrar sesión');
+              mainView.router.navigate('/index/');
+            })
+            .catch((error) => {
+              console.log('error ' + error);
+            });
+        } else {
+          console.log('Ya cerre sesion');
+        }
+      }
     }
 
-    function fnCierraPanel() {
+    //REVISAR EL CIERRE DEL PANEL
+    /*function fnCierraPanel() {
       $$('#panelMenu').removeClass('panel-cover panel-init').addClass('panel-cover');
-    }
-
+    }*/
     function fnMiequipo() {
       mainView.router.navigate('/mi-equipo/');
     }
-
 })
 
 $$(document).on('page:init', '.page[data-name="registro"]', function (e) {
@@ -112,10 +125,8 @@ $$(document).on('page:init', '.page[data-name="registro"]', function (e) {
     /*password2 = $$('#registroPassword2').val();*/
     nombre = $$('#registroNombre').val();
     nacimiento = $$('#registroNacimiento').val();
-
     console.log("email: " + email);
     console.log("contraseña: " + password);
-
     firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((user) => {
           var datos = {Nombre: nombre, FechaNacimiento: nacimiento };
@@ -133,15 +144,27 @@ $$(document).on('page:init', '.page[data-name="registro"]', function (e) {
         });
       /*notificationWithButton.open();*/
       mainView.router.navigate('/index/');
-    }
-    
-    
-    
+    } 
 })
 
 $$(document).on('page:init', '.page[data-name="mi-equipo"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
+
+  $('.tusEquipos').on('click', () => {
+    btnTusEquipos.open();
+  });
+
+
+  //REVISAR ESTOS BOTONES Y DARLE FUNCION (CADA UNO ES UNA OPCION DE LOS EQUIPOS REGISTRADOS POR EL USUSARIO)
+  /*$on('pageInit', () => {
+    var btnTusEquipos = $f7.actions.create({
+      buttons: [
+        {text: 'Button1',bold: true},
+        {text: 'Button2'},
+        {text: 'Cancel',color: 'red'},
+      ]
+    })*/
 
 })
 
@@ -174,14 +197,10 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
         errorCode = error.code;
         errorMessage = error.message;
       });
-      
-    
+
   }
 
   function fnRegistro() {
     mainView.router.navigate('/registro/');
   }
-
-  
-
 })
