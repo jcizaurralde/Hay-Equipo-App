@@ -62,9 +62,9 @@ var usuRef = "";
 var calendario = "";
 var hoy = "";
 var dia = "";
-var btn7dias ="";
-var diaSeleccionado = "";
 var colTurnos = "";
+var fechaInicio = "";
+var fechaFinal = "";
 
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function() {
@@ -192,171 +192,39 @@ $$(document).on('page:init', '.page[data-name="ingreso-admin"]', function (e) {
 $$(document).on('page:init', '.page[data-name="agenda-admin"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
-  var now = new Date();
+  //REVISAR TODO ESTO, NO FUNCIONA NADA
+  /*var now = new Date();
   var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  var weekLater = new Date().setDate(today.getDate() + 7);
-  var monthLater = new Date().setDate(today.getDate() + 30);
-  var twomonthLater = new Date().setDate(today.getDate() + 60);
-  var threemonthLater = new Date().setDate(today.getDate() + 90);
-  $$('#btn7dias').on('click', fnCalendario7);
-  $$('#btn30dias').on('click', fnCalendario30);
-  $$('#btn60dias').on('click', fnCalendario60);
-  $$('#btn90dias').on('click', fnCalendario90);
-
-  function fnCalendario7() {
-    
-    /*hoy = today.getDay();
+  var dInicio = $$('dfechaInicio').val();
+  var mInicio = $$('mfechaInicio').val();
+  var aInicio = $$('afechaInicio').val();
+  var dFin = $$('dfechaFin').val();
+  var mFin = $$('mfechaFin').val();
+  var aFin = $$('afechaFin').val();
+  fechaInicio = new Date(aInicio, mInicio, dInicio);
+  fechaFinal = new Date(aFin, mFin, dFin);
+  console.log(fechaInicio);
+  console.log(fechaFinal);  
+  var datosTurnos = { FechaInicio: fechaInicio, FechaFinal: fechaFinal};
+  $$('#btnGenerarTur').on('click', fnGeneraTurnos)
+  colTurnos.doc(emailLogin).set(datosTurnos);
+      
+  /*hoy = today.getDay();
     console.log("Hoy: " + hoy);
-    switch (hoy) {
-      case 1:
-        dia = "Lunes"
-        btn7dias = app.actions.create({
-          buttons: [{ text: 'Hoy', bold: true, onClick: function fnHoraLunes() {} },
-                    { text: 'Martes', onClick: function fnHoraMartes() {} },
-                    { text: 'Miércoles', onClick: function fnHoraMiercoles() { } },
-                    { text: 'Jueves', onClick: function fnHoraJueves() { } },
-                    { text: 'Viernes', onClick: function fnHoraViernes() { } },
-                    { text: 'Sábado', onClick: function fnHoraSabado() { } },
-                    { text: 'Domingo', onClick: function fnHoraDomingo() { } }
-          ]
-        })
-        break;
-      case 2:
-        dia = "Martes"
-        btn7dias = app.actions.create({
-          buttons: [{ text: 'Hoy', bold: true, onClick: function fnHoraMartes() { } },
-          { text: 'Miércoles', onClick: function fnHoraMiercoles() { } },
-          { text: 'Jueves', onClick: function fnHoraJueves() { } },
-          { text: 'Viernes', onClick: function fnHoraViernes() { } },
-          { text: 'Sábado', onClick: function fnHoraSabado() { } },
-          { text: 'Domingo', onClick: function fnHoraDomingo() { } },
-            { text: 'Lunes', onClick: function fnHoraLunes() { } }
-          ]
-        })
-        break;
-      case 3:
-        dia = "Miércoles"
-        btn7dias = app.actions.create({
-          buttons: [{ text: 'Hoy', bold: true, onClick: function fnHoraMiercoles() { } },
-          { text: 'Jueves', onClick: function fnHoraJueves() { } },
-          { text: 'Viernes', onClick: function fnHoraViernes() { } },
-          { text: 'Sábado', onClick: function fnHoraSabado() { } },
-          { text: 'Domingo', onClick: function fnHoraDomingo() { } },
-          { text: 'Lunes', onClick: function fnHoraLunes() { } },
-          { text: 'Martes', onClick: function fnHoraMartes() { } }
-          ]
-        })
-        break;
-      case 4:
-        dia = "Jueves"
-        btn7dias = app.actions.create({
-          buttons: [{ text: 'Hoy', bold: true, onClick: function fnHoraJueves() { } },
-          { text: 'Viernes', onClick: function fnHoraViernes() { } },
-          { text: 'Sábado', onClick: function fnHoraSabado() { } },
-          { text: 'Domingo', onClick: function fnHoraDomingo() { } },
-          { text: 'Lunes', onClick: function fnHoraLunes() { } },
-          { text: 'Martes', onClick: function fnHoraMartes() { } },
-          { text: 'Miércoles', onClick: function fnHoraMiercoles() { } }
-          ]
-        })
-        break;
-      case 5:
-        dia = "Viernes"
-        btn7dias = app.actions.create({
-          buttons: [{ text: 'Hoy', bold: true, onClick: function fnHoraViernes() { } },
-          { text: 'Sábado', onClick: function fnHoraSabado() { } },
-          { text: 'Domingo', onClick: function fnHoraDomingo() { } },
-          { text: 'Lunes', onClick: function fnHoraLunes() { } },
-          { text: 'Martes', onClick: function fnHoraMartes() { } },
-          { text: 'Miércoles', onClick: function fnHoraMiercoles() { } },
-          { text: 'Jueves', onClick: function fnHoraJueves() { } }
-          ]
-        })
-        break;
-      case 6:
-        dia = "Sábado"
-        btn7dias = app.actions.create({
-          buttons: [{ text: 'Hoy', bold: true, onClick: function fnHoraSabado() { } },
-          { text: 'Domingo', onClick: function fnHoraDomingo() { } },
-          { text: 'Lunes', onClick: function fnHoraLunes() { } },
-          { text: 'Martes', onClick: function fnHoraMartes() { } },
-          { text: 'Miércoles', onClick: function fnHoraMiercoles() { } },
-          { text: 'Jueves', onClick: function fnHoraJueves() { } },
-          { text: 'Viernes', onClick: function fnHoraViernes() { } }
-          ]
-        })
-        break;
-      case 0:
-        dia = "Domingo"
-        btn7dias = app.actions.create({
-          buttons: [{ text: 'Hoy', bold: true, onClick: function fnHoraDomingo() { } },
-          { text: 'Lunes', onClick: function fnHoraLunes() { } },
-          { text: 'Martes', onClick: function fnHoraMartes() { } },
-          { text: 'Miércoles', onClick: function fnHoraMiercoles() { } },
-          { text: 'Jueves', onClick: function fnHoraJueves() { } },
-          { text: 'Viernes', onClick: function fnHoraViernes() { } },
-          { text: 'Sábado', onClick: function fnHoraSabado() { } }
-          ]
-        })
-        break;
-    
-      default:
-        console.log("Error obteniendo fecha");
-        break;
-    }*/
+  function fnGeneraTurnos() {
       calendario = app.calendar.create({
         inputEl: '#demo-calendar-modal',
         openIn: 'customModal',
-        minDate: today ,
-        maxDate: weekLater,
+        minDate: fechaInicio,
+        maxDate: fechaFinal,
       });
       calendario.open();
       $$('#demo-calendar-modal').on('click', function () {
         diaSeleccionado = calendario.getValue();
         console.log("Dia seleccionado: " + diaSeleccionado);
       });
-  }
-  function fnCalendario30() {
-    calendario = app.calendar.create({
-      inputEl: '#demo-calendar-modal',
-      openIn: 'customModal',
-      minDate: today,
-      maxDate: monthLater,
-    });
-    calendario.open();
-    $$('#demo-calendar-modal').on('click', function () {
-      diaSeleccionado = $$('#demo-calendar-modal').getValue();
-      console.log("Dia seleccionado: " + diaSeleccionado);
-    });
-  }
-  function fnCalendario60() {
-    calendario = app.calendar.create({
-      inputEl: '#demo-calendar-modal',
-      openIn: 'customModal',
-      minDate: today,
-      maxDate: twomonthLater,
-    });
-    calendario.open();
-    $$('#demo-calendar-modal').on('calendar : opened', function () {
-      $$('#demo-calendar-modal').on('click', function () {
-        diaSeleccionado = calendario.getValue();
-        console.log("Dia seleccionado: " + diaSeleccionado);
-      })
-    });
-  }
-  function fnCalendario90() {
-    calendario = app.calendar.create({
-      inputEl: '#demo-calendar-modal',
-      openIn: 'customModal',
-      minDate: today,
-      maxDate: threemonthLater,
-    });
-    calendario.open();
-    $$('#demo-calendar-modal').on('click', function () {
-      diaSeleccionado = calendario.getValue();
-      console.log("Dia seleccionado: " + diaSeleccionado);
-    });
-  }
+  }*/
+
    
 })
 
