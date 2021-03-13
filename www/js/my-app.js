@@ -47,16 +47,9 @@ var alturaAdmin = "";
 var localidadAdmin = ""; 
 var CPAdmin = ""; 
 var provinciaAdmin = "";
-
-//REVISAR ESTA NOTIFICACION
-/*var notificationWithButton = $$.notification.create({
-icon: '<i class="icon demo-icon">7</i>',
-title: 'Framework7',
-subtitle: 'Notification with close button',
-text: 'Usuario registrado exitosamente, verifique su casilla de correo para validar',
-closeButton: true,
-});*/
-
+var notificationWithButton = "";
+var btnTusEquipos = "";
+var notificationPass = "";
 
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function() {
@@ -64,6 +57,20 @@ $$(document).on('deviceready', function() {
     db = firebase.firestore();
     colUsuarios = db.collection("Usuarios");
     colUsuariosAdm = db.collection("Usuarios Administrativos");
+    notificationWithButton = app.notification.create({
+      icon: '<i class="f7-icons">bell_fill</i>',
+      title: 'Hay Equipo App',
+      subtitle: 'Bienvenido',
+      text: 'Usuario registrado exitosamente, verifique su casilla de correo para validar',
+      closeButton: true,
+    });
+      notificationPass = app.notification.create({
+      icon: '<i class="f7-icons">hand_thumbsdown</i>',
+      title: 'Hay Equipo App',
+      subtitle: 'Atención',
+      text: 'Las contraseñas no coinciden, por favor vuelve a ingresar contraseñas',
+      closeButton: true,
+    });
 });
 
 // Option 1. Using one 'page:init' handler for all pages
@@ -153,10 +160,10 @@ $$(document).on('page:init', '.page[data-name="registro"]', function (e) {
             }
             console.log(error);
           });
-        /*notificationWithButton.open();*/
+        notificationWithButton.open();
         mainView.router.navigate('/index/');
     }else{
-    console.log("Las contraseñas no coinciden, vuelva a ingresar contraseña");
+      notificationPass.open();
     }
   }
 })
@@ -198,10 +205,10 @@ $$(document).on('page:init', '.page[data-name="registro-canchas"]', function (e)
           }
           console.log(error);
         });
-      /*notificationWithButton.open();*/
+      notificationWithButton.open();
       mainView.router.navigate('/index/');
     }else{
-    console.log("Las contraseñas no coinciden, vuelva a ingresar contraseña");
+      notificationPass.open();
     }
   }
   
@@ -211,21 +218,17 @@ $$(document).on('page:init', '.page[data-name="mi-equipo"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
 
-  $('.tusEquipos').on('click', () => {
+  $$('.tusEquipos').on('click', () => {
     btnTusEquipos.open();
   });
 
-
-  //REVISAR ESTOS BOTONES Y DARLE FUNCION (CADA UNO ES UNA OPCION DE LOS EQUIPOS REGISTRADOS POR EL USUSARIO)
-  /*$on('pageInit', () => {
-    var btnTusEquipos = $f7.actions.create({
-      buttons: [
-        {text: 'Button1',bold: true},
+  //CADA UNO ES UNA OPCION DE LOS EQUIPOS REGISTRADOS POR EL USUSARIO
+    btnTusEquipos = app.actions.create({
+      buttons: [{text: 'Button1',bold: true},
         {text: 'Button2'},
         {text: 'Cancel',color: 'red'},
       ]
-    })*/
-
+    })
 })
 
 $$(document).on('page:init', '.page[data-name="index"]', function (e) {
