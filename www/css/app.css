@@ -86,32 +86,61 @@
 
 
 *{
-  background-color: #faebd7;
+  background-color: #545454;
+  color: white;
 }
 
 .titulos{
-  color: #2f4f4f;
+  color: #7ed957 ;
   text-align: center;
 }
 
 .block-strong{
-  background-color: #faebd7;
+  background-color: #545454;
 }
 
 .button{
-  background-color: #2f4f4f;
-  color: #faebd7;
+  background-color: #7ed957;
+  color: white;
+  
+}
+
+.list-button{
+  background-color: #7ed957;
+  color: white;
   
 }
 
 h3{
-  color: #2f4f4f;
+  color: #7ed957;
   text-align: center;
 }
 
 p{
-  h3{
-  color: #2f4f4f;
+  color: #7ed957;
   text-align: center;
 }
+
+.titLabels{
+  color: white;
+}
+
+input{
+  color: white;
+}
+
+.login-screen-content{
+  background-color: #545454;
+  color: white;
+}
+
+#ingresoLogin{
+  color: white;
+}
+
+#logotipo{
+    height: 40vh;
+    width: 60vw;
+    margin-left: 13vw;
+    margin-right: 50vw;
 }

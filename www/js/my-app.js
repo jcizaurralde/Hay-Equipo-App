@@ -22,6 +22,7 @@ var app = new Framework7({
       { path: '/registro-canchas/', url: 'registro-canchas.html', },
       { path: '/ingreso-admin/', url: 'ingreso-admin.html', },
       { path: '/agenda-admin/', url: 'agenda-admin.html', },
+      { path: '/perfil/', url: 'perfil.html', },
     
     ]
     // ... other parameters
@@ -108,6 +109,9 @@ $$(document).on('page:init', '.page[data-name="ingreso"]', function (e) {
     // Do something here when page with data-name="about" attribute loaded and initialized
     console.log(e);
     $$('#btnLogout').on('click', fnLogout);
+    $$('#btnPerfil').on('click', function fnPerfil() {
+      mainView.router.navigate('/perfil/');
+    })
     /*$$('#btnVolverMenu').on('click', fnCierraPanel);*/
     $$('#btnMiequipo').on('click', fnMiequipo);
     usuRef = colUsuarios.doc(emailLogin);
@@ -148,10 +152,22 @@ $$(document).on('page:init', '.page[data-name="ingreso"]', function (e) {
     }
 })
 
+$$(document).on('page:init', '.page[data-name="perfil"]', function (e) {
+  // Do something here when page with data-name="about" attribute loaded and initialized
+  console.log(e);
+  $$('#btnPerfil').on('click', function fnPerfil() {
+    mainView.router.navigate('/perfil/');
+  })
+  
+})
+
 $$(document).on('page:init', '.page[data-name="ingreso-admin"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
   $$('#btnAdmAgenda').on('click', fnAgendaAdm);
+  $$('#btnPerfil').on('click', function fnPerfil() {
+    mainView.router.navigate('/perfil/');
+  })
   $$('#btnLogout').on('click', fnLogout);
   usuAdmRef = colUsuariosAdm.doc(emailLogin);
   //Tomo de la colección Usuarios Adm. de la BD, el dato "Nombre", para poder darle una bienvenida al usuario en el inicio.
@@ -192,6 +208,10 @@ $$(document).on('page:init', '.page[data-name="ingreso-admin"]', function (e) {
 $$(document).on('page:init', '.page[data-name="agenda-admin"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
+  $$('#btnGenerarTur').on('click',fnCrearCalend);
+  $$('#btnPerfil').on('click', function fnPerfil() {
+    mainView.router.navigate('/perfil/');
+  })
   //REVISAR TODO ESTO, NO FUNCIONA NADA
   /*var now = new Date();
   var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -321,7 +341,9 @@ $$(document).on('page:init', '.page[data-name="registro-canchas"]', function (e)
 $$(document).on('page:init', '.page[data-name="mi-equipo"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
-
+  $$('#btnPerfil').on('click', function fnPerfil() {
+    mainView.router.navigate('/perfil/');
+  })
   $$('.tusEquipos').on('click', () => {
     btnTusEquipos.open();
   });
