@@ -101,13 +101,13 @@
 
 .button{
   background-color: #7ed957;
-  color: white;
+  color: black;
   
 }
 
 .list-button{
   background-color: #7ed957;
-  color: white;
+  color: black;
   
 }
 
@@ -144,3 +144,4 @@ input{
     margin-left: 13vw;
     margin-right: 50vw;
 }
+

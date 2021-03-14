@@ -23,6 +23,7 @@ var app = new Framework7({
       { path: '/ingreso-admin/', url: 'ingreso-admin.html', },
       { path: '/agenda-admin/', url: 'agenda-admin.html', },
       { path: '/perfil/', url: 'perfil.html', },
+      { path: '/registro-equipo/', url: 'registro-equipo.html', },
     
     ]
     // ... other parameters
@@ -158,7 +159,19 @@ $$(document).on('page:init', '.page[data-name="perfil"]', function (e) {
   $$('#btnPerfil').on('click', function fnPerfil() {
     mainView.router.navigate('/perfil/');
   })
+  $$('#btnPEVolver').on('click', function fnPerfil() {
+    mainView.router.navigate('/ingreso/');
+  })
   
+})
+
+$$(document).on('page:init', '.page[data-name="registro-equipo"]', function (e) {
+  // Do something here when page with data-name="about" attribute loaded and initialized
+  console.log(e);
+  $$('#btnREVolver').on('click', function fnPerfil() {
+    mainView.router.navigate('/mi-equipo/');
+  })
+
 })
 
 $$(document).on('page:init', '.page[data-name="ingreso-admin"]', function (e) {
@@ -347,6 +360,10 @@ $$(document).on('page:init', '.page[data-name="mi-equipo"]', function (e) {
   $$('.tusEquipos').on('click', () => {
     btnTusEquipos.open();
   });
+
+  $$('#btnMEVolver').on('click', function fnPerfil() {
+    mainView.router.navigate('/ingreso/');
+  })
 
   //CADA UNO ES UNA OPCION DE LOS EQUIPOS REGISTRADOS POR EL USUSARIO
     btnTusEquipos = app.actions.create({
