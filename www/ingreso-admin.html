@@ -1,0 +1,52 @@
+<!-- We don't need a full layout in this file because this page will be parsed with Ajax.  -->
+<div class="page" data-name="ingreso-admin">
+    <div class="page-content">
+        <div class="block">
+            <div class="row" style="height: 40px">
+                    <a href="#" class="button button-small panel-toggle display-flex hamburguesa" data-panel="left">
+                        <i class="f7-icons">bars</i>
+                    </a>
+                    <h2 class="text-align-center" id="bienvenidaAdmin"></h2>
+            </div>
+        </div>
+        <div class="panel panel-left panel-cover panel-init" id="panelMenu">
+            <div class="block">
+                <div class="list" style="height: 220px">
+                    <ul>
+                        <li><a class="list-button" href="#" id="btnPerfil">Mi perfil</a></li>
+                        <li><a class="list-button" href="#" id="btnConfiguracion">Configuración</a></li>
+                        <li><a class="list-button" href="#" id="btnAyuda">Ayuda</a></li>
+                        <li><a class="list-button" href="#" id="btnLogout">Cerrar Cesión</a></li>
+                    </ul>
+                </div>
+                <br>
+                <br>
+                <br>
+                <button class="col button button-raised" id="btnVolvermenu">Volver</button>
+                
+            </div>
+        </div>
+        
+            <div class="block">
+                    <div class="searchbar searchbar-inline">
+                        <div class="searchbar-input-wrap">
+                            <input type="text" placeholder="" class="barraBusqueda"/>
+                            <i class="searchbar-icon"></i>
+                            <div class="input-clear-button"></div>
+                        </div>
+                    </div>
+                <h3 class="text-align-center">Selecciona una opción</h3>
+                <div class="row" style="height: 90px">
+                    <button class="col-50 button button-raised button-fill" style="height: 70px;" id="btnAdmAgenda">Agenda</button>
+                    <button class="col-50 button button-raised button-fill" style="height: 70px;" id="btnAdmTorneos">Torneos</button>
+                </div>
+                <div class="row" style="height: 90px">
+                    <button class="col-50 button button-raised button-fill" style="height: 70px;" id="btnAdmRanking">Ranking</button>
+                    <button class="col-50 button button-raised button-fill" style="height: 70px;" id="btnAdmChat">Chat</button>
+                </div>
+                <div class="row">
+                    <button class="col-100 button button-raised button-fill" id="btnAdmPromo">Lanzar promoción</button>
+                </div>
+            </div>     
+    </div>
+</div>

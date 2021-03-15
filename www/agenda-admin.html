@@ -1,0 +1,116 @@
+<!-- We don't need a full layout in this file because this page will be parsed with Ajax.  -->
+<div class="page" data-name="agenda-admin">
+    <div class="page-content">
+        <div class="block">
+            <div class="row" style="height: 40px">
+                    <a href="#" class="button button-small panel-toggle display-flex hamburguesa" data-panel="left">
+                        <i class="f7-icons">bars</i>
+                    </a>
+            </div>
+        </div>
+        <div class="panel panel-left panel-cover panel-init" id="panelMenu">
+            <div class="block">
+                <div class="list" style="height: 220px">
+                    <ul>
+                        <li><a class="list-button" href="#" id="btnPerfil">Mi perfil</a></li>
+                        <li><a class="list-button" href="#" id="btnConfiguracion">Configuración</a></li>
+                        <li><a class="list-button" href="#" id="btnAyuda">Ayuda</a></li>
+                        <li><a class="list-button" href="#" id="btnLogout">Cerrar Cesión</a></li>
+                    </ul>
+                </div>
+                <br>
+                <br>
+                <br>
+                <button class="col button button-raised" id="btnVolvermenu">Volver</button>
+                
+            </div>
+
+            <div class="list no-hairlines-md">
+                <ul>
+                    <li>
+                        <div class="item-content item-input">
+                            <div class="item-inner">
+                                <div class="item-input-wrap">
+                                    <input type="text" placeholder="Seleccionar fecha" value="" readonly="readonly" id="demo-calendar-modal" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+            <div class="block">
+                <h3 class="text-align-center">Crea tu agenda</h3>
+                <div class="list no-hairlines-md">
+                    <p>Fecha de Inicio</p>
+                    <ul>
+                        <li class="item-content item-input">
+                            <div class="item-inner">       
+                                <div class="item-title item-label">Dia</div>
+                                <div class="item-input-wrap">
+                                    <input type="text" placeholder="01" value="" id="dfechaInicio" />
+                                    <span class="input-clear-button"></span>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="item-content item-input">
+                            <div class="item-inner">
+                                <div class="item-title item-label">Mes</div>
+                                <div class="item-input-wrap">
+                                    <input type="text" placeholder="01" value="" id="mfechaInicio" />
+                                    <span class="input-clear-button"></span>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="item-content item-input">
+                            <div class="item-inner">
+                                <div class="item-title item-label">Año</div>
+                                <div class="item-input-wrap">
+                                    <input type="text" placeholder="2021" value="" id="afechaInicio" />
+                                    <span class="input-clear-button"></span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul>
+                        <p>Fecha de Finalización</p>
+                        <li class="item-content item-input">
+                            <div class="item-inner">
+                                <div class="item-title item-label">Dia</div>
+                                <div class="item-input-wrap">
+                                    <input type="text" placeholder="01" value="" id="dfechaFin" />
+                                    <span class="input-clear-button"></span>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <li class="item-content item-input">
+                            <div class="item-inner">
+                                <div class="item-title item-label">Mes</div>
+                                <div class="item-input-wrap">
+                                    <input type="text" placeholder="01" value="" id="mfechaFin" />
+                                    <span class="input-clear-button"></span>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <li class="item-content item-input">
+                            <div class="item-inner">
+                                <div class="item-title item-label">Año</div>
+                                <div class="item-input-wrap">
+                                    <input type="text" placeholder="2021" value="" id="afechaFin" />
+                                    <span class="input-clear-button"></span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="row">
+                    <button class="col-100 button button-raised button-fill" id="btnGenerarTur">Generar turnos</button>
+                </div>
+            </div>     
+    </div>
+</div>
