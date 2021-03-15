@@ -67,6 +67,9 @@ var dia = "";
 var colTurnos = "";
 var fechaInicio = "";
 var fechaFinal = "";
+var colEquipos = "";
+var nombreEquipo = "";
+var notificationRegEq = "";
 
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function() {
@@ -75,6 +78,7 @@ $$(document).on('deviceready', function() {
     colUsuarios = db.collection("Usuarios");
     colUsuariosAdm = db.collection("Usuarios Administrativos");
     colTurnos = db.collection("Turnos");
+    colEquipos = db.collection("Equipos");
     notificationWithButton = app.notification.create({
       icon: '<i class="f7-icons">bell_fill</i>',
       title: 'Hay Equipo App',
@@ -94,6 +98,13 @@ $$(document).on('deviceready', function() {
       title: 'Hay Equipo App',
       subtitle: 'Atención',
       text: 'La clave es muy débil (mínimo: 8 caracteres). Debe contener al menos una mayúscula y un número',
+      closeButton: true,
+    });
+    notificationRegEq = app.notification.create({
+      icon: '<i class="f7-icons">bell_fill</i>',
+      title: 'Hay Equipo App',
+      subtitle: 'Bienvenido ' + nombreEquipo,
+      text: 'El equipo fue registrado exitosamente',
       closeButton: true,
     });
     
@@ -171,6 +182,18 @@ $$(document).on('page:init', '.page[data-name="registro-equipo"]', function (e) 
   $$('#btnREVolver').on('click', function fnPerfil() {
     mainView.router.navigate('/mi-equipo/');
   })
+
+  $$('#btnMERegistrar').on('click', fnRegistraEquipo);
+
+  function fnRegistraEquipo() {
+    nombreEquipo = $$('#nomEquipo').val();
+    //FALTA VARIABLES DE CANCHAS, LAS QUE ESTAN CHECKED, PARA ENVIAR A BD, FALTARIA DATO "INTEGRANTES"
+    /*var datosEquipo = { NombreEquipo: nombreEquipo, Cancha5: , Cancha6:, Cancha7:, 
+      Cancha8:, Cancha9:, Cancha11: };
+    colUsuarios.doc(emailLogin).set(datosEquipo);
+    notificationRegEq.open();*/
+    
+  }
 
 })
 
@@ -357,12 +380,16 @@ $$(document).on('page:init', '.page[data-name="mi-equipo"]', function (e) {
   $$('#btnPerfil').on('click', function fnPerfil() {
     mainView.router.navigate('/perfil/');
   })
-  $$('.tusEquipos').on('click', () => {
+  $$('#tusEquipos').on('click', () => {
     btnTusEquipos.open();
   });
 
   $$('#btnMEVolver').on('click', function fnPerfil() {
     mainView.router.navigate('/ingreso/');
+  })
+
+  $$('#btnRegistraEquipo').on('click', function fnPerfil() {
+    mainView.router.navigate('/registro-equipo/');
   })
 
   //CADA UNO ES UNA OPCION DE LOS EQUIPOS REGISTRADOS POR EL USUSARIO
