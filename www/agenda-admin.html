@@ -22,95 +22,59 @@
                 <br>
                 <br>
                 <button class="col button button-raised" id="btnVolvermenu">Volver</button>
-                
-            </div>
-
+            </div>  
+        </div>
+        <div class="block">
+            <h3 class="text-align-center">Crea tu agenda</h3>
             <div class="list no-hairlines-md">
                 <ul>
-                    <li>
-                        <div class="item-content item-input">
-                            <div class="item-inner">
-                                <div class="item-input-wrap">
-                                    <input type="text" placeholder="Seleccionar fecha" value="" readonly="readonly" id="demo-calendar-modal" />
-                                </div>
+                    <li class="item-content item-input">
+                        <div class="item-inner">
+                            <div class="item-title item-label">Fecha: Desde</div>
+                            <div class="item-input-wrap">
+                                <input type="date" placeholder="" value=""
+                                    id="fechaDesde" />
+                                <span class="input-clear-button"></span>
                             </div>
                         </div>
                     </li>
+
+                    <li class="item-content item-input">
+                        <div class="item-inner">
+                            <div class="item-title item-label">Fecha: Hasta</div>
+                            <div class="item-input-wrap">
+                                <input type="date" placeholder="" value="" id="fechaHasta" />
+                                <span class="input-clear-button"></span>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="item-content item-input">
+                        <div class="item-inner">
+                            <div class="item-title item-label">Horario: Desde</div>
+                            <div class="item-input-wrap">
+                                <input type="text" placeholder="17" value="" id="horDesde" />
+                                <span class="input-clear-button"></span>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="item-content item-input">
+                        <div class="item-inner">
+                            <div class="item-title item-label">Horario: Hasta</div>
+                            <div class="item-input-wrap">
+                                <input type="text" placeholder="23" value="" id="horHasta" />
+                                <span class="input-clear-button"></span>
+                            </div>
+                        </div>
+                    </li>
+                    <p class="text-align-center">Los turnos son de 1 hora de duración</p>  
                 </ul>
             </div>
-        </div>
-        
-            <div class="block">
-                <h3 class="text-align-center">Crea tu agenda</h3>
-                <div class="list no-hairlines-md">
-                    <p>Fecha de Inicio</p>
-                    <ul>
-                        <li class="item-content item-input">
-                            <div class="item-inner">       
-                                <div class="item-title item-label">Dia</div>
-                                <div class="item-input-wrap">
-                                    <input type="text" placeholder="01" value="" id="dfechaInicio" />
-                                    <span class="input-clear-button"></span>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="item-content item-input">
-                            <div class="item-inner">
-                                <div class="item-title item-label">Mes</div>
-                                <div class="item-input-wrap">
-                                    <input type="text" placeholder="01" value="" id="mfechaInicio" />
-                                    <span class="input-clear-button"></span>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="item-content item-input">
-                            <div class="item-inner">
-                                <div class="item-title item-label">Año</div>
-                                <div class="item-input-wrap">
-                                    <input type="text" placeholder="2021" value="" id="afechaInicio" />
-                                    <span class="input-clear-button"></span>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                    <ul>
-                        <p>Fecha de Finalización</p>
-                        <li class="item-content item-input">
-                            <div class="item-inner">
-                                <div class="item-title item-label">Dia</div>
-                                <div class="item-input-wrap">
-                                    <input type="text" placeholder="01" value="" id="dfechaFin" />
-                                    <span class="input-clear-button"></span>
-                                </div>
-                            </div>
-                        </li>
-                        
-                        <li class="item-content item-input">
-                            <div class="item-inner">
-                                <div class="item-title item-label">Mes</div>
-                                <div class="item-input-wrap">
-                                    <input type="text" placeholder="01" value="" id="mfechaFin" />
-                                    <span class="input-clear-button"></span>
-                                </div>
-                            </div>
-                        </li>
-                        
-                        <li class="item-content item-input">
-                            <div class="item-inner">
-                                <div class="item-title item-label">Año</div>
-                                <div class="item-input-wrap">
-                                    <input type="text" placeholder="2021" value="" id="afechaFin" />
-                                    <span class="input-clear-button"></span>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="row">
-                    <button class="col-100 button button-raised button-fill" id="btnGenerarTur">Generar turnos</button>
-                </div>
-            </div>     
+            <div class="row">
+                <button class="col-100 button button-raised button-fill" id="btnGenerarTur">Generar turnos</button>
+                <button class="col-100 button button-raised button-fill" id="btnVolverTur">Volver</button>
+            </div>
+        </div>     
     </div>
 </div>

@@ -24,6 +24,8 @@ var app = new Framework7({
       { path: '/agenda-admin/', url: 'agenda-admin.html', },
       { path: '/perfil/', url: 'perfil.html', },
       { path: '/registro-equipo/', url: 'registro-equipo.html', },
+      { path: '/ver-agenda-admin/', url: 'ver-agenda-admin.html', },
+      
     
     ]
     // ... other parameters
@@ -71,6 +73,9 @@ var colEquipos = "";
 var nombreEquipo = "";
 var notificationRegEq = "";
 var jugadoresEquipo = "";
+var horaInicio = "";
+var horaFinal = "";
+var notificationAgenda = "";
 
 
 // Handle Cordova Device Ready Event
@@ -105,7 +110,7 @@ $$(document).on('deviceready', function() {
     notificationRegEq = app.notification.create({
       icon: '<i class="f7-icons">bell_fill</i>',
       title: 'Hay Equipo App',
-      subtitle: 'Bienvenido ',
+      subtitle: 'Nuevo equipo ',
       text: 'El equipo fue registrado exitosamente',
       closeButton: true,
     });
@@ -114,6 +119,13 @@ $$(document).on('deviceready', function() {
       title: 'Hay Equipo App',
       subtitle: 'Nuevo jugador del equipo',
       text: 'El jugador fue registrado exitosamente',
+      closeButton: true,
+    });
+    notificationAgenda = app.notification.create({
+      icon: '<i class="f7-icons">bell_fill</i>',
+      title: 'Hay Equipo App',
+      subtitle: 'Agenda de turnos creada exitosamente',
+      text: 'Ir a: ver agenda, para gestionar',
       closeButton: true,
     });
     
@@ -247,52 +259,66 @@ $$(document).on('page:init', '.page[data-name="ingreso-admin"]', function (e) {
   }
 
   function fnAgendaAdm() {
-    mainView.router.navigate('/agenda-admin/');
+    mainView.router.navigate('/ver-agenda-admin/');
   }
 
 })
 
 $$(document).on('page:init', '.page[data-name="agenda-admin"]', function (e) {
-  // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
-  $$('#btnGenerarTur').on('click',fnCrearCalend);
   $$('#btnPerfil').on('click', function fnPerfil() {
     mainView.router.navigate('/perfil/');
   })
-  //REVISAR TODO ESTO, NO FUNCIONA NADA
-  /*var now = new Date();
-  var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  var dInicio = $$('dfechaInicio').val();
-  var mInicio = $$('mfechaInicio').val();
-  var aInicio = $$('afechaInicio').val();
-  var dFin = $$('dfechaFin').val();
-  var mFin = $$('mfechaFin').val();
-  var aFin = $$('afechaFin').val();
-  fechaInicio = new Date(aInicio, mInicio, dInicio);
-  fechaFinal = new Date(aFin, mFin, dFin);
-  console.log(fechaInicio);
-  console.log(fechaFinal);  
-  var datosTurnos = { FechaInicio: fechaInicio, FechaFinal: fechaFinal};
-  $$('#btnGenerarTur').on('click', fnGeneraTurnos)
-  colTurnos.doc(emailLogin).set(datosTurnos);
-      
-  /*hoy = today.getDay();
-    console.log("Hoy: " + hoy);
+  $$('#btnVolverTur').on('click', function () {
+    mainView.router.navigate('/ver-agenda-admin/');
+  })
+  $$('#btnGenerarTur').on('click', fnGeneraTurnos);
+  
   function fnGeneraTurnos() {
-      calendario = app.calendar.create({
-        inputEl: '#demo-calendar-modal',
-        openIn: 'customModal',
-        minDate: fechaInicio,
-        maxDate: fechaFinal,
-      });
-      calendario.open();
-      $$('#demo-calendar-modal').on('click', function () {
-        diaSeleccionado = calendario.getValue();
-        console.log("Dia seleccionado: " + diaSeleccionado);
-      });
-  }*/
+    horaInicio = $$('#horDesde').val();
+    horaFinal = $$('#horHasta').val();
+    fechaInicio = $$('#fechaDesde').val();
+    fechaFinal = $$('#fechaHasta').val();
+    var datosTurnos = { FechaInicio: fechaInicio, FechaFinal: fechaFinal, 
+      HoraInicio: horaInicio, HoraFinal: horaFinal };
+    colTurnos.doc(emailLogin).set(datosTurnos);
+    calendario = app.calendar.create({
+      inputEl: '#demo-calendar-date-format',
+      dateFormat: {weekday: 'long', month: 'long', day: '2-digit', year: 'numeric'},
+      closeOnSelect: true,
+      minDate: fechaInicio,
+      maxDate: fechaFinal,
+
+        /*on: {
+          closed: function () {
+            $$('#horarios').empty()
+          console.log(calendar.getValue());
+          }
+        }*/ 
+    });
+    notificationAgenda.open();
+    mainView.router.navigate('/ver-agenda-admin/');
+      
+  }
 
    
+})
+
+$$(document).on('page:init', '.page[data-name="ver-agenda-admin"]', function (e) {
+  console.log(e);
+  $$('#btnVerAgenda').on('click', fnAbreCalendar);
+  $$('#btnCrearAgenda').on('click', fnCreaAgenda);
+  $$('#btnVEVolver').on('click', function() {
+    mainView.router.navigate('/ingreso-admin/');
+  });
+
+  function fnCreaAgenda() {
+    mainView.router.navigate('/agenda-admin/');
+  }
+
+  function fnAbreCalendar() {
+    calendario.open();
+  }
 })
 
 $$(document).on('page:init', '.page[data-name="registro"]', function (e) {
@@ -388,45 +414,52 @@ $$(document).on('page:init', '.page[data-name="registro-canchas"]', function (e)
 $$(document).on('page:init', '.page[data-name="mi-equipo"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
-  $$('#btnPerfil').on('click', function fnPerfil() {
-    mainView.router.navigate('/perfil/');
-  })
-  $$('#tusEquipos').on('click', () => {
-    btnTusEquipos.open();
+  var usuEquip = colEquipos.doc(emailLogin);
+  usuEquip.get().then((doc) => {
+    if (doc.exists) {
+      var nombreEq = doc.data().NombreEquipo;
+      console.log("Nombre del equipo: " + nombreEq);
+      $$('#tituloEquipo').text(nombreEq);
+    } else {
+      console.log("No such document!");
+    }
+  }).catch((error) => {
+    console.log("Error getting document:", error);
+    $$('#agregaBtnRE').html('<button class="col button button-raised button-fill" id="btnRegistraEquipo">Registra un equipo</button>');
   });
 
-  $$('#btnMEVolver').on('click', function fnPerfil() {
+  $$('#btnPerfil').on('click', function fnVistaPerfil() {
+    mainView.router.navigate('/perfil/');
+  })
+ 
+  $$('#btnMEVolver').on('click', function fnVistaIngreso() {
     mainView.router.navigate('/ingreso/');
   })
 
-  $$('#btnRegistraEquipo').on('click', function fnPerfil() {
+  $$('#btnRegistraEquipo').on('click', function fnVistaEquipo() {
     mainView.router.navigate('/registro-equipo/');
   })
 
   $$('#agregaIntegrantes').on('click', fnScreenJugadores);
 
-  function fnScreenJugadores() {
-    $$('#agregaJugador').on('click', fnAgregaJug);
-  }
+  
+  
+  
 
   function fnAgregaJug() {
+    nombreEquipo = $$('#ingresaEq').val();
     nombreJugador = $$('#nomJugador').val();
     puestoJugador = $$('#puesJugador').val();
     jugadoresEquipo += nombreJugador + puestoJugador;
     console.log("Los jugadores agregados: " + jugadoresEquipo);
     $$('#nomJugador').val("");
     $$('#puesJugador').val("");
+    $$('#ingresaEq').val();
     var datosEquipo = { Jugadores: jugadoresEquipo };
     colEquipos.doc(emailLogin).set(datosEquipo);
     notificationRegJu.open();
   }
-  //CADA UNO ES UNA OPCION DE LOS EQUIPOS REGISTRADOS POR EL USUSARIO
-    btnTusEquipos = app.actions.create({
-      buttons: [{text: 'Button1',bold: true},
-        {text: 'Button2'},
-        {text: 'Cancel',color: 'red'},
-      ]
-    })
+    
 })
 
 $$(document).on('page:init', '.page[data-name="index"]', function (e) {

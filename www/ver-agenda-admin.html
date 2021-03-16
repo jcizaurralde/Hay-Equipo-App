@@ -1,5 +1,5 @@
 <!-- We don't need a full layout in this file because this page will be parsed with Ajax.  -->
-<div class="page" data-name="mi-equipo">
+<div class="page" data-name="ver-agenda-admin">
     <div class="page-content">
         <div class="block">
             <div class="row" style="height: 40px">
@@ -7,7 +7,6 @@
                         <i class="f7-icons">bars</i>
                     </a>
             </div>
-            <p id="agregaBtnRE"></p>  
         </div>
         <div class="panel panel-left panel-cover panel-init" id="panelMenu">
             <div class="block">
@@ -19,17 +18,18 @@
                         <li><a class="list-button" href="#" id="btnLogout">Cerrar Cesión</a></li>
                     </ul>
                 </div>
-            </div>
-        </div> 
-        <br>     
-        <div class="block">
-            <h2 class="text-align-center titulos" id="tituloEquipo"></h2>
-            <br>
-            <button class="button button-fill button-raised login-screen-open" id="agregaIntegrantes">Agregar integrantes</button>
-            <br>
-            <button class="col button button-raised button-fill" id="btnReInvita">Invita usuarios registrados</button>
-            <br>
-            <button class="col button button-raised button-fill" id="btnMEVolver">Volver</button>
+                <br>
+                <br>
+                <br>
+                <button class="col button button-raised" id="btnVolvermenu">Volver</button>
+            </div>  
         </div>
+        <div class="block">
+            <div class="row">
+                <button class="col-100 button button-raised button-fill" id="btnVerAgenda">Ver agenda</button>
+                <button class="col-100 button button-raised button-fill" id="btnCrearAgenda">Crear agenda</button>
+                <button class="col-100 button button-raised button-fill" id="btnVEVolver">Volver</button>
+            </div>
+        </div>     
     </div>
 </div>
