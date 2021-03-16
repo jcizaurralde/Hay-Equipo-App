@@ -70,6 +70,8 @@ var fechaFinal = "";
 var colEquipos = "";
 var nombreEquipo = "";
 var notificationRegEq = "";
+var jugadoresEquipo = "";
+
 
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function() {
@@ -103,8 +105,15 @@ $$(document).on('deviceready', function() {
     notificationRegEq = app.notification.create({
       icon: '<i class="f7-icons">bell_fill</i>',
       title: 'Hay Equipo App',
-      subtitle: 'Bienvenido ' + nombreEquipo,
+      subtitle: 'Bienvenido ',
       text: 'El equipo fue registrado exitosamente',
+      closeButton: true,
+    });
+    notificationRegJu = app.notification.create({
+      icon: '<i class="f7-icons">bell_fill</i>',
+      title: 'Hay Equipo App',
+      subtitle: 'Nuevo jugador del equipo',
+      text: 'El jugador fue registrado exitosamente',
       closeButton: true,
     });
     
@@ -124,7 +133,7 @@ $$(document).on('page:init', '.page[data-name="ingreso"]', function (e) {
     $$('#btnPerfil').on('click', function fnPerfil() {
       mainView.router.navigate('/perfil/');
     })
-    /*$$('#btnVolverMenu').on('click', fnCierraPanel);*/
+    $$('#btnVolverMenu').on('click', fnCierraPanel);
     $$('#btnMiequipo').on('click', fnMiequipo);
     usuRef = colUsuarios.doc(emailLogin);
     //Tomo de la colección Usuarios de la BD, el dato "Nombre", para poder darle una bienvenida al usuario en el inicio.
@@ -155,10 +164,12 @@ $$(document).on('page:init', '.page[data-name="ingreso"]', function (e) {
         console.log('Ya cerre sesion');
       }
     }
-    //REVISAR EL CIERRE DEL PANEL
-    /*function fnCierraPanel() {
-      $$('#panelMenu').removeClass('panel-cover panel-init').addClass('panel-cover');
-    }*/
+    //NO FUNCIONA ESTA:
+    function fnCierraPanel() {
+      $$('.panel').on('panel: close', function (panel) {
+        console.log('Panel ' + panel.side + ': close');
+      });
+    }
     function fnMiequipo() {
       mainView.router.navigate('/mi-equipo/');
     }
@@ -182,17 +193,17 @@ $$(document).on('page:init', '.page[data-name="registro-equipo"]', function (e) 
   $$('#btnREVolver').on('click', function fnPerfil() {
     mainView.router.navigate('/mi-equipo/');
   })
-
   $$('#btnMERegistrar').on('click', fnRegistraEquipo);
+  
 
   function fnRegistraEquipo() {
     nombreEquipo = $$('#nomEquipo').val();
-    //FALTA VARIABLES DE CANCHAS, LAS QUE ESTAN CHECKED, PARA ENVIAR A BD, FALTARIA DATO "INTEGRANTES"
-    /*var datosEquipo = { NombreEquipo: nombreEquipo, Cancha5: , Cancha6:, Cancha7:, 
-      Cancha8:, Cancha9:, Cancha11: };
-    colUsuarios.doc(emailLogin).set(datosEquipo);
-    notificationRegEq.open();*/
-    
+    var datosEquipo = { NombreEquipo: nombreEquipo, Capitan: emailLogin };
+    colEquipos.doc(emailLogin).set(datosEquipo);
+    console.log("Equipo: " + nombreEquipo + " agregado exitosamente");
+    $$('#nomEquipo').val("");
+    notificationRegEq.open(); 
+    mainView.router.navigate('/mi-equipo/');
   }
 
 })
@@ -392,6 +403,23 @@ $$(document).on('page:init', '.page[data-name="mi-equipo"]', function (e) {
     mainView.router.navigate('/registro-equipo/');
   })
 
+  $$('#agregaIntegrantes').on('click', fnScreenJugadores);
+
+  function fnScreenJugadores() {
+    $$('#agregaJugador').on('click', fnAgregaJug);
+  }
+
+  function fnAgregaJug() {
+    nombreJugador = $$('#nomJugador').val();
+    puestoJugador = $$('#puesJugador').val();
+    jugadoresEquipo += nombreJugador + puestoJugador;
+    console.log("Los jugadores agregados: " + jugadoresEquipo);
+    $$('#nomJugador').val("");
+    $$('#puesJugador').val("");
+    var datosEquipo = { Jugadores: jugadoresEquipo };
+    colEquipos.doc(emailLogin).set(datosEquipo);
+    notificationRegJu.open();
+  }
   //CADA UNO ES UNA OPCION DE LOS EQUIPOS REGISTRADOS POR EL USUSARIO
     btnTusEquipos = app.actions.create({
       buttons: [{text: 'Button1',bold: true},
@@ -407,7 +435,9 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
   $$('#btnIngresar').on('click', fnIngreso);
   $$('#btnRegistro').on('click', fnRegistro);
   $$('#btnRegComplejo').on('click', fnRegComplejo);
+  $$('#volverLogin').on('click', fnCierraLogin);
 
+  
   function fnIngreso() {
     $$('.login-screen').on('loginscreen:opened', function (e) {
       console.log('Login screen opened');
@@ -480,4 +510,11 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
   function fnRegComplejo() {
     mainView.router.navigate('/registro-canchas/');
   }
+
+  function fnCierraLogin() {
+    $$('.login-screen').on('loginscreen:close', function (e) {
+      console.log('Login screen close')
+    })
+  }
+
 })

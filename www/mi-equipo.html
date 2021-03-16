@@ -23,15 +23,69 @@
                 <br>
                 <br>
                 <br>
-                <button class="col button button-raised" id="btnVolvermenu">Volver</button>
+                
             </div>
         </div>   
         <div class="block">
             <div class="row">
-                <button class="col button button-raised button-fill" id="btnRegistraEquipo">Registra un equipo</button>
+                <div class="block">
+                    <button class="col button button-raised button-fill" id="btnRegistraEquipo">Registra un equipo</button>
+                </div>
+                <div class="block">
+                    <p>
+                        <a href="/login-screen/" class="button button-fill" id="agregaIntegrantes">Agregar integrantes</a>
+                    </p>
+                </div>
+                
+                <div class="block">
+                    <button class="col button button-raised button-fill" id="btnReInvita">Invita usuarios registrados</button>
+                </div>
                 <button class="col button button-raised button-fill" id="btnMEVolver">Volver</button>
             </div>
             
+        </div>
+        <div class="login-screen">
+            <div class="view">
+                <div class="page">
+                    <div class="page-content login-screen-content">
+                        <div class="login-screen-title">Integrantes del equipo</div>
+                        <form>
+                            <div class="list">
+                                <ul>
+                                    <li class="item-content item-input">
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Nombre</div>
+                                            <div class="item-input-wrap">
+                                                <input type="text" placeholder="Juan Fernandez" id="nomJugador" value="" />
+                                                <span class="input-clear-button"></span>
+                                            </div>
+                                        </div>
+                                    </li>
+        
+                                    <li class="item-content item-input">
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Puesto</div>
+                                            <div class="item-input-wrap">
+                                                <input type="text" placeholder="delantero" id="puesJugador" value="" />
+                                                <span class="input-clear-button"></span>
+                                            </div>
+                                        </div>
+                                    </li>
+        
+                                </ul>
+                            </div>
+                            <div class="list">
+                                <ul>
+                                    <li><a class="list-button" id="agregaJugador" href="#">Agregar</a></li>
+                                </ul>
+                                <div class="block-footer">
+                                    <p><a class="link login-screen-close" id="agregaJugadorV" href="#">Volver</a></p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

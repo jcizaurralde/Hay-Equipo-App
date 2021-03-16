@@ -85,39 +85,29 @@
 }
 
 
-*{
-  background-color: #545454;
-  color: white;
-}
-
 .titulos{
-  color: #7ed957 ;
+  color: black ;
   text-align: center;
 }
 
-.block-strong{
-  background-color: #545454;
-}
-
 .button{
-  background-color: #7ed957;
-  color: black;
+  background-color: #545454;
+  color: #40bf40;
   
 }
 
 .list-button{
-  background-color: #7ed957;
-  color: black;
+  color: #40bf40;
   
 }
 
 h3{
-  color: #7ed957;
+  color: black;
   text-align: center;
 }
 
 p{
-  color: #7ed957;
+  color: black;
   text-align: center;
 }
 
@@ -126,11 +116,6 @@ p{
 }
 
 input{
-  color: white;
-}
-
-.login-screen-content{
-  background-color: #545454;
   color: white;
 }
 
@@ -146,5 +131,15 @@ input{
 }
 
 .hamburguesa{
-  background-color: #545454;
+  color: #40bf40;
+}
+
+#ingresoLogin{
+  color: #40bf40;
+  font-size: 22px;
+}
+
+#volverLogin{
+  color: #545454;
+  font-size: 15px;
 }
