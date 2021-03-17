@@ -274,20 +274,36 @@ $$(document).on('page:init', '.page[data-name="agenda-admin"]', function (e) {
   })
   $$('#btnGenerarTur').on('click', fnGeneraTurnos);
   
+  //Genero Fecha de inicio y Fin, Hora Inicio y fin de los turnos, creo horarios. Todo en BD (Col Turnos)
   function fnGeneraTurnos() {
     horaInicio = $$('#horDesde').val();
     horaFinal = $$('#horHasta').val();
     fechaInicio = $$('#fechaDesde').val();
     fechaFinal = $$('#fechaHasta').val();
+    var cantHoras = parseInt(horaFinal) - parseInt(horaInicio);
+    console.log("Cantidad de horas"+cantHoras);
+    var horarios = "";
+    horarios = horaInicio +" a ";
+    var sumatoria = parseInt(horaInicio);
+    var horaFin = parseInt(horaFinal) + 1;
+    for (var i = 0; i<parseInt(cantHoras); i++){
+      sumatoria += 1;
+      console.log("Sumatoria: " + sumatoria);
+      horarios += sumatoria.toString() + ", " + sumatoria.toString() + " a " ;
+      console.log("horarios ahora vale: "+ horarios);
+    }
+    horarios += horaFin.toString();
+    console.log("Horarios generados: " + horarios);
     var datosTurnos = { FechaInicio: fechaInicio, FechaFinal: fechaFinal, 
-      HoraInicio: horaInicio, HoraFinal: horaFinal };
+      HoraInicio: horaInicio, HoraFinal: horaFinal, Horarios: horarios };
     colTurnos.doc(emailLogin).set(datosTurnos);
+
     calendario = app.calendar.create({
       inputEl: '#demo-calendar-date-format',
       dateFormat: {weekday: 'long', month: 'long', day: '2-digit', year: 'numeric'},
       closeOnSelect: true,
-      minDate: fechaInicio,
-      maxDate: fechaFinal,
+      minDate: new Date(),
+      /*maxDate: fechaFinal,*/
 
         /*on: {
           closed: function () {
