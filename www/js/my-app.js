@@ -64,8 +64,6 @@ var tipoUsuario2 = "";
 var usuAdmRef = "";
 var usuRef = "";
 var calendario = "";
-var hoy = "";
-var dia = "";
 var colTurnos = "";
 var fechaInicio = "";
 var fechaFinal = "";
@@ -76,6 +74,7 @@ var jugadoresEquipo = "";
 var horaInicio = "";
 var horaFinal = "";
 var notificationAgenda = "";
+var colDias = "";
 
 
 // Handle Cordova Device Ready Event
@@ -86,6 +85,7 @@ $$(document).on('deviceready', function() {
     colUsuariosAdm = db.collection("Usuarios Administrativos");
     colTurnos = db.collection("Turnos");
     colEquipos = db.collection("Equipos");
+    colDias = db.collection("Dias");
     notificationWithButton = app.notification.create({
       icon: '<i class="f7-icons">bell_fill</i>',
       title: 'Hay Equipo App',
@@ -176,12 +176,15 @@ $$(document).on('page:init', '.page[data-name="ingreso"]', function (e) {
         console.log('Ya cerre sesion');
       }
     }
+
     //NO FUNCIONA ESTA:
     function fnCierraPanel() {
       $$('.panel').on('panel: close', function (panel) {
         console.log('Panel ' + panel.side + ': close');
       });
     }
+
+
     function fnMiequipo() {
       mainView.router.navigate('/mi-equipo/');
     }
@@ -299,12 +302,110 @@ $$(document).on('page:init', '.page[data-name="agenda-admin"]', function (e) {
     colTurnos.doc(emailLogin).set(datosTurnos);
 
 
-    for (var i=0; i<horarios.length; i++){
-      console.log(horarios[i]);
-      var hora = ""; 
-      hora += horarios[i,i+5];
-      console.log(hora);
+    //ACA MAS ADELANTE, DEBERIA AGREGAR PARA ELEGIR TURNOS DE MAÑANA, USANDO ESTA MISMA MANERA
+    //Y TAMBIEN ESTIRAR EL RANGO DE LA TARDE    
+    for (var i = 0; i < horarios.length; i++) {
+      var hora = "";
+      if (i == 0 || i == 6 || i == 12 || i == 18 || i == 24 || i == 30 || i == 36 || i == 42) {
+        hora += horarios.slice(i, i + 5);
+        switch (i) {
+          case 0: var horario1 = hora;
+            console.log("Este horario1: " + horario1);
+            break;
+          case 6: var horario2 = hora;
+            console.log("Este horario2: " + horario2);
+            break;
+          case 12: var horario3 = hora;
+            console.log("Este horario3: " + horario3);
+            break;
+          case 18: var horario4 = hora;
+            console.log("Este horario4: " + horario4);
+            break;
+          case 24: var horario5 = hora;
+            console.log("Este horario5: " + horario5);
+            break;
+          case 30: var horario6 = hora;
+            console.log("Este horario6: " + horario6);
+            break;
+          case 36: var horario7 = hora;
+            console.log("Este horario7: " + horario7);
+            break;
+          case 24: var horario8 = hora;
+            console.log("Este horario8: " + horario8);
+            break;
+          default:
+            console.log("Error obteniendo horarios");
+        }
+      }
     }
+
+    console.log("Fecha inicio: " + fechaInicio + "Fecha Fin: " + fechaFinal);
+    var inicio = new Date (fechaInicio);
+    var fin = new Date (fechaFinal);
+    var transcurso = fin.getTime() - inicio.getTime();
+    console.log("Transcurso: "+ transcurso);
+
+    var trDias= transcurso/1000/60/60/24;
+    console.log("dias: "+trDias);
+
+    var hoy = new Date(inicio.getTime() - 86400000);
+    console.log("Hoy vale: "+ hoy);
+    for (var i=0; i<trDias; i++){
+      var dia = new Date(hoy.getTime() + 86400000);
+      console.log("Ahora el dia es: " + dia);
+      switch (cantHoras) {
+        case 1:
+          var datosAgenda = { Usuario: emailLogin, Turno1: horario1 + "Libre"}
+          break;
+        case 2:
+          var datosAgenda = { Usuario: emailLogin, Turno1: horario1 + "Libre", Turno2: horario2 + "Libre" }
+          break;
+        case 3:
+          var datosAgenda = {
+          Usuario: emailLogin, Turno1: horario1 + "Libre", Turno2: horario2 + "Libre",
+          Turno3: horario3 + "Libre"}
+          break;
+        case 3:
+          var datosAgenda = {
+            Usuario: emailLogin, Turno1: horario1 + "Libre", Turno2: horario2 + "Libre",
+            Turno3: horario3 + "Libre"
+          }
+          break;
+        case 4:
+          var datosAgenda = {
+            Usuario: emailLogin, Turno1: horario1 + "Libre", Turno2: horario2 + "Libre",
+            Turno3: horario3 + "Libre", Turno4: horario4 + "Libre"}
+          break;
+        case 5:
+          var datosAgenda = {
+            Usuario: emailLogin, Turno1: horario1 + "Libre", Turno2: horario2 + "Libre",
+            Turno3: horario3 + "Libre", Turno4: horario4 + "Libre", Turno5: horario5 + "Libre"
+          }
+          break;
+        case 6:
+          var datosAgenda = {
+            Usuario: emailLogin, Turno1: horario1 + "Libre", Turno2: horario2 + "Libre",
+            Turno3: horario3 + "Libre", Turno4: horario4 + "Libre", Turno5: horario5 + "Libre",
+            Turno6: horario6 + "Libre"
+          }
+          break;
+        case 7:
+          var datosAgenda = {
+            Usuario: emailLogin, Turno1: horario1 + "Libre", Turno2: horario2 + "Libre",
+            Turno3: horario3 + "Libre", Turno4: horario4 + "Libre", Turno5: horario5 + "Libre",
+            Turno6: horario6 + "Libre", Turno7: horario7 + "Libre"
+          }
+          break;
+        case 8:
+          var datosAgenda = {
+            Usuario: emailLogin, Turno1: horario1 + "Libre", Turno2: horario2 + "Libre",
+            Turno3: horario3 + "Libre", Turno4: horario4 + "Libre", Turno5: horario5 + "Libre",
+            Turno6: horario6 + "Libre", Turno7: horario7 + "Libre", Turno8: horario8 + "Libre"
+          }
+          break;
+  }
+  colDias.doc(dia).set(datosAgenda);
+}
 
     calendario = app.calendar.create({
       inputEl: '#demo-calendar-date-format',
