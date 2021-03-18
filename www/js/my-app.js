@@ -283,13 +283,13 @@ $$(document).on('page:init', '.page[data-name="agenda-admin"]', function (e) {
     var cantHoras = parseInt(horaFinal) - parseInt(horaInicio);
     console.log("Cantidad de horas"+cantHoras);
     var horarios = "";
-    horarios = horaInicio +" a ";
+    horarios = horaInicio +"a";
     var sumatoria = parseInt(horaInicio);
     var horaFin = parseInt(horaFinal) + 1;
     for (var i = 0; i<parseInt(cantHoras); i++){
       sumatoria += 1;
       console.log("Sumatoria: " + sumatoria);
-      horarios += sumatoria.toString() + ", " + sumatoria.toString() + " a " ;
+      horarios += sumatoria.toString() + "," + sumatoria.toString() + "a" ;
       console.log("horarios ahora vale: "+ horarios);
     }
     horarios += horaFin.toString();
@@ -297,6 +297,14 @@ $$(document).on('page:init', '.page[data-name="agenda-admin"]', function (e) {
     var datosTurnos = { FechaInicio: fechaInicio, FechaFinal: fechaFinal, 
       HoraInicio: horaInicio, HoraFinal: horaFinal, Horarios: horarios };
     colTurnos.doc(emailLogin).set(datosTurnos);
+
+
+    for (var i=0; i<horarios.length; i++){
+      console.log(horarios[i]);
+      var hora = ""; 
+      hora += horarios[i,i+5];
+      console.log(hora);
+    }
 
     calendario = app.calendar.create({
       inputEl: '#demo-calendar-date-format',
