@@ -344,82 +344,107 @@ $$(document).on('page:init', '.page[data-name="agenda-admin"]', function (e) {
     var fin = new Date (fechaFinal);
     var transcurso = fin.getTime() - inicio.getTime();
     console.log("Transcurso: "+ transcurso);
-
     var trDias= transcurso/1000/60/60/24;
     console.log("dias: "+trDias);
-
-    var hoy = new Date(inicio.getTime() - 86400000);
-    console.log("Hoy vale: "+ hoy);
+    console.log("Cantidad de horas: "+ cantHoras);
+    var hoy = new Date(inicio.getTime() + 86400000);
+    console.log("Hoy vale: " + hoy);
     for (var i=0; i<trDias; i++){
-      var dia = new Date(hoy.getTime() + 86400000);
-      console.log("Ahora el dia es: " + dia);
+      hoy = new Date(hoy.getTime() + 86400000);
+      console.log("Ahora el dia es: " + hoy);
+      dia = hoy.getDate().toString();
+      mes = (hoy.getMonth()+1).toString();
+      año= hoy.getFullYear().toString();
+      if (dia > 0 && dia < 10) {
+        dia = '0' + dia;
+      }
+      if (mes > 0 && mes < 10) {
+        mes = '0' + mes;
+      }
+      var fechaConcat = año+"-"+mes+"-"+dia;
+      console.log("Fecha Concatenada: "+ fechaConcat);
       switch (cantHoras) {
         case 1:
           var datosAgenda = { Usuario: emailLogin, Turno1: horario1 + "Libre"}
+          console.log("Datos agenda: " + datosAgenda);
+          colDias.doc(fechaConcat).set(datosAgenda);
           break;
         case 2:
           var datosAgenda = { Usuario: emailLogin, Turno1: horario1 + "Libre", Turno2: horario2 + "Libre" }
-          break;
-        case 3:
-          var datosAgenda = {
-          Usuario: emailLogin, Turno1: horario1 + "Libre", Turno2: horario2 + "Libre",
-          Turno3: horario3 + "Libre"}
+          console.log("Datos agenda: " + datosAgenda);
+          colDias.doc(fechaConcat).set(datosAgenda);
           break;
         case 3:
           var datosAgenda = {
             Usuario: emailLogin, Turno1: horario1 + "Libre", Turno2: horario2 + "Libre",
-            Turno3: horario3 + "Libre"
-          }
+            Turno3: horario3 + "Libre"}
+          console.log("Datos agenda: " + datosAgenda);
+          colDias.doc(fechaConcat).set(datosAgenda);
+          break;
+        case 3:
+          var datosAgenda = {
+            Usuario: emailLogin, Turno1: horario1 + "Libre", Turno2: horario2 + "Libre",
+            Turno3: horario3 + "Libre"}
+          console.log("Datos agenda: " + datosAgenda);
+          colDias.doc(fechaConcat).set(datosAgenda);
           break;
         case 4:
           var datosAgenda = {
             Usuario: emailLogin, Turno1: horario1 + "Libre", Turno2: horario2 + "Libre",
             Turno3: horario3 + "Libre", Turno4: horario4 + "Libre"}
+          console.log("Datos agenda: " + datosAgenda);
+          colDias.doc(fechaConcat).set(datosAgenda);
           break;
         case 5:
           var datosAgenda = {
             Usuario: emailLogin, Turno1: horario1 + "Libre", Turno2: horario2 + "Libre",
-            Turno3: horario3 + "Libre", Turno4: horario4 + "Libre", Turno5: horario5 + "Libre"
-          }
+            Turno3: horario3 + "Libre", Turno4: horario4 + "Libre", Turno5: horario5 + "Libre"}
+          console.log("Datos agenda: " + datosAgenda);
+          colDias.doc(fechaConcat).set(datosAgenda);
           break;
         case 6:
           var datosAgenda = {
             Usuario: emailLogin, Turno1: horario1 + "Libre", Turno2: horario2 + "Libre",
             Turno3: horario3 + "Libre", Turno4: horario4 + "Libre", Turno5: horario5 + "Libre",
-            Turno6: horario6 + "Libre"
-          }
+            Turno6: horario6 + "Libre"}
+          console.log("Datos agenda: " + datosAgenda);
+          colDias.doc(fechaConcat).set(datosAgenda);
           break;
         case 7:
           var datosAgenda = {
             Usuario: emailLogin, Turno1: horario1 + "Libre", Turno2: horario2 + "Libre",
             Turno3: horario3 + "Libre", Turno4: horario4 + "Libre", Turno5: horario5 + "Libre",
-            Turno6: horario6 + "Libre", Turno7: horario7 + "Libre"
-          }
+            Turno6: horario6 + "Libre", Turno7: horario7 + "Libre"}
+          console.log("Datos agenda: " + datosAgenda);
+          colDias.doc(fechaConcat).set(datosAgenda);
           break;
         case 8:
           var datosAgenda = {
             Usuario: emailLogin, Turno1: horario1 + "Libre", Turno2: horario2 + "Libre",
             Turno3: horario3 + "Libre", Turno4: horario4 + "Libre", Turno5: horario5 + "Libre",
-            Turno6: horario6 + "Libre", Turno7: horario7 + "Libre", Turno8: horario8 + "Libre"
-          }
+            Turno6: horario6 + "Libre", Turno7: horario7 + "Libre", Turno8: horario8 + "Libre"}
+          console.log("Datos agenda: " + datosAgenda);
+          colDias.doc(fechaConcat).set(datosAgenda);
           break;
-  }
-  colDias.doc(dia).set(datosAgenda);
-}
+      }
+    }
 
     calendario = app.calendar.create({
-      inputEl: '#demo-calendar-date-format',
-      dateFormat: {weekday: 'long', month: 'long', day: '2-digit', year: 'numeric'},
-      closeOnSelect: true,
-      minDate: new Date(),
-      /*maxDate: fechaFinal,*/
+      inputEl: '#demo-calendar-modal',
+      /*dateFormat: {weekday: 'long', month: 'long', day: '2-digit', year: 'numeric'},
+      closeOnSelect: true,*/
+      openIn: 'customModal',
+      header: true,
+      footer: true,
+      minDate: inicio,
+      maxDate: fin,
 
-        /*on: {
+        on: {
           closed: function () {
-            $$('#horarios').empty()
+            /*$$('#horarios').empty()*/
           console.log(calendar.getValue());
           }
-        }*/ 
+        }
     });
     notificationAgenda.open();
     mainView.router.navigate('/ver-agenda-admin/');
@@ -442,7 +467,8 @@ $$(document).on('page:init', '.page[data-name="ver-agenda-admin"]', function (e)
   }
 
   function fnAbreCalendar() {
-    calendario.open();
+    // VER PARA ABRIR EL CALENDARIO Y QUE QUEDE EL VALOR GUARDADO PARA LUEGO PODER VER ESE DIA EN PARTICULAR
+    //LOS HORARIOS DE ESE DIA, CON EL VALOR "LIBRE" U "OCUPADO" (SI UN USUARIO TOMO EL TURNO)
   }
 })
 
