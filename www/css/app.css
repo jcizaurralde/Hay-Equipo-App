@@ -86,18 +86,18 @@
 
 
 .titulos{
-  color: black ;
+  color: #545454;
   text-align: center;
 }
 
 .button{
   background-color: #545454;
-  color: #40bf40;
+  color: #3fb270;
   
 }
 
 .list-button{
-  color: #40bf40;
+  color: #3fb270;
   
 }
 
@@ -131,15 +131,22 @@ input{
 }
 
 .hamburguesa{
-  color: #40bf40;
+  color: #3fb270;
 }
 
 #ingresoLogin{
-  color: #40bf40;
+  color: #3fb270;
   font-size: 22px;
 }
 
 #volverLogin{
   color: #545454;
   font-size: 15px;
+}
+
+#estrellas{
+  height: 40vh;
+  width: 50vw;
+  margin-left: 27vw;
+  margin-right: 50vw;
 }

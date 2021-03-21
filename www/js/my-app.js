@@ -496,7 +496,7 @@ $$(document).on('page:init', '.page[data-name="ver-agenda-admin"]', function (e)
 
 $$(document).on('page:init', '.page[data-name="ver-dia-admin"]', function (e) {
   console.log(e);
-  var accionTurnos = app.actions.create({
+  /*var accionTurnos = app.actions.create({
     buttons: [
       {
         text: 'Disponible',
@@ -517,7 +517,7 @@ $$(document).on('page:init', '.page[data-name="ver-dia-admin"]', function (e) {
       },
     ]
   })
-  console.log("Se creo el panel de botones" + accionTurnos);
+  console.log("Se creo el panel de botones" + accionTurnos);*/
  
   diaSelecAd = new Date (diaSelecAd);
   var diaSelec = diaSelecAd.getDate().toString();
@@ -542,56 +542,56 @@ $$(document).on('page:init', '.page[data-name="ver-dia-admin"]', function (e) {
       if (turno1 == undefined){
         console.log("No existe este horario");
       }else{
-        $$('#btnesTurnos1').append('<a href="#" class="col-50 button btnturno button-raised button-round" id="turno1">' + turno1 + '</a>')
+        $$('#btnesTurnos1').append('<button class="col-50 button btnturno button-raised button-round" id="turno1">'+turno1+'</button>')
       }
       var turno2 = doc.data().Turno2;
       console.log("Turno 2: " + turno2);
       if (turno2 == undefined){
         console.log("No existe este horario");
       }else{
-        $$('#btnesTurnos1').append('<a href="#" class="col-50 button btnturno button-raised button-round" id="turno2">' + turno2 + '</a>')
+        $$('#btnesTurnos1').append('<button class="col-50 button btnturno button-raised button-round" id="turno2">'+turno2+'</button>')
       }
       var turno3 = doc.data().Turno3;
       console.log("Turno 3: " + turno3);
       if (turno3 == undefined){
         console.log("No existe este horario");
       }else{
-        $$('#btnesTurnos2').append('<a href="#" class="col-50 button btnturno button-raised button-round" id="turno3">' + turno3 + '</a>')
+        $$('#btnesTurnos2').append('<button class="col-50 button btnturno button-raised button-round" id="turno3">'+turno3+'</button>')
       }
       var turno4 = doc.data().Turno4;
       console.log("Turno 4: " + turno4);
       if (turno4 == undefined){
         console.log("No existe este horario");
       }else{
-        $$('#btnesTurnos2').append('<a href="#" class="col-50 button btnturno button-raised button-round" id="turno4">' + turno4 + '</a>')
+        $$('#btnesTurnos2').append('<button class="col-50 button btnturno button-raised button-round" id="turno4">'+turno4+'</button>')
       }
       var turno5 = doc.data().Turno5;
       console.log("Turno 5: " + turno5);
       if (turno5 == undefined){
         console.log("No existe este horario");
       }else{
-        $$('#btnesTurnos3').append('<a href="#" class="col-50 button btnturno button-raised button-round" id="turno5">' + turno5 + '</a>')
+        $$('#btnesTurnos3').append('<button class="col-50 button btnturno button-raised button-round" id="turno5">'+turno5+'</button>')
       }
       var turno6 = doc.data().Turno6;
       console.log("Turno 6: " + turno6);
       if (turno6 == undefined){
         console.log("No existe este horario");
       }else{
-        $$('#btnesTurnos3').append('<a href="#" class="col-50 button btnturno button-raised button-round" id="turno6">' + turno6 + '</a>')
+        $$('#btnesTurnos3').append('<button class="col-50 button btnturno button-raised button-round" id="turno6">'+turno6+'</button>')
       }
       var turno7 = doc.data().Turno7;
       console.log("Turno 7: " + turno7);
       if (turno7 == undefined){
         console.log("No existe este horario");
       }else{
-        $$('#btnesTurnos4').append('<a href="#" class="col-50 button btnturno button-raised button-round" id="turno7">' + turno7 + '</a>')
+        $$('#btnesTurnos4').append('<button class="col-50 button btnturno button-raised button-round" id="turno7">'+turno7+'</button>')
       }
       var turno8 = doc.data().Turno8;
       console.log("Turno 8: " + turno8);
       if (turno8 == undefined){
         console.log("No existe este horario");
       } else{
-        $$('#btnesTurnos4').append('<a href="#" class="col-50 button btnturno button-raised button-round" id="turno8">' + turno8 + '</a>')
+        $$('#btnesTurnos4').append('<button class="col-50 button btnturno button-raised button-round" id="turno8">'+turno8+'</button>')
       }
     } else {
       console.log("No such document!");
@@ -603,12 +603,27 @@ $$(document).on('page:init', '.page[data-name="ver-dia-admin"]', function (e) {
   });
 
   $$('.btnturno').on('click', fnAbreBotones);
+  $$('#btnDisponible').on('click', fnDisponibilidadSi);
+  $$('#btnNoDisponible').on('click', fnDisponibilidadNo);
 
   function fnAbreBotones() {
-    accionTurnos.open();
-    console.log("Abre el panel de botones");
+    /*accionTurnos.open();*/
     var btnHorario = $$(this.id).text();
     console.log("horario a cambiar: " + btnHorario);
+    $$('#btnDisponible').text("Disponible");
+    $$('#btnNoDisponible').text("No disponible");
+  }
+
+  function fnDisponibilidadSi() {
+    var disponibilidad = "Libre"
+    app.dialog.alert('El turno cambio a: "Libre"');
+    fnValorTurno(disponibilidad);
+  }
+
+  function fnDisponibilidadNo() {
+    var disponibilidad = "Ocupado"
+    app.dialog.alert('El turno cambio a: "Ocupado"');
+    fnValorTurno(disponibilidad);
   }
 
   function fnValorTurno(disponibilidad) {
@@ -641,7 +656,7 @@ $$(document).on('page:init', '.page[data-name="ver-dia-admin"]', function (e) {
             console.log("Error: " + error);
           });
         break;
-      case turno4:
+      case turnobutton:
         fechaRef.update({ Turno4: horario4 + "-" + dispTurno })
           .then(function () {
             console.log("actualizado ok");
@@ -691,7 +706,7 @@ $$(document).on('page:init', '.page[data-name="ver-dia-admin"]', function (e) {
         break;
     }
     
-  }
+}
 
   $$('#btnVolverDia').on('click', function () {
     mainView.router.navigate('/ver-agenda-admin/');
