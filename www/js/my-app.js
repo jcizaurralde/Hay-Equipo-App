@@ -6,7 +6,7 @@ var app = new Framework7({
     // App root element
     root: '#app',
     // App Name
-    name: 'My App',
+    name: 'Hay Equipo',
     // App id
     id: 'com.myapp.test',
     // Enable swipe panel
@@ -80,10 +80,25 @@ var diaSelecAd = "";
 var inicio = "";
 var fin = "";
 var notificationErrorDia = "";
+var turno1 = "";
+var turno2 = "";
+var turno3 = "";
+var turno4 = "";
+var turno5 = "";
+var turno6 = "";
+var turno7 = "";
+var turno8 = "";
+var dispTurno = "";
+var btnHorario = "";
+var horario1 = "";
+var horario2 = "";
+var horario3 = "";
+var horario4 = "";
+var horario5 = "";
+var horario6 = "";
+var horario7 = "";
+var horario8 = "";
 
-
-
-// Handle Cordova Device Ready Event
 $$(document).on('deviceready', function() {
     console.log("Device is ready!");
     db = firebase.firestore();
@@ -131,7 +146,7 @@ $$(document).on('deviceready', function() {
       icon: '<i class="f7-icons">bell_fill</i>',
       title: 'Hay Equipo App',
       subtitle: 'Agenda de turnos creada exitosamente',
-      text: 'Ir a: ver agenda, para gestionar',
+      text: 'Seleccione: "Ver agenda", para gestionar',
       closeButton: true,
     });
     notificationErrorDia = app.notification.create({
@@ -143,16 +158,12 @@ $$(document).on('deviceready', function() {
     });
     
 });
-
-// Option 1. Using one 'page:init' handler for all pages
 $$(document).on('page:init', function (e) {
-    // Do something here when page loaded and initialized
     console.log(e);
 })
-
-// Option 2. Using live 'page:init' event handlers for each page
+//************************************ VISTA "INGRESO" ***************************************
+//********************************************************************************************** 
 $$(document).on('page:init', '.page[data-name="ingreso"]', function (e) {
-    // Do something here when page with data-name="about" attribute loaded and initialized
     console.log(e);
     $$('#btnLogout').on('click', fnLogout);
     $$('#btnPerfil').on('click', function fnPerfil() {
@@ -173,7 +184,7 @@ $$(document).on('page:init', '.page[data-name="ingreso"]', function (e) {
     }).catch((error) => {
       console.log("Error getting document:", error);
     });
-    //Función para cerrar cesión.
+    //Función para cerrar cesión-->
     function fnLogout() {
       var user = firebase.auth().currentUser;
       if (user) {
@@ -189,20 +200,13 @@ $$(document).on('page:init', '.page[data-name="ingreso"]', function (e) {
         console.log('Ya cerre sesion');
       }
     }
-
-    //NO FUNCIONA ESTA:
-    function fnCierraPanel() {
-      $$('.panel').on('panel: close', function (panel) {
-        console.log('Panel ' + panel.side + ': close');
-      });
-    }
-
-
+    //Carga vista "Mi equipo"-->
     function fnMiequipo() {
       mainView.router.navigate('/mi-equipo/');
     }
 })
-
+//************************************ VISTA "PERFIL" ***************************************
+//********************************************************************************************** 
 $$(document).on('page:init', '.page[data-name="perfil"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
@@ -214,7 +218,8 @@ $$(document).on('page:init', '.page[data-name="perfil"]', function (e) {
   })
   
 })
-
+//************************************ VISTA "REGISTRO-EQUIPO" ***************************************
+//********************************************************************************************** 
 $$(document).on('page:init', '.page[data-name="registro-equipo"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
@@ -235,7 +240,8 @@ $$(document).on('page:init', '.page[data-name="registro-equipo"]', function (e) 
   }
 
 })
-
+//************************************ VISTA "INGRESO-ADMIN" ***************************************
+//********************************************************************************************** 
 $$(document).on('page:init', '.page[data-name="ingreso-admin"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
@@ -279,7 +285,8 @@ $$(document).on('page:init', '.page[data-name="ingreso-admin"]', function (e) {
   }
 
 })
-
+//************************************ VISTA "AGENDA-ADMIN" ***************************************
+//********************************************************************************************** 
 $$(document).on('page:init', '.page[data-name="agenda-admin"]', function (e) {
   console.log(e);
   $$('#btnPerfil').on('click', function fnPerfil() {
@@ -322,28 +329,28 @@ $$(document).on('page:init', '.page[data-name="agenda-admin"]', function (e) {
       if (i == 0 || i == 6 || i == 12 || i == 18 || i == 24 || i == 30 || i == 36 || i == 42) {
         hora += horarios.slice(i, i + 5);
         switch (i) {
-          case 0: var horario1 = hora;
+          case 0: horario1 = hora;
             console.log("Este horario1: " + horario1);
             break;
-          case 6: var horario2 = hora;
+          case 6: horario2 = hora;
             console.log("Este horario2: " + horario2);
             break;
-          case 12: var horario3 = hora;
+          case 12: horario3 = hora;
             console.log("Este horario3: " + horario3);
             break;
-          case 18: var horario4 = hora;
+          case 18: horario4 = hora;
             console.log("Este horario4: " + horario4);
             break;
-          case 24: var horario5 = hora;
+          case 24: horario5 = hora;
             console.log("Este horario5: " + horario5);
             break;
-          case 30: var horario6 = hora;
+          case 30: horario6 = hora;
             console.log("Este horario6: " + horario6);
             break;
-          case 36: var horario7 = hora;
+          case 36: horario7 = hora;
             console.log("Este horario7: " + horario7);
             break;
-          case 24: var horario8 = hora;
+          case 24: horario8 = hora;
             console.log("Este horario8: " + horario8);
             break;
           default:
@@ -451,7 +458,8 @@ $$(document).on('page:init', '.page[data-name="agenda-admin"]', function (e) {
 
    
 })
-
+//************************************ VISTA "VER-AGENDA-ADMIN" ***************************************
+//********************************************************************************************** 
 $$(document).on('page:init', '.page[data-name="ver-agenda-admin"]', function (e) {
   console.log(e);
 
@@ -483,8 +491,6 @@ $$(document).on('page:init', '.page[data-name="ver-agenda-admin"]', function (e)
   }
 
   function fnAbreCalendar() {
-    // VER PARA ABRIR EL CALENDARIO Y QUE QUEDE EL VALOR GUARDADO PARA LUEGO PODER VER ESE DIA EN PARTICULAR
-    //LOS HORARIOS DE ESE DIA, CON EL VALOR "LIBRE" U "OCUPADO" (SI UN USUARIO TOMO EL TURNO)
     calendario.open();
   }
 
@@ -493,10 +499,11 @@ $$(document).on('page:init', '.page[data-name="ver-agenda-admin"]', function (e)
   }
 
 })
-
+//************************************ VISTA "VER-DIA-ADMIN" ***************************************
+//********************************************************************************************** 
 $$(document).on('page:init', '.page[data-name="ver-dia-admin"]', function (e) {
   console.log(e);
-  /*var accionTurnos = app.actions.create({
+  var accionTurnos = app.actions.create({
     buttons: [
       {
         text: 'Disponible',
@@ -517,8 +524,9 @@ $$(document).on('page:init', '.page[data-name="ver-dia-admin"]', function (e) {
       },
     ]
   })
-  console.log("Se creo el panel de botones" + accionTurnos);*/
- 
+  console.log("Se creo el panel de botones" + accionTurnos);
+ //Traigo la variable diaSelecAd, donde esta el value seleccionado en el calendario,
+ // para traer y modificar datos, dentro de esta vista -->
   diaSelecAd = new Date (diaSelecAd);
   var diaSelec = diaSelecAd.getDate().toString();
   var mesSelec = (diaSelecAd.getMonth() + 1).toString();
@@ -533,65 +541,66 @@ $$(document).on('page:init', '.page[data-name="ver-dia-admin"]', function (e) {
   console.log("Busca fecha: " + buscaFecha);
   var tituloFecha = diaSelec + "-" + mesSelec + "-" + añoSelec;
   $$('#tituloFecha').text('Fecha seleccionada: ' + tituloFecha);
+  //Me traigo de BD los turnos para enviar su valor dentro de los botones-->
   var fechaRef = colDias.doc(emailLogin + buscaFecha);
   console.log(fechaRef);
   fechaRef.get().then((doc) => {
     if (doc.exists) {
-      var turno1 = doc.data().Turno1;
+      turno1 = doc.data().Turno1;
       console.log("Turno 1: " + turno1);
       if (turno1 == undefined){
         console.log("No existe este horario");
       }else{
-        $$('#btnesTurnos1').append('<button class="col-50 button btnturno button-raised button-round" id="turno1">'+turno1+'</button>')
+        $$('#btnesTurnos1').text(turno1);
       }
-      var turno2 = doc.data().Turno2;
+      turno2 = doc.data().Turno2;
       console.log("Turno 2: " + turno2);
       if (turno2 == undefined){
         console.log("No existe este horario");
       }else{
-        $$('#btnesTurnos1').append('<button class="col-50 button btnturno button-raised button-round" id="turno2">'+turno2+'</button>')
+        $$('#btnesTurnos2').text(turno2);
       }
-      var turno3 = doc.data().Turno3;
+      turno3 = doc.data().Turno3;
       console.log("Turno 3: " + turno3);
       if (turno3 == undefined){
         console.log("No existe este horario");
       }else{
-        $$('#btnesTurnos2').append('<button class="col-50 button btnturno button-raised button-round" id="turno3">'+turno3+'</button>')
+        $$('#btnesTurnos3').text(turno3);
       }
-      var turno4 = doc.data().Turno4;
+      turno4 = doc.data().Turno4;
       console.log("Turno 4: " + turno4);
       if (turno4 == undefined){
         console.log("No existe este horario");
       }else{
-        $$('#btnesTurnos2').append('<button class="col-50 button btnturno button-raised button-round" id="turno4">'+turno4+'</button>')
+        $$('#btnesTurnos4').text(turno4);
       }
-      var turno5 = doc.data().Turno5;
+      turno5 = doc.data().Turno5;
       console.log("Turno 5: " + turno5);
       if (turno5 == undefined){
         console.log("No existe este horario");
       }else{
-        $$('#btnesTurnos3').append('<button class="col-50 button btnturno button-raised button-round" id="turno5">'+turno5+'</button>')
+        $$('#btnesTurnos5').text(turno5);
       }
-      var turno6 = doc.data().Turno6;
+      turno6 = doc.data().Turno6;
       console.log("Turno 6: " + turno6);
       if (turno6 == undefined){
         console.log("No existe este horario");
       }else{
-        $$('#btnesTurnos3').append('<button class="col-50 button btnturno button-raised button-round" id="turno6">'+turno6+'</button>')
+        $$('#btnesTurnos6').text(turno6);
       }
-      var turno7 = doc.data().Turno7;
+      turno7 = doc.data().Turno7;
       console.log("Turno 7: " + turno7);
       if (turno7 == undefined){
         console.log("No existe este horario");
       }else{
-        $$('#btnesTurnos4').append('<button class="col-50 button btnturno button-raised button-round" id="turno7">'+turno7+'</button>')
+        $$('#btnesTurnos7').text(turno7);
       }
-      var turno8 = doc.data().Turno8;
+      turno8 = doc.data().Turno8;
       console.log("Turno 8: " + turno8);
       if (turno8 == undefined){
         console.log("No existe este horario");
       } else{
-        $$('#btnesTurnos4').append('<button class="col-50 button btnturno button-raised button-round" id="turno8">'+turno8+'</button>')
+        $$('#btnesTurnos8').text(turno8);
       }
     } else {
       console.log("No such document!");
@@ -601,118 +610,166 @@ $$(document).on('page:init', '.page[data-name="ver-dia-admin"]', function (e) {
   }).catch((error) => { 
     console.log("Error getting document:", error);
   });
-
-  $$('.btnturno').on('click', fnAbreBotones);
-  $$('#btnDisponible').on('click', fnDisponibilidadSi);
-  $$('#btnNoDisponible').on('click', fnDisponibilidadNo);
-
-  function fnAbreBotones() {
-    /*accionTurnos.open();*/
-    var btnHorario = $$(this.id).text();
-    console.log("horario a cambiar: " + btnHorario);
-    $$('#btnDisponible').text("Disponible");
-    $$('#btnNoDisponible').text("No disponible");
-  }
-
-  function fnDisponibilidadSi() {
-    var disponibilidad = "Libre"
-    app.dialog.alert('El turno cambio a: "Libre"');
-    fnValorTurno(disponibilidad);
-  }
-
-  function fnDisponibilidadNo() {
-    var disponibilidad = "Ocupado"
-    app.dialog.alert('El turno cambio a: "Ocupado"');
-    fnValorTurno(disponibilidad);
-  }
-
+//En las siguientes acciones, no me toma con el selector de clase, por ende tuve que poner cada uno por selector id-->
+  $$('#btnesTurnos1').on('click', function () {
+    btnHorario = this.id;
+    accionTurnos.open();
+  });
+  $$('#btnesTurnos2').on('click', function () {
+    btnHorario = this.id;
+    accionTurnos.open();
+  });
+  $$('#btnesTurnos3').on('click', function () {
+    btnHorario = this.id;
+    accionTurnos.open();
+  });
+  $$('#btnesTurnos4').on('click', function () {
+    btnHorario = this.id;
+    accionTurnos.open();
+  });
+  $$('#btnesTurnos5').on('click', function () {
+    btnHorario = this.id;
+    accionTurnos.open();
+  });
+  $$('#btnesTurnos6').on('click', function () {
+    btnHorario = this.id;
+    accionTurnos.open();
+  });
+  $$('#btnesTurnos7').on('click', function () {
+    btnHorario = this.id;
+    accionTurnos.open();
+  });
+  $$('#btnesTurnos8').on('click', function () {
+    btnHorario = this.id;
+    accionTurnos.open();
+  });
+//Funcion que toma el valor de la variable disponibilidad para ver si esta "Libre" u "Ocupado". Llama a Modifica Turno -->
   function fnValorTurno(disponibilidad) {
-    var dispTurno = disponibilidad;
+    dispTurno = disponibilidad;
+    fnModificaTurno();
+  }
+ //Funcion para que modifique el turno elegido, en la base de datos (A "Libre" u "Ocupado")---> 
+  function fnModificaTurno() {
+    console.log("Boton seleccionado: " + btnHorario);
     switch (btnHorario) {
-      case turno1:
-        fechaRef.update({ Turno1: horario1 + "-" + dispTurno})
+      case "btnesTurnos1":
+        btnHorario = turno1;
+        horario1 = turno1.slice(0,5);
+        console.log("El turno a modificar es: " + btnHorario);
+        console.log("Este horario: " + horario1);
+        fechaRef.update({ Turno1: horario1 + "-" + dispTurno })
           .then(function () {
             console.log("actualizado ok");
+            mainView.router.navigate('/ver-agenda-admin/');
           })
           .catch(function (error) {
             console.log("Error: " + error);
           });
         break;
-      case turno2:
+      case "btnesTurnos2":
+        btnHorario = turno2;
+        horario2 = turno2.slice(0, 5);
+        console.log("El turno a modificar es: " + btnHorario);
+        console.log("Este horario: " + horario2);
         fechaRef.update({ Turno2: horario2 + "-" + dispTurno })
           .then(function () {
             console.log("actualizado ok");
+            mainView.router.navigate('/ver-agenda-admin/');
           })
           .catch(function (error) {
             console.log("Error: " + error);
           });
         break;
-      case turno3:
+      case "btnesTurnos3":
+        btnHorario = turno3;
+        horario3 = turno3.slice(0, 5);
+        console.log("El turno a modificar es: " + btnHorario);
         fechaRef.update({ Turno3: horario3 + "-" + dispTurno })
           .then(function () {
             console.log("actualizado ok");
+            mainView.router.navigate('/ver-agenda-admin/');
           })
           .catch(function (error) {
             console.log("Error: " + error);
           });
         break;
-      case turnobutton:
+      case "btnesTurnos4":
+        btnHorario = turno4;
+        horario4 = turno4.slice(0, 5);
+        console.log("El turno a modificar es: " + btnHorario);
         fechaRef.update({ Turno4: horario4 + "-" + dispTurno })
           .then(function () {
             console.log("actualizado ok");
+            mainView.router.navigate('/ver-agenda-admin/');
           })
           .catch(function (error) {
             console.log("Error: " + error);
           });
         break;
-      case turno5:
+      case "btnesTurnos5":
+        btnHorario = turno5;
+        horario5 = turno5.slice(0, 5);
+        console.log("El turno a modificar es: " + btnHorario);
         fechaRef.update({ Turno5: horario5 + "-" + dispTurno })
           .then(function () {
             console.log("actualizado ok");
+            mainView.router.navigate('/ver-agenda-admin/');
           })
           .catch(function (error) {
             console.log("Error: " + error);
           });
         break;
-      case turno6:
+      case "btnesTurnos6":
+        btnHorario = turno6;
+        horario6 = turno6.slice(0, 5);
+        console.log("El turno a modificar es: " + btnHorario);
         fechaRef.update({ Turno6: horario6 + "-" + dispTurno })
           .then(function () {
             console.log("actualizado ok");
+            mainView.router.navigate('/ver-agenda-admin/');
           })
           .catch(function (error) {
             console.log("Error: " + error);
           });
         break;
-      case turno7:
+      case "btnesTurnos7":
+        btnHorario = turno7;
+        horario7 = turno7.slice(0, 5);
+        console.log("El turno a modificar es: " + btnHorario);
         fechaRef.update({ Turno7: horario7 + "-" + dispTurno })
           .then(function () {
             console.log("actualizado ok");
+            mainView.router.navigate('/ver-agenda-admin/');
           })
           .catch(function (error) {
             console.log("Error: " + error);
           });
         break;
-      case turno8:
+      case "btnesTurnos8":
+        btnHorario = turno8;
+        horario8 = turno8.slice(0, 5);
+        console.log("El turno a modificar es: " + btnHorario);
         fechaRef.update({ Turno8: horario8 + "-" + dispTurno })
           .then(function () {
             console.log("actualizado ok");
+            mainView.router.navigate('/ver-agenda-admin/');
           })
           .catch(function (error) {
             console.log("Error: " + error);
           });
         break;
       default:
-        console.log("Nada se modificó")
+        console.log("Error");
         break;
     }
-    
-}
-
+  }
+//Accion para volver a vista "Ver agenda administrador"-->
   $$('#btnVolverDia').on('click', function () {
     mainView.router.navigate('/ver-agenda-admin/');
   })
 })
-
+//************************************ VISTA "REGISTRO" ***************************************
+//********************************************************************************************** 
 $$(document).on('page:init', '.page[data-name="registro"]', function (e) {
   console.log(e);
   $$('#btnRegRegistrar').on('click', fnRegistrar);
@@ -752,7 +809,8 @@ $$(document).on('page:init', '.page[data-name="registro"]', function (e) {
     }
   }
 })
-
+//************************************ VISTA "REGISTRO-CANCHAS" ***************************************
+//********************************************************************************************** 
 $$(document).on('page:init', '.page[data-name="registro-canchas"]', function (e) {
   console.log(e);
   $$('#btnRegComp').on('click',fnRegAdmnistrador);
@@ -800,9 +858,9 @@ $$(document).on('page:init', '.page[data-name="registro-canchas"]', function (e)
   }
   
 })
-
+//************************************ VISTA "MI-EQUIPO" ***************************************
+//********************************************************************************************** 
 $$(document).on('page:init', '.page[data-name="mi-equipo"]', function (e) {
-  // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
   var usuEquip = colEquipos.doc(emailLogin);
   usuEquip.get().then((doc) => {
