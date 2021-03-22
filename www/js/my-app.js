@@ -26,6 +26,7 @@ var app = new Framework7({
       { path: '/registro-equipo/', url: 'registro-equipo.html', },
       { path: '/ver-agenda-admin/', url: 'ver-agenda-admin.html', },
       { path: '/ver-dia-admin/', url: 'ver-dia-admin.html', },
+      { path: '/agenda-cliente/', url: 'agenda-cliente.html', },
       
     
     ]
@@ -169,7 +170,10 @@ $$(document).on('page:init', '.page[data-name="ingreso"]', function (e) {
     $$('#btnPerfil').on('click', function fnPerfil() {
       mainView.router.navigate('/perfil/');
     })
-    $$('#btnVolverMenu').on('click', fnCierraPanel);
+    $$('#btnReservar').on('click', function () {
+      mainView.router.navigate('/agenda-cliente/');
+    })
+    /*$$('#btnVolverMenu').on('click', fnCierraPanel);*/
     $$('#btnMiequipo').on('click', fnMiequipo);
     usuRef = colUsuarios.doc(emailLogin);
     //Tomo de la colección Usuarios de la BD, el dato "Nombre", para poder darle una bienvenida al usuario en el inicio.
@@ -204,6 +208,25 @@ $$(document).on('page:init', '.page[data-name="ingreso"]', function (e) {
     function fnMiequipo() {
       mainView.router.navigate('/mi-equipo/');
     }
+})
+//************************************ VISTA "AGENDA-CLIENTE" ***************************************
+//********************************************************************************************** 
+$$(document).on('page:init', '.page[data-name="agenda-cliente"]', function (e) {
+  console.log(e);
+  colUsuariosAdm.get()
+    .then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        console.log("data:" + doc.data().NombreComplejo);
+        var nombreCancha = doc.data().NombreComplejo;
+        console.log("Nombre cancha: " + nombreCancha);
+        var correoCancha = doc.data().Correo;
+        console.log("El correo de la cancha: " + correoCancha);
+        $$('#listaCanchas').append('<li><div class="item-content"><div class="item-media"><i class="f7-icons">sportscourt</i></div><div class="item-inner"><div class="item-title" class="muestraCanchas" id="'+correoCancha+'">' + nombreCancha +'</div><div class="item-after">ver turnos > </div></div></div></li>');
+      });
+    })
+    .catch(function (error) {
+      console.log("Error: ", error);
+    });
 })
 //************************************ VISTA "PERFIL" ***************************************
 //********************************************************************************************** 
@@ -835,7 +858,7 @@ $$(document).on('page:init', '.page[data-name="registro-canchas"]', function (e)
     if (passwordAdmin == password2Admin){
       firebase.auth().createUserWithEmailAndPassword(emailAdmin, passwordAdmin)
         .then((user) => {
-          var datosAdm = { NombreComplejo: nombreAdmin, Calle: calleAdmin, Altura: alturaAdmin, 
+          var datosAdm = { NombreComplejo: nombreAdmin, Correo: emailAdmin, Calle: calleAdmin, Altura: alturaAdmin, 
           Localidad: localidadAdmin, Provincia:provinciaAdmin, CodigoPostal: CPAdmin,
           Teléfono: telefonoAdmin, TipoUsuario: tipoUs2 };
           colUsuariosAdm.doc(emailAdmin).set(datosAdm);
