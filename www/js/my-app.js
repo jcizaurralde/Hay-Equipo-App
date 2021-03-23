@@ -99,6 +99,15 @@ var horario5 = "";
 var horario6 = "";
 var horario7 = "";
 var horario8 = "";
+var calendario2 = "";
+var diaSelecCl = "";
+var correoCancha  = "";
+var inicioCliente = "";
+var finalCliente = "";
+var idDias = "";
+var inicioClienteCorto = "";
+var finalClienteCorto = "";
+var turnosRef = "";
 
 $$(document).on('deviceready', function() {
     console.log("Device is ready!");
@@ -219,7 +228,7 @@ $$(document).on('page:init', '.page[data-name="agenda-cliente"]', function (e) {
         console.log("data:" + doc.data().NombreComplejo);
         var nombreCancha = doc.data().NombreComplejo;
         console.log("Nombre cancha: " + nombreCancha);
-        var correoCancha = doc.data().Correo;
+        correoCancha = doc.data().Correo;
         console.log("El correo de la cancha: " + correoCancha);
         $$('#listaCanchas').append('<li><div class="item-content"><div class="item-media"><i class="f7-icons">sportscourt</i></div><div class="item-inner"><div class="item-title" class="muestraCanchas" id="'+correoCancha+'">' + nombreCancha +'</div><div class="item-after">ver turnos > </div></div></div></li>');
       });
@@ -227,6 +236,51 @@ $$(document).on('page:init', '.page[data-name="agenda-cliente"]', function (e) {
     .catch(function (error) {
       console.log("Error: ", error);
     });
+  
+  turnosRef = colTurnos.doc(correoCancha);
+  turnosRef.get().then((doc) => {
+    if (doc.exists) {
+      inicioCliente = new Date(doc.data().FechaInicio);
+      console.log("Fecha de inicio de este calendario: " + inicioCliente);
+      inicioClienteCorto = doc.data().FechaInicio;
+      finalCliente = new Date(doc.data().FechaFinal);
+      console.log("Fecha de inicio de este calendario: " + finalCliente);
+      finalClienteCorto = doc.data().FechaFinal;
+    } else {
+      console.log("No such document!");
+    }
+  }).catch((error) => {
+    console.log("Error getting document:", error);
+  });
+
+  calendario2 = app.calendar.create({
+    inputEl: '#demo-calendar-modal2',
+    openIn: 'customModal',
+    header: true,
+    footer: true,
+    minDate: inicioCliente,
+    maxDate: finCliente,
+
+    on: {
+      closed: function () {
+        diaSelecCl = calendario.getValue();
+        console.log("Dia seleccionado: " + diaSelecCl);
+        fnMuestraDiaSeleccionadoCl();
+      }
+    }
+  });
+
+  $$('#'+correoCancha).on('click', fnAbreCalendar2);
+
+  function fnAbreCalendar2() {
+    calendario2.open();
+  }
+
+  function fnMuestraDiaSeleccionadoCl() {
+    idDias = correoCancha + diaSelecCl;
+    console.log("ID del dia: " + idDias);
+    /*mainView.router.navigate('/ver-dia-cliente/');*/
+  }
 })
 //************************************ VISTA "PERFIL" ***************************************
 //********************************************************************************************** 
