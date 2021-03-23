@@ -27,6 +27,7 @@ var app = new Framework7({
       { path: '/ver-agenda-admin/', url: 'ver-agenda-admin.html', },
       { path: '/ver-dia-admin/', url: 'ver-dia-admin.html', },
       { path: '/agenda-cliente/', url: 'agenda-cliente.html', },
+      { path: '/ver-dia-cliente/', url: 'ver-dia-cliente.html', },
       
     
     ]
@@ -108,6 +109,7 @@ var idDias = "";
 var inicioClienteCorto = "";
 var finalClienteCorto = "";
 var turnosRef = "";
+var diaRef = "";
 
 $$(document).on('deviceready', function() {
     console.log("Device is ready!");
@@ -182,7 +184,6 @@ $$(document).on('page:init', '.page[data-name="ingreso"]', function (e) {
     $$('#btnReservar').on('click', function () {
       mainView.router.navigate('/agenda-cliente/');
     })
-    /*$$('#btnVolverMenu').on('click', fnCierraPanel);*/
     $$('#btnMiequipo').on('click', fnMiequipo);
     usuRef = colUsuarios.doc(emailLogin);
     //Tomo de la colección Usuarios de la BD, el dato "Nombre", para poder darle una bienvenida al usuario en el inicio.
@@ -222,6 +223,7 @@ $$(document).on('page:init', '.page[data-name="ingreso"]', function (e) {
 //********************************************************************************************** 
 $$(document).on('page:init', '.page[data-name="agenda-cliente"]', function (e) {
   console.log(e);
+  //Busco en la coleccion Usuarios Administrativos, cada uno de los nombres y correos de las canchas -->
   colUsuariosAdm.get()
     .then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {
@@ -236,7 +238,7 @@ $$(document).on('page:init', '.page[data-name="agenda-cliente"]', function (e) {
     .catch(function (error) {
       console.log("Error: ", error);
     });
-  
+  //Busco en la coleccion Turnos, por el ID de la cancha (correo), la fecha inicio y fecha final de su agenda -->
   turnosRef = colTurnos.doc(correoCancha);
   turnosRef.get().then((doc) => {
     if (doc.exists) {
@@ -252,15 +254,14 @@ $$(document).on('page:init', '.page[data-name="agenda-cliente"]', function (e) {
   }).catch((error) => {
     console.log("Error getting document:", error);
   });
-
+  //Creo el calendario para el usuario cliente -->
   calendario2 = app.calendar.create({
     inputEl: '#demo-calendar-modal2',
     openIn: 'customModal',
     header: true,
     footer: true,
     minDate: inicioCliente,
-    maxDate: finCliente,
-
+    maxDate: finalCliente,
     on: {
       closed: function () {
         diaSelecCl = calendario.getValue();
@@ -269,17 +270,237 @@ $$(document).on('page:init', '.page[data-name="agenda-cliente"]', function (e) {
       }
     }
   });
-
   $$('#'+correoCancha).on('click', fnAbreCalendar2);
-
   function fnAbreCalendar2() {
     calendario2.open();
   }
-
+  //ACA FALTA TRABAJAR EL DIA SELECCIONADO PARA QUE SEA FORMATO 2021-04-23
   function fnMuestraDiaSeleccionadoCl() {
     idDias = correoCancha + diaSelecCl;
     console.log("ID del dia: " + idDias);
-    /*mainView.router.navigate('/ver-dia-cliente/');*/
+    mainView.router.navigate('/ver-dia-cliente/');
+  }
+})
+//************************************ VISTA "VER-DIA-CLIENTE" ***************************************
+//********************************************************************************************** 
+$$(document).on('page:init', '.page[data-name="ver-dia-cliente"]', function (e) {
+  console.log(e);
+  $$('#btnVolverDiaCl').on('click', function () {
+    mainView.router.navigate('/agenda-cliente/');
+  })
+  //Creo un botones para que el cliente reserve o desmarque turnos -->
+  var accionTurnos = app.actions.create({
+    buttons: [
+      {
+        text: 'Solicitar turno',
+        onClick: function () {
+          var disponibilidad = "Ocupado";
+          fnModificaTurnoCl(disponibilidad);
+          app.dialog.alert('Turno guardado con exito');
+        },
+        bold: true
+      },
+      {
+        text: 'Cancelar turno',
+        onClick: function () {
+          var disponibilidad = "Libre";
+          fnModificaTurnoCl(disponibilidad);
+          app.dialog.alert('Turno cancelado con exito');
+        },
+      },
+    ]
+  })
+  //Me traigo de la colección "Dias", los turnos, para ponerlos como texto, 
+  //dentro de los botones en "ver-dia-cliente" -->
+  diaRef = colDias.doc(idDias);
+  console.log("El dia de referencia: " + diaRef);
+  diaRef.get().then((doc) => {
+    if (doc.exists) {
+      turno1 = doc.data().Turno1;
+      console.log("Turno 1: " + turno1);
+      if (turno1 == undefined) {
+        console.log("No existe este horario");
+      } else {
+        $$('#clienteTurnos1').text(turno1);
+      }
+      turno2 = doc.data().Turno2;
+      console.log("Turno 2: " + turno2);
+      if (turno2 == undefined) {
+        console.log("No existe este horario");
+      } else {
+        $$('#clienteTurnos2').text(turno2);
+      }
+      turno3 = doc.data().Turno3;
+      console.log("Turno 3: " + turno3);
+      if (turno3 == undefined) {
+        console.log("No existe este horario");
+      } else {
+        $$('#clienteTurnos3').text(turno3);
+      }
+      turno4 = doc.data().Turno4;
+      console.log("Turno 4: " + turno4);
+      if (turno4 == undefined) {
+        console.log("No existe este horario");
+      } else {
+        $$('#clienteTurnos4').text(turno4);
+      }
+      turno5 = doc.data().Turno5;
+      console.log("Turno 5: " + turno5);
+      if (turno5 == undefined) {
+        console.log("No existe este horario");
+      } else {
+        $$('#clienteTurnos5').text(turno5);
+      }
+      turno6 = doc.data().Turno6;
+      console.log("Turno 6: " + turno6);
+      if (turno6 == undefined) {
+        console.log("No existe este horario");
+      } else {
+        $$('#clienteTurnos6').text(turno6);
+      }
+      turno7 = doc.data().Turno7;
+      console.log("Turno 7: " + turno7);
+      if (turno7 == undefined) {
+        console.log("No existe este horario");
+      } else {
+        $$('#clienteTurnos7').text(turno7);
+      }
+      turno8 = doc.data().Turno8;
+      console.log("Turno 8: " + turno8);
+      if (turno8 == undefined) {
+        console.log("No existe este horario");
+      } else {
+        $$('#clienteTurnos8').text(turno8);
+      }
+    } else {
+      console.log("No such document!");
+      notificationErrorDia.open();
+      mainView.router.navigate('/ver-agenda-admin/');
+    }
+  }).catch((error) => {
+    console.log("Error getting document:", error);
+  });
+  //Guardo en la variable btnHorario, el id del boton seleccionado, y llamo a accionTurnos, 
+  //para que  el usuario elija -->
+  $$('.btnCreado').on('click', function () {
+    btnHorario = this.id;
+    accionTurnos.open();
+  });
+  //Actualizo cada uno de los turnos del dia ID (diaRef), de la coleccion (dias),
+  //enviandole un nuevo valor ("disponible" u "ocupado") -->
+  function fnModificaTurnoCl(dispTurno) {
+    console.log("Boton seleccionado: " + btnHorario);
+    switch (btnHorario) {
+      case "clienteTurnos1":
+        btnHorario = turno1;
+        horario1 = turno1.slice(0, 5);
+        console.log("El turno a modificar es: " + btnHorario);
+        console.log("Este horario: " + horario1);
+        diaRef.update({ Turno1: horario1 + "-" + dispTurno })
+          .then(function () {
+            console.log("actualizado ok");
+            mainView.router.navigate('/ver-agenda-admin/');
+          })
+          .catch(function (error) {
+            console.log("Error: " + error);
+          });
+        break;
+      case "clienteTurnos2":
+        btnHorario = turno2;
+        horario2 = turno2.slice(0, 5);
+        console.log("El turno a modificar es: " + btnHorario);
+        console.log("Este horario: " + horario2);
+        diaRef.update({ Turno2: horario2 + "-" + dispTurno })
+          .then(function () {
+            console.log("actualizado ok");
+            mainView.router.navigate('/ver-agenda-admin/');
+          })
+          .catch(function (error) {
+            console.log("Error: " + error);
+          });
+        break;
+      case "clienteTurnos3":
+        btnHorario = turno3;
+        horario3 = turno3.slice(0, 5);
+        console.log("El turno a modificar es: " + btnHorario);
+        diaRef.update({ Turno3: horario3 + "-" + dispTurno })
+          .then(function () {
+            console.log("actualizado ok");
+            mainView.router.navigate('/ver-agenda-admin/');
+          })
+          .catch(function (error) {
+            console.log("Error: " + error);
+          });
+        break;
+      case "clienteTurnos4":
+        btnHorario = turno4;
+        horario4 = turno4.slice(0, 5);
+        console.log("El turno a modificar es: " + btnHorario);
+        diaRef.update({ Turno4: horario4 + "-" + dispTurno })
+          .then(function () {
+            console.log("actualizado ok");
+            mainView.router.navigate('/ver-agenda-admin/');
+          })
+          .catch(function (error) {
+            console.log("Error: " + error);
+          });
+        break;
+      case "clienteTurnos5":
+        btnHorario = turno5;
+        horario5 = turno5.slice(0, 5);
+        console.log("El turno a modificar es: " + btnHorario);
+        diaRef.update({ Turno5: horario5 + "-" + dispTurno })
+          .then(function () {
+            console.log("actualizado ok");
+            mainView.router.navigate('/ver-agenda-admin/');
+          })
+          .catch(function (error) {
+            console.log("Error: " + error);
+          });
+        break;
+      case "clienteTurnos6":
+        btnHorario = turno6;
+        horario6 = turno6.slice(0, 5);
+        console.log("El turno a modificar es: " + btnHorario);
+        diaRef.update({ Turno6: horario6 + "-" + dispTurno })
+          .then(function () {
+            console.log("actualizado ok");
+            mainView.router.navigate('/ver-agenda-admin/');
+          })
+          .catch(function (error) {
+            console.log("Error: " + error);
+          });
+        break;
+      case "clienteTurnos7":
+        btnHorario = turno7;
+        horario7 = turno7.slice(0, 5);
+        console.log("El turno a modificar es: " + btnHorario);
+        diaRef.update({ Turno7: horario7 + "-" + dispTurno })
+          .then(function () {
+            console.log("actualizado ok");
+            mainView.router.navigate('/ver-agenda-admin/');
+          })
+          .catch(function (error) {
+            console.log("Error: " + error);
+          });
+        break;
+      case "clienteTurnos8":
+        btnHorario = turno8;
+        horario8 = turno8.slice(0, 5);
+        console.log("El turno a modificar es: " + btnHorario);
+        diaRef.update({ Turno8: horario8 + "-" + dispTurno })
+          .then(function () {
+            console.log("actualizado ok");
+            mainView.router.navigate('/ver-agenda-admin/');
+          })
+          .catch(function (error) {
+            console.log("Error: " + error);
+          });
+        break;
+      default:
+        console.log("Error");
+        break;
+    }
   }
 })
 //************************************ VISTA "PERFIL" ***************************************
