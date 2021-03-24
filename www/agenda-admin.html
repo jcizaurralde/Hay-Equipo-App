@@ -3,7 +3,7 @@
     <div class="page-content">
         <div class="block">
             <div class="row" style="height: 40px">
-                    <a href="#" class="button button-small panel-toggle display-flex hamburguesa" data-panel="left">
+                    <a href="#" id="hamburguesa" class="button button-small panel-toggle display-flex hamburguesa" data-panel="left">
                         <i class="f7-icons">bars</i>
                     </a>
             </div>
@@ -68,12 +68,16 @@
                             </div>
                         </div>
                     </li>
-                    <p class="text-align-center">Los turnos son de 1 hora de duración</p>  
                 </ul>
+                <p class="text-align-center">Los turnos son de 1 hora de duración</p>
             </div>
             <div class="row">
-                <button class="col-100 button button-raised button-fill" id="btnGenerarTur">Generar turnos</button>
-                <button class="col-100 button button-raised button-fill" id="btnVolverTur">Volver</button>
+                <div>
+                    <button class="col-100 button button-raised button-fill" id="btnGenerarTur">Generar turnos</button>
+                </div>
+                <div>
+                    <button class="col-100 button button-raised button-fill" id="btnVolverTur">Volver</button>
+                </div>
             </div>
         </div>     
     </div>

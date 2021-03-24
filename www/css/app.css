@@ -103,6 +103,7 @@ body{
   background-color: #ffffd3;
   font-weight: bold;
   color: #007d0b;
+  
 }
 
 .list-button{
@@ -235,4 +236,71 @@ input{
 }
 .notification-text{
   color: #ffffd3;
+}
+
+.list .item-after{
+  color: #c9ec2a;
+}
+.calendar-footer{
+  background-color: #3d3d3d;
+}
+.calendar-header{
+  background-color: #3d3d3d;
+}
+.calendar-footer a {
+    color: #007d0b;
+}
+.toolbar a.current-month-value{
+  color: #c9ec2a;
+}
+.toolbar a.current-year-value{
+  color: #c9ec2a;
+}
+.calendar-day-today .calendar-day-number{
+  color: #c9ec2a;
+}
+.list .item-label{
+  color: #ffffd3;
+}
+.list .item-floating-label{
+    color: #ffffd3;
+}
+#contieneBTN{
+  background-color: #ffffd3;
+}
+.block-strong{
+  background-color: #3d3d3d;
+}
+.list input[type=date], .list input[type=datetime-local], .list input[type=month], .list input[type=time] {
+    color: #c9ec2a;
+}
+.list input[type=number]{
+  color: #c9ec2a;
+}
+.list input[type=password]{
+  color: #c9ec2a;
+}
+.list input[type=search]{
+  color: #c9ec2a;
+}
+#horDesde{
+  color: #c9ec2a;
+}
+#horHasta{
+  color: #c9ec2a;
+}
+.actions-button{
+  background-color: #ffffd3;
+
+}
+.actions-button-text{
+  background-color: #ffffd3;
+  color: #3d3d3d;
+}
+ .list input[type=email]{
+   background-color: #3d3d3d;
+   color: #c9ec2a;
+ }
+.list input[type=text]{
+  color: #c9ec2a;
 }

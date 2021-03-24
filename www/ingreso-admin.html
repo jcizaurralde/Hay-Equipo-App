@@ -3,7 +3,7 @@
     <div class="page-content">
         <div class="block">
             <div class="row" style="height: 40px">
-                    <a href="#" class="button button-small panel-toggle display-flex hamburguesa" data-panel="left">
+                    <a href="#" id="hamburguesa" class="button button-small panel-toggle display-flex hamburguesa" data-panel="left">
                         <i class="f7-icons">bars</i>
                     </a>
                     <h2 class="text-align-center" id="bienvenidaAdmin"></h2>
@@ -30,7 +30,7 @@
             <div class="block">
                     <div class="searchbar searchbar-inline">
                         <div class="searchbar-input-wrap">
-                            <input type="text" placeholder="" class="barraBusqueda"/>
+                            <input type="text" placeholder="" id="barraBusqueda" class="barraBusqueda"/>
                             <i class="searchbar-icon"></i>
                             <div class="input-clear-button"></div>
                         </div>
@@ -39,9 +39,9 @@
                 <div class="row" style="height: 90px">
                     <button class="col-50 button button-raised button-fill" style="height: 70px;" id="btnAdmAgenda">Agenda</button>
                     <button class="col-50 button button-raised button-fill" style="height: 70px;" id="btnAdmTorneos">
-                        <div class="row">
+                        <div id="contieneBTN" class="row">
                             <i class="f7-icons col-100">sportscourt</i> 
-                            <p class="col-100 button button-raised button-fill">Torneos</p>
+                            <p class="col-100 button">Torneos</p>
                         </div>
                           
                     </button>

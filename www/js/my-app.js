@@ -110,6 +110,8 @@ var inicioClienteCorto = "";
 var finalClienteCorto = "";
 var turnosRef = "";
 var diaRef = "";
+var idBtnCancha = "";
+var notificacionErrorPass="";
 
 $$(document).on('deviceready', function() {
     console.log("Device is ready!");
@@ -168,6 +170,14 @@ $$(document).on('deviceready', function() {
       text: 'El día seleccionado no existe en su agenda, por favor vuelva a seleccionar una fecha',
       closeButton: true,
     });
+    notificacionErrorPass = app.notification.create({
+      icon: '<i class="f7-icons">hand_thumbsdown</i>',
+      title: 'Hay Equipo App',
+      subtitle: 'Atención',
+      text: 'El usuario o la contraseña no son válidos',
+      closeButton: true,
+    });
+  
     
 });
 $$(document).on('page:init', function (e) {
@@ -223,63 +233,92 @@ $$(document).on('page:init', '.page[data-name="ingreso"]', function (e) {
 //********************************************************************************************** 
 $$(document).on('page:init', '.page[data-name="agenda-cliente"]', function (e) {
   console.log(e);
+  console.log("colusuariosAdm: "+ colUsuariosAdm);
+  fnTraeCanchas();
   //Busco en la coleccion Usuarios Administrativos, cada uno de los nombres y correos de las canchas -->
-  colUsuariosAdm.get()
-    .then(function (querySnapshot) {
-      querySnapshot.forEach(function (doc) {
-        console.log("data:" + doc.data().NombreComplejo);
-        var nombreCancha = doc.data().NombreComplejo;
-        console.log("Nombre cancha: " + nombreCancha);
-        correoCancha = doc.data().Correo;
-        console.log("El correo de la cancha: " + correoCancha);
-        $$('#listaCanchas').append('<li><div class="item-content"><div class="item-media"><i class="f7-icons">sportscourt</i></div><div class="item-inner"><div class="item-title" class="muestraCanchas" id="'+correoCancha+'">' + nombreCancha +'</div><div class="item-after">ver turnos > </div></div></div></li>');
+  //ACA DEBERIA HABER UN FOR PARA TRAER TODAS LAS CANCHAS, OBTENIENDO TODO EL JSON
+  function fnTraeCanchas() {
+    colUsuariosAdm.get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          console.log("data:" + doc.data().NombreComplejo);
+          var nombreCancha = doc.data().NombreComplejo;
+          console.log("Nombre cancha: " + nombreCancha);
+          correoCancha = doc.data().Correo;
+          console.log("El correo de la cancha: " + correoCancha);
+          /*$$('#listaCanchas').html('<li class="btnCancha" id="' + correoCancha +'" ><div class="item-content"><div class="item-media"><i class="f7-icons">sportscourt</i></div><div class="item-inner"><div class="item-title" class="muestraCanchas">'+nombreCancha+'</div><div class="item-after">ver turnos ></div></div></div></li>');*/
+          $$('#btnCancha').html('<div class="item-content"><div class="item-media"><i class="f7-icons">sportscourt</i></div><div class="item-inner"><div class="item-title" class="muestraCanchas">'+nombreCancha+'</div><div class="item-after">ver turnos ></div></div></div>');
+          //Busco en la coleccion Turnos, por el ID de la cancha (correo), la fecha inicio y fecha final de su agenda -->
+          turnosRef = colTurnos.doc(correoCancha);
+          console.log("TurnosRef: " + turnosRef);
+          turnosRef.get().then((doc) => {
+            if (doc.exists) {
+              inicioCliente = new Date(doc.data().FechaInicio);
+              console.log("Fecha de inicio de este calendario: " + inicioCliente);
+              inicioClienteCorto = doc.data().FechaInicio;
+              console.log("Fecha corta: " + inicioClienteCorto);
+              finalCliente = new Date(doc.data().FechaFinal);
+              console.log("Fecha de fin de este calendario: " + finalCliente);
+              finalClienteCorto = doc.data().FechaFinal;
+              console.log("Fecha corta: " + finalClienteCorto);
+              //Creo el calendario para el usuario cliente -->
+              calendario2 = app.calendar.create({
+                inputEl: '#demo-calendar-modal2',
+                openIn: 'customModal',
+                header: true,
+                footer: true,
+                minDate: inicioCliente,
+                maxDate: finalCliente,
+                on: {
+                  closed: function () {
+                    diaSelecCl = calendario2.getValue();
+                    console.log("Dia seleccionado: " + diaSelecCl);
+                    fnMuestraDiaSeleccionadoCl();
+                  }
+                }
+              });
+              idBtnCancha = "#"+correoCancha;
+              console.log("Se creo el calendario" + calendario2);
+              console.log("idBtnCancha: " + idBtnCancha);
+              /*fnMandaIdCancha(idBtnCancha);*/
+            } else {
+              console.log("No such document!");
+            }
+          }).catch((error) => {
+            console.log("Error getting document:", error);
+          });
+        });
+      })
+      .catch(function (error) {
+        console.log("Error: ", error);
       });
-    })
-    .catch(function (error) {
-      console.log("Error: ", error);
-    });
-  //Busco en la coleccion Turnos, por el ID de la cancha (correo), la fecha inicio y fecha final de su agenda -->
-  turnosRef = colTurnos.doc(correoCancha);
-  turnosRef.get().then((doc) => {
-    if (doc.exists) {
-      inicioCliente = new Date(doc.data().FechaInicio);
-      console.log("Fecha de inicio de este calendario: " + inicioCliente);
-      inicioClienteCorto = doc.data().FechaInicio;
-      finalCliente = new Date(doc.data().FechaFinal);
-      console.log("Fecha de inicio de este calendario: " + finalCliente);
-      finalClienteCorto = doc.data().FechaFinal;
-    } else {
-      console.log("No such document!");
-    }
-  }).catch((error) => {
-    console.log("Error getting document:", error);
-  });
-  //Creo el calendario para el usuario cliente -->
-  calendario2 = app.calendar.create({
-    inputEl: '#demo-calendar-modal2',
-    openIn: 'customModal',
-    header: true,
-    footer: true,
-    minDate: inicioCliente,
-    maxDate: finalCliente,
-    on: {
-      closed: function () {
-        diaSelecCl = calendario.getValue();
-        console.log("Dia seleccionado: " + diaSelecCl);
-        fnMuestraDiaSeleccionadoCl();
-      }
-    }
-  });
-  $$('#'+correoCancha).on('click', fnAbreCalendar2);
+  }
+  $$(".itemCancha").on('click', fnAbreCalendar2);
   function fnAbreCalendar2() {
     calendario2.open();
   }
   //ACA FALTA TRABAJAR EL DIA SELECCIONADO PARA QUE SEA FORMATO 2021-04-23
   function fnMuestraDiaSeleccionadoCl() {
-    idDias = correoCancha + diaSelecCl;
+    var hoy = new Date(diaSelecCl);
+    var dia = hoy.getDate().toString();
+    var mes = (hoy.getMonth() + 1).toString();
+    var año = hoy.getFullYear().toString();
+    if (dia > 0 && dia < 10) {
+      dia = '0' + dia;
+    }
+    if (mes > 0 && mes < 10) {
+      mes = '0' + mes;
+    }
+    var fechaConcat = año + "-" + mes + "-" + dia;
+    console.log("Fecha Concatenada: " + fechaConcat);
+    idDias = correoCancha + fechaConcat;
     console.log("ID del dia: " + idDias);
     mainView.router.navigate('/ver-dia-cliente/');
   }
+  $$('#btnVolverACL').on('click', function () {
+    mainView.router.navigate('/ingreso/');
+  })
+
 })
 //************************************ VISTA "VER-DIA-CLIENTE" ***************************************
 //********************************************************************************************** 
@@ -289,7 +328,7 @@ $$(document).on('page:init', '.page[data-name="ver-dia-cliente"]', function (e) 
     mainView.router.navigate('/agenda-cliente/');
   })
   //Creo un botones para que el cliente reserve o desmarque turnos -->
-  var accionTurnos = app.actions.create({
+  var accionTurnos2 = app.actions.create({
     buttons: [
       {
         text: 'Solicitar turno',
@@ -382,9 +421,10 @@ $$(document).on('page:init', '.page[data-name="ver-dia-cliente"]', function (e) 
   });
   //Guardo en la variable btnHorario, el id del boton seleccionado, y llamo a accionTurnos, 
   //para que  el usuario elija -->
-  $$('.btnCreado').on('click', function () {
+
+  $$('#clienteTurnos1').on('click', function () {
     btnHorario = this.id;
-    accionTurnos.open();
+    accionTurnos2.open();
   });
   //Actualizo cada uno de los turnos del dia ID (diaRef), de la coleccion (dias),
   //enviandole un nuevo valor ("disponible" u "ocupado") -->
@@ -399,7 +439,7 @@ $$(document).on('page:init', '.page[data-name="ver-dia-cliente"]', function (e) 
         diaRef.update({ Turno1: horario1 + "-" + dispTurno })
           .then(function () {
             console.log("actualizado ok");
-            mainView.router.navigate('/ver-agenda-admin/');
+            mainView.router.navigate('/agenda-cliente/');
           })
           .catch(function (error) {
             console.log("Error: " + error);
@@ -413,7 +453,7 @@ $$(document).on('page:init', '.page[data-name="ver-dia-cliente"]', function (e) 
         diaRef.update({ Turno2: horario2 + "-" + dispTurno })
           .then(function () {
             console.log("actualizado ok");
-            mainView.router.navigate('/ver-agenda-admin/');
+            mainView.router.navigate('/agenda-cliente/');
           })
           .catch(function (error) {
             console.log("Error: " + error);
@@ -426,7 +466,7 @@ $$(document).on('page:init', '.page[data-name="ver-dia-cliente"]', function (e) 
         diaRef.update({ Turno3: horario3 + "-" + dispTurno })
           .then(function () {
             console.log("actualizado ok");
-            mainView.router.navigate('/ver-agenda-admin/');
+            mainView.router.navigate('/agenda-cliente/');
           })
           .catch(function (error) {
             console.log("Error: " + error);
@@ -439,7 +479,7 @@ $$(document).on('page:init', '.page[data-name="ver-dia-cliente"]', function (e) 
         diaRef.update({ Turno4: horario4 + "-" + dispTurno })
           .then(function () {
             console.log("actualizado ok");
-            mainView.router.navigate('/ver-agenda-admin/');
+            mainView.router.navigate('/agenda-cliente/');
           })
           .catch(function (error) {
             console.log("Error: " + error);
@@ -452,7 +492,7 @@ $$(document).on('page:init', '.page[data-name="ver-dia-cliente"]', function (e) 
         diaRef.update({ Turno5: horario5 + "-" + dispTurno })
           .then(function () {
             console.log("actualizado ok");
-            mainView.router.navigate('/ver-agenda-admin/');
+            mainView.router.navigate('/agenda-cliente/');
           })
           .catch(function (error) {
             console.log("Error: " + error);
@@ -465,7 +505,7 @@ $$(document).on('page:init', '.page[data-name="ver-dia-cliente"]', function (e) 
         diaRef.update({ Turno6: horario6 + "-" + dispTurno })
           .then(function () {
             console.log("actualizado ok");
-            mainView.router.navigate('/ver-agenda-admin/');
+            mainView.router.navigate('/agenda-cliente/');
           })
           .catch(function (error) {
             console.log("Error: " + error);
@@ -478,7 +518,7 @@ $$(document).on('page:init', '.page[data-name="ver-dia-cliente"]', function (e) 
         diaRef.update({ Turno7: horario7 + "-" + dispTurno })
           .then(function () {
             console.log("actualizado ok");
-            mainView.router.navigate('/ver-agenda-admin/');
+            mainView.router.navigate('/agenda-cliente/');
           })
           .catch(function (error) {
             console.log("Error: " + error);
@@ -491,7 +531,7 @@ $$(document).on('page:init', '.page[data-name="ver-dia-cliente"]', function (e) 
         diaRef.update({ Turno8: horario8 + "-" + dispTurno })
           .then(function () {
             console.log("actualizado ok");
-            mainView.router.navigate('/ver-agenda-admin/');
+            mainView.router.navigate('/agenda-cliente/');
           })
           .catch(function (error) {
             console.log("Error: " + error);
@@ -1168,10 +1208,11 @@ $$(document).on('page:init', '.page[data-name="mi-equipo"]', function (e) {
       $$('#tituloEquipo').text(nombreEq);
     } else {
       console.log("No such document!");
+      $$('#agregaBtnRE').html('<button class="col button button-raised button-fill" id="btnRegistraEquipo">Registra un equipo</button>');
     }
   }).catch((error) => {
     console.log("Error getting document:", error);
-    $$('#agregaBtnRE').html('<button class="col button button-raised button-fill" id="btnRegistraEquipo">Registra un equipo</button>');
+    
   });
 
   $$('#btnPerfil').on('click', function fnVistaPerfil() {
@@ -1182,11 +1223,11 @@ $$(document).on('page:init', '.page[data-name="mi-equipo"]', function (e) {
     mainView.router.navigate('/ingreso/');
   })
 
-  $$('#btnRegistraEquipo').on('click', function fnVistaEquipo() {
+  $$('#agregaBtnRE').on('click', function fnVistaEquipo() {
     mainView.router.navigate('/registro-equipo/');
   })
 
-  $$('#agregaIntegrantes').on('click', fnScreenJugadores);
+  $$('#agregaIntegrantes').on('click', );
 
   
   
@@ -1225,38 +1266,42 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
   }
 
   function fnLogueado() {
-    emailLogin = $$('#usuarioLogin').val();
-    passLogin = $$('#passwordLogin').val();
-    var usuClRef = colUsuarios.doc(emailLogin);
-    var usuAdmRef = colUsuariosAdm.doc(emailLogin);
+    var emailIngresado = $$('#usuarioLogin').val();
+    var passIngresado = $$('#passwordLogin').val();
+    var usuClRef = colUsuarios.doc(emailIngresado);
+    var usuAdmRef = colUsuariosAdm.doc(emailIngresado);
+    emailLogin = emailIngresado;
+    passLogin = passIngresado;
     
     usuAdmRef.get().then((doc) => {
       if (doc.exists) {
-        fnActivaLoginAd(emailLogin, passLogin);
+        fnActivaLoginAd(emailIngresado, passIngresado);
+        emailIngresado = "";
+        passIngresado = "";
       } else {
         console.log("Es un usuario cliente");
+        usuClRef.get().then((doc) => {
+          if (doc.exists) {
+            fnActivaLoginCl(emailIngresado, passIngresado);
+            emailIngresado = "";
+            passIngresado = "";
+          } else {
+            console.log("Es un usuario administrador");
+          }
+        }).catch((error) => {
+          console.log("Error getting document:", error);
+        });
       }
     }).catch((error) => {
       console.log("Error getting document:", error);
     });
-
-    usuClRef.get().then((doc) => {
-      if (doc.exists) {
-        fnActivaLoginCl(emailLogin, passLogin);
-      } else {
-        console.log("Es un usuario administrador");
-      }
-    }).catch((error) => {
-      console.log("Error getting document:", error);
-    });
-
   }
 
   function fnActivaLoginCl(email, pass) {
     firebase.auth().signInWithEmailAndPassword(email, pass)
       .then((user) => {
-        console.log("email: " + emailLogin);
-        console.log("contraseña: " + passLogin);
+        console.log("email: " + email);
+        console.log("contraseña: " + pass);
         $$('.login-screen').removeClass('login-screen').addClass('login-screen-close');
         mainView.router.navigate('/ingreso/');
         console.log("carga la vista ingreso");
@@ -1264,6 +1309,7 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
       .catch((error) => {
         errorCode = error.code;
         errorMessage = error.message;
+        notificacionErrorPass.open();
       });
   }
 
@@ -1279,6 +1325,7 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
       .catch((error) => {
         errorCode = error.code;
         errorMessage = error.message;
+        notificacionErrorPass.open();
       });
   }
 
