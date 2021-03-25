@@ -74,7 +74,6 @@ var fechaFinal = "";
 var colEquipos = "";
 var nombreEquipo = "";
 var notificationRegEq = "";
-var jugadoresEquipo = "";
 var horaInicio = "";
 var horaFinal = "";
 var notificationAgenda = "";
@@ -114,6 +113,10 @@ var diaRef = "";
 var idBtnCancha = "";
 var notificacionErrorPass="";
 var notificationRegEqError="";
+var dorsalJugador = "";
+var nombreJugador = "";
+var puestoJugador = "";
+var notificationRegJuError = "";
 
 $$(document).on('deviceready', function() {
     console.log("Device is ready!");
@@ -186,7 +189,13 @@ $$(document).on('deviceready', function() {
       text: 'Ingrese un nombre de equipo',
       closeButton: true,
     });
-  
+    notificationRegJuError = app.notification.create({
+      icon: '<i class="f7-icons">hand_thumbsdown</i>',
+      title: 'Hay Equipo App',
+      subtitle: 'Atención',
+      text: 'El correo ingresado no es usuario de Hay Equipo',
+      closeButton: true,
+    });
     
 });
 $$(document).on('page:init', function (e) {
@@ -1230,18 +1239,30 @@ $$(document).on('page:init', '.page[data-name="invita-amigos"]', function (e) {
     console.log("Error getting document:", error);
   })
 
-  //$$('#agregaAmigo').on('click', fnAgregaAmigo);
-  /*function fnAgregaAmigo() {
+  $$('#agregaAmigo').on('click', fnAgregaAmigo);
+  function fnAgregaAmigo() {
     nombreJugador = $$('#nomJugador').val();
     puestoJugador = $$('#puesJugador').val();
-    jugadoresEquipo = nombreJugador + "-"+ puestoJugador;
-    console.log("El jugador agregado: " + jugadoresEquipo);
-    $$('#nomJugador').val("");
-    $$('#puesJugador').val("");
-    var datosEquipo = { Jugadores: jugadoresEquipo };
-    colEquipos.doc(emailLogin).set(datosEquipo);
-    notificationRegJu.open();
-  }*/
+    dorsalJugador = $$('#dorsalJugador').val();
+    console.log("Correo Jugador: " + nombreJugador);
+    var usuInvitadoRef = colUsuarios.doc(nombreJugador);
+    usuInvitadoRef.get().then((doc) => {
+      if (doc.exists) {
+        console.log("Esto funciona: " + doc.data().Nombre);
+        var datosEquipo = { Jugadores: [nombreJugador, puestoJugador, dorsalJugador]};
+        colEquipos.doc(emailLogin).set(datosEquipo);
+        notificationRegJu.open();
+        mainView.router.navigate('/mi-equipo/');
+      } else {
+        console.log("No such document!");
+        notificationRegJuError.open();
+      }
+    }).catch((error) => {
+      console.log("Error getting document:", error);
+    })
+
+    
+  }
 
   $$('#invitaAmigoV').on('click', function () {
     mainView.router.navigate('/mi-equipo/');
@@ -1257,6 +1278,9 @@ $$(document).on('page:init', '.page[data-name="mi-equipo"]', function (e) {
       var nombreEq = doc.data().NombreEquipo;
       console.log("Nombre del equipo: " + nombreEq);
       $$('#tituloEquipo').text(nombreEq);
+      $$('#tablaDorsal').text();
+      $$('#tablaUsuario').text();
+      $$('#tablaPuesto').text(); 
     } else {
       console.log("No such document!");
       $$('#agregaBtnRE').html('<button class="col button button-raised button-fill" id="btnRegistraEquipo">Registra un equipo</button>');
@@ -1304,24 +1328,18 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
   }
 
   function fnLogueado() {
-    var emailIngresado = $$('#usuarioLogin').val();
-    var passIngresado = $$('#passwordLogin').val();
-    var usuClRef = colUsuarios.doc(emailIngresado);
-    var usuAdmRef = colUsuariosAdm.doc(emailIngresado);
-    emailLogin = emailIngresado;
-    passLogin = passIngresado;
+    emailLogin = $$('#usuarioLogin').val();
+    passLogin = $$('#passwordLogin').val();
+    var usuClRef = colUsuarios.doc(emailLogin);
+    var usuAdmRef = colUsuariosAdm.doc(emailLogin);
     usuAdmRef.get().then((doc) => {
       if (doc.exists) {
-        fnActivaLoginAd(emailIngresado, passIngresado);
-        emailIngresado = "";
-        passIngresado = "";
+        fnActivaLoginAd(emailLogin, passLogin);
       } else {
         console.log("Es un usuario cliente");
         usuClRef.get().then((doc) => {
           if (doc.exists) {
-            fnActivaLoginCl(emailIngresado, passIngresado);
-            emailIngresado = "";
-            passIngresado = "";
+            fnActivaLoginCl(emailLogin, passLogin);
           } else {
             console.log("Es un usuario administrador");
           }

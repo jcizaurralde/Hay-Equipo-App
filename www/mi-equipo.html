@@ -20,8 +20,45 @@
                     </ul>
                 </div>
             </div>
-        </div> 
-        <h2 class="text-align-center titulos" id="tituloEquipo"></h2>
+        </div>
+        <div class="block">
+            <h2 class="text-align-center titulos" id="tituloEquipo"></h2>
+            <div class="card Jugadores">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="input-cell">
+                                <span class="table-head-label">Dorsal</span>
+                                <div class="text" style="width: 50px">
+                                    <input class="datosTabla" type="text">
+                                </div>
+                            </th>
+                            <th class="input-cell">
+                                <span class="table-head-label">Usuario/Nombre</span>
+                                <div class="input">
+                                    <input class="datosTabla" type="text">
+                                </div>
+                            </th>
+                            ...
+                            <th class="input-cell">
+                                <span class="table-head-label">Puesto</span>
+                                <div class="input">
+                                    <input class="datosTabla" type="text">
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td id="tablaDorsal"></td>
+                            <td id="tablaUsuario"></td>
+                            <td id="tablaPuesto"></td>
+                        </tr>
+                        ...
+                    </tbody>
+                </table>
+            </div>
+        </div>
         <div class="block">
             <div class="row">
                 <button class="col-100 button button-raised button-fill" id="agregaIntegrantes">Agregar integrantes</button>

@@ -145,7 +145,20 @@ input{
   color: #007d0b;
   background-color: #3d3d3d;
 }
+#hamburguesaPerfil{
+  color: #007d0b;
+  background-color: #3d3d3d;
+}
 
+#hamburguesaDCL{
+  color: #007d0b;
+  background-color: #3d3d3d;
+}
+
+#hamburguesaDADM{
+  color: #007d0b;
+  background-color: #3d3d3d;
+}
 #ingresoLogin{
   color: #ffffd3;
   font-size: 22px;
@@ -265,9 +278,7 @@ input{
 .list .item-floating-label{
     color: #ffffd3;
 }
-#contieneBTN{
-  background-color: #ffffd3;
-}
+
 .block-strong{
   background-color: #3d3d3d;
 }
@@ -323,4 +334,12 @@ input{
 }
 .dialog-button.dialog-button-bold{
   color: #c9ec2a;
+}
+.card{
+  background-color: #007d0b;
+  color: #ffffd3;
+}
+table{
+  background-color: #ffffd3;
+  color: #3d3d3d;
 }
