@@ -304,3 +304,23 @@ input{
 .list input[type=text]{
   color: #c9ec2a;
 }
+.input-dropdown-wrap select{
+  color: #c9ec2a;
+}
+.dialog-inner{
+  background-color: #ffffd3;
+}
+.dialog-buttons{
+  background-color: #ffffd3;
+}
+.dialog-title{
+  color: #007d0b;
+  background-color: #ffffd3;
+}
+.dialog-text{
+  color: #3d3d3d;
+  background-color: #ffffd3;
+}
+.dialog-button.dialog-button-bold{
+  color: #c9ec2a;
+}

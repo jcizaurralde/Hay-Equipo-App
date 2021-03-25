@@ -28,6 +28,7 @@ var app = new Framework7({
       { path: '/ver-dia-admin/', url: 'ver-dia-admin.html', },
       { path: '/agenda-cliente/', url: 'agenda-cliente.html', },
       { path: '/ver-dia-cliente/', url: 'ver-dia-cliente.html', },
+      { path: '/invita-amigos/', url: 'invita-amigos.html', },
       
     
     ]
@@ -112,6 +113,7 @@ var turnosRef = "";
 var diaRef = "";
 var idBtnCancha = "";
 var notificacionErrorPass="";
+var notificationRegEqError="";
 
 $$(document).on('deviceready', function() {
     console.log("Device is ready!");
@@ -175,6 +177,13 @@ $$(document).on('deviceready', function() {
       title: 'Hay Equipo App',
       subtitle: 'Atención',
       text: 'El usuario o la contraseña no son válidos',
+      closeButton: true,
+    });
+    notificationRegEqError = app.notification.create({
+      icon: '<i class="f7-icons">hand_thumbsdown</i>',
+      title: 'Hay Equipo App',
+      subtitle: 'Atención',
+      text: 'Ingrese un nombre de equipo',
       closeButton: true,
     });
   
@@ -569,12 +578,17 @@ $$(document).on('page:init', '.page[data-name="registro-equipo"]', function (e) 
 
   function fnRegistraEquipo() {
     nombreEquipo = $$('#nomEquipo').val();
-    var datosEquipo = { NombreEquipo: nombreEquipo, Capitan: emailLogin };
-    colEquipos.doc(emailLogin).set(datosEquipo);
-    console.log("Equipo: " + nombreEquipo + " agregado exitosamente");
-    $$('#nomEquipo').val("");
-    notificationRegEq.open(); 
-    mainView.router.navigate('/mi-equipo/');
+    if (nombreEquipo == ""){
+      var datosEquipo = { NombreEquipo: nombreEquipo, Capitan: emailLogin };
+      colEquipos.doc(emailLogin).set(datosEquipo);
+      console.log("Equipo: " + nombreEquipo + " agregado exitosamente");
+      $$('#nomEquipo').val("");
+      notificationRegEq.open();
+      mainView.router.navigate('/mi-equipo/');
+    }else{
+      notificationRegEqError.open();
+    }
+    
   }
 
 })
@@ -1196,6 +1210,43 @@ $$(document).on('page:init', '.page[data-name="registro-canchas"]', function (e)
   }
   
 })
+//************************************ VISTA "INVITA-AMIGOS" ***************************************
+//********************************************************************************************** 
+$$(document).on('page:init', '.page[data-name="invita-amigos"]', function (e) {
+  console.log(e);
+  $$('#btnPerfil').on('click', function fnVistaPerfil() {
+    mainView.router.navigate('/perfil/');
+  })
+  var usuEquip = colEquipos.doc(emailLogin);
+  usuEquip.get().then((doc) => {
+    if (doc.exists) {
+      var nombreEq = doc.data().NombreEquipo;
+      console.log("Nombre del equipo: " + nombreEq);
+      $$('#tituloEquipoInt').text(nombreEq);
+    } else {
+      console.log("No such document!");
+    }
+  }).catch((error) => {
+    console.log("Error getting document:", error);
+  })
+
+  //$$('#agregaAmigo').on('click', fnAgregaAmigo);
+  /*function fnAgregaAmigo() {
+    nombreJugador = $$('#nomJugador').val();
+    puestoJugador = $$('#puesJugador').val();
+    jugadoresEquipo = nombreJugador + "-"+ puestoJugador;
+    console.log("El jugador agregado: " + jugadoresEquipo);
+    $$('#nomJugador').val("");
+    $$('#puesJugador').val("");
+    var datosEquipo = { Jugadores: jugadoresEquipo };
+    colEquipos.doc(emailLogin).set(datosEquipo);
+    notificationRegJu.open();
+  }*/
+
+  $$('#invitaAmigoV').on('click', function () {
+    mainView.router.navigate('/mi-equipo/');
+  })
+})
 //************************************ VISTA "MI-EQUIPO" ***************************************
 //********************************************************************************************** 
 $$(document).on('page:init', '.page[data-name="mi-equipo"]', function (e) {
@@ -1212,7 +1263,6 @@ $$(document).on('page:init', '.page[data-name="mi-equipo"]', function (e) {
     }
   }).catch((error) => {
     console.log("Error getting document:", error);
-    
   });
 
   $$('#btnPerfil').on('click', function fnVistaPerfil() {
@@ -1227,28 +1277,16 @@ $$(document).on('page:init', '.page[data-name="mi-equipo"]', function (e) {
     mainView.router.navigate('/registro-equipo/');
   })
 
-  $$('#agregaIntegrantes').on('click', );
+  $$('#agregaIntegrantes').on('click', function () {
+   //FALTA ESTA********************************************************* 
+  });
 
-  
-  
-  
-
-  function fnAgregaJug() {
-    nombreEquipo = $$('#ingresaEq').val();
-    nombreJugador = $$('#nomJugador').val();
-    puestoJugador = $$('#puesJugador').val();
-    jugadoresEquipo += nombreJugador + puestoJugador;
-    console.log("Los jugadores agregados: " + jugadoresEquipo);
-    $$('#nomJugador').val("");
-    $$('#puesJugador').val("");
-    $$('#ingresaEq').val();
-    var datosEquipo = { Jugadores: jugadoresEquipo };
-    colEquipos.doc(emailLogin).set(datosEquipo);
-    notificationRegJu.open();
-  }
-    
+  $$('#btnReInvita').on('click', function () {
+    mainView.router.navigate('/invita-amigos/');
+  })
 })
-
+//************************************ VISTA "INDEX" ***************************************
+//********************************************************************************************** 
 $$(document).on('page:init', '.page[data-name="index"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
@@ -1272,7 +1310,6 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
     var usuAdmRef = colUsuariosAdm.doc(emailIngresado);
     emailLogin = emailIngresado;
     passLogin = passIngresado;
-    
     usuAdmRef.get().then((doc) => {
       if (doc.exists) {
         fnActivaLoginAd(emailIngresado, passIngresado);
@@ -1339,7 +1376,7 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
 
   function fnCierraLogin() {
     $$('.login-screen').on('loginscreen:close', function (e) {
-      console.log('Login screen close')
+      console.log('Login screen close');
     })
   }
 
