@@ -29,8 +29,7 @@ var app = new Framework7({
       { path: '/agenda-cliente/', url: 'agenda-cliente.html', },
       { path: '/ver-dia-cliente/', url: 'ver-dia-cliente.html', },
       { path: '/invita-amigos/', url: 'invita-amigos.html', },
-      
-    
+      { path: '/ranking-cliente/', url: 'ranking-cliente.html', },
     ]
     // ... other parameters
   });
@@ -246,6 +245,11 @@ $$(document).on('page:init', '.page[data-name="ingreso"]', function (e) {
     function fnMiequipo() {
       mainView.router.navigate('/mi-equipo/');
     }
+  $$('#btnRanking').on('click', fnCargaRankingCL);
+  function fnCargaRankingCL() {
+    mainView.router.navigate('/ranking-cliente/');
+  }
+   
 })
 //************************************ VISTA "AGENDA-CLIENTE" ***************************************
 //********************************************************************************************** 
@@ -587,17 +591,17 @@ $$(document).on('page:init', '.page[data-name="registro-equipo"]', function (e) 
 
   function fnRegistraEquipo() {
     nombreEquipo = $$('#nomEquipo').val();
+    console.log("Nombre del equipo: " + nombreEquipo);
     if (nombreEquipo == ""){
-      var datosEquipo = { NombreEquipo: nombreEquipo, Capitan: emailLogin };
+      notificationRegEqError.open();
+    }else{
+      var datosEquipo = { NombreEquipo: nombreEquipo, Capitan: emailLogin, Jugadores: "" };
       colEquipos.doc(emailLogin).set(datosEquipo);
       console.log("Equipo: " + nombreEquipo + " agregado exitosamente");
       $$('#nomEquipo').val("");
       notificationRegEq.open();
       mainView.router.navigate('/mi-equipo/');
-    }else{
-      notificationRegEqError.open();
     }
-    
   }
 
 })
@@ -1219,6 +1223,25 @@ $$(document).on('page:init', '.page[data-name="registro-canchas"]', function (e)
   }
   
 })
+//************************************ VISTA "RANKING-CLIENTE" ***************************************
+//********************************************************************************************** 
+$$(document).on('page:init', '.page[data-name="ranking-cliente"]', function (e) {
+  console.log(e);
+  var url = "https://livescore-api.com/api-client/leagues/table.json?competition_id=23&key=zNhvJsSyZqu0fwjq&secret=G40rIiomk50eTQ1sDjXmLQVLgpLwW4XC";
+  app.request.json(url, function (datos) {
+    var tabla = datos[26];
+    for (var i = 0; i < tabla.lenght; i++) {
+      var equipo = tabla.name;
+      var puntos = tabla.points;
+      var parJugados = tabla.matches;
+      var parGanados = tabla.won;
+      var parEmpatados = tabla.drawn;
+      var parPerdidos = tabla.lost;
+      var difGol = tabla.goal_diff;
+      $$('#cuerpoTablaPos').append('<tr><td class="label-cell">'+equipo+'</td>< td class= "numeric-cell" > '+puntos+'</td ><td class="numeric-cell">'+parJugados+'</td><td class="numeric-cell">'+parGanados+'</td><td class="numeric-cell">'+parEmpatados+'</td><td class="numeric-cell">'+parPerdidos+'</td><td class="numeric-cell">'+difGol+'</td></tr>');
+    }
+  }); 
+})
 //************************************ VISTA "INVITA-AMIGOS" ***************************************
 //********************************************************************************************** 
 $$(document).on('page:init', '.page[data-name="invita-amigos"]', function (e) {
@@ -1238,7 +1261,7 @@ $$(document).on('page:init', '.page[data-name="invita-amigos"]', function (e) {
   }).catch((error) => {
     console.log("Error getting document:", error);
   })
-
+//ACA FALTA HACER QUE VAYA AGREGANDO JUGADORES A BD, EN CAMBPO JUGADORES, Y NO QUE LOS REEMPLACE
   $$('#agregaAmigo').on('click', fnAgregaAmigo);
   function fnAgregaAmigo() {
     nombreJugador = $$('#nomJugador').val();
@@ -1250,7 +1273,7 @@ $$(document).on('page:init', '.page[data-name="invita-amigos"]', function (e) {
       if (doc.exists) {
         console.log("Esto funciona: " + doc.data().Nombre);
         var datosEquipo = { Jugadores: [nombreJugador, puestoJugador, dorsalJugador]};
-        colEquipos.doc(emailLogin).set(datosEquipo);
+        colEquipos.doc(emailLogin).update(datosEquipo);
         notificationRegJu.open();
         mainView.router.navigate('/mi-equipo/');
       } else {
@@ -1273,14 +1296,23 @@ $$(document).on('page:init', '.page[data-name="invita-amigos"]', function (e) {
 $$(document).on('page:init', '.page[data-name="mi-equipo"]', function (e) {
   console.log(e);
   var usuEquip = colEquipos.doc(emailLogin);
+  //ACA FALTA UN FOR PARA QUE AGREGUE A TODOS LOS JUGADORES DEL EQUIPO, A LA TABLA
   usuEquip.get().then((doc) => {
     if (doc.exists) {
       var nombreEq = doc.data().NombreEquipo;
       console.log("Nombre del equipo: " + nombreEq);
+      var jugadoresEq = doc.data().Jugadores;
+      console.log("Jugadores del equipo: " + jugadoresEq);
+      var usuarioEq = jugadoresEq[0];
+      var posicionEq = jugadoresEq[1];
+      var dorsalEq = jugadoresEq[2];
+      console.log("Usuario jugador: " + usuarioEq);
+      console.log("Posicion jugador: " + posicionEq);
+      console.log("Dorsal jugador: " + dorsalEq);
       $$('#tituloEquipo').text(nombreEq);
-      $$('#tablaDorsal').text();
-      $$('#tablaUsuario').text();
-      $$('#tablaPuesto').text(); 
+      $$('#tablaDorsal').text(dorsalEq);
+      $$('#tablaUsuario').text(usuarioEq);
+      $$('#tablaPuesto').text(posicionEq);
     } else {
       console.log("No such document!");
       $$('#agregaBtnRE').html('<button class="col button button-raised button-fill" id="btnRegistraEquipo">Registra un equipo</button>');
@@ -1318,15 +1350,12 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
   $$('#btnRegistro').on('click', fnRegistro);
   $$('#btnRegComplejo').on('click', fnRegComplejo);
   $$('#volverLogin').on('click', fnCierraLogin);
-
-  
   function fnIngreso() {
     $$('.login-screen').on('loginscreen:opened', function (e) {
       console.log('Login screen opened');
       $$('#ingresoLogin').on('click', fnLogueado);
     });
   }
-
   function fnLogueado() {
     emailLogin = $$('#usuarioLogin').val();
     passLogin = $$('#passwordLogin').val();
@@ -1351,7 +1380,6 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
       console.log("Error getting document:", error);
     });
   }
-
   function fnActivaLoginCl(email, pass) {
     firebase.auth().signInWithEmailAndPassword(email, pass)
       .then((user) => {

@@ -335,11 +335,16 @@ input{
 .dialog-button.dialog-button-bold{
   color: #c9ec2a;
 }
-.card{
-  background-color: #007d0b;
-  color: #ffffd3;
-}
-table{
-  background-color: #ffffd3;
+.data-table{
+  background-color: #3d3d3d;
   color: #3d3d3d;
+}
+#tituloTabla{
+  color: #c9ec2a;
+}
+.card{
+  background: #3d3d3d;
+}
+.datosTabla{
+  color: #ffffd3;
 }
