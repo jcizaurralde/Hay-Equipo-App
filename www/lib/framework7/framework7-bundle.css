@@ -14,10 +14,10 @@
   Core
   ==================== */
 :root {
-  --f7-theme-color: #007aff;
-  --f7-theme-color-rgb: 0, 122, 255;
-  --f7-theme-color-shade: #0066d6;
-  --f7-theme-color-tint: #298fff;
+  --f7-theme-color: #c9ec2a;
+  --f7-theme-color-rgb: 201, 236, 42;
+  --f7-theme-color-shade: #c9ec2a;
+  --f7-theme-color-tint: #c9ec2a;
   --f7-safe-area-left: 0px;
   --f7-safe-area-right: 0px;
   --f7-safe-area-top: 0px;

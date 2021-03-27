@@ -3,7 +3,7 @@
     <div class="page-content">
         <div class="block">
             <div class="row" style="height: 40px">
-                <a href="#" id="hamburguesa" class="button button-small panel-toggle display-flex hamburguesa"
+                <a href="#" id="hamburguesa7" class="button button-small panel-toggle display-flex hamburguesa"
                     data-panel="left">
                     <i class="f7-icons">bars</i>
                 </a>
@@ -17,34 +17,271 @@
                         <li><a class="list-button" href="#" id="btnPerfil">Mi perfil</a></li>
                         <li><a class="list-button" href="#" id="btnConfiguracion">Configuración</a></li>
                         <li><a class="list-button" href="#" id="btnAyuda">Ayuda</a></li>
-                        <li><a class="list-button" href="#" id="btnLogout">Cerrar Cesión</a></li>
+                        <li><a class="list-button" href="#" id="btnLogout">Cerrar Sesión</a></li>
                     </ul>
                 </div>
-                <br>
-                <br>
-                <br>
-                <button class="col button button-raised" id="btnVolvermenu">Volver</button>
-
             </div>
         </div>
-        <div class="card data-table">
-            <table>
-                <thead>
-                    <tr>
-                        <th class="label-cell">Equipo</th>
-                        <th class="numeric-cell">Puntos</th>
-                        <th class="numeric-cell">PJ</th>
-                        <th class="numeric-cell">PG</th>
-                        <th class="numeric-cell">PE</th>
-                        <th class="numeric-cell">PP</th>
-                        <th class="numeric-cell">DG</th>
-                    </tr>
-                </thead>
-                <tbody id="cuerpoTablaPos">
-
-                    ...
-                </tbody>
-            </table>
+        <div class="block">
+            <h2 class="titulos">Liga Profesional AFA</h2>
+        </div>
+        <div class="block">
+            <div class="card data-table">
+                <table id="tablaGral">
+                    <thead>
+                        <tr>
+                            <th class="label-cell">Equipo</th>
+                            <th class="numeric-cell">Puntos</th>
+                            <th class="numeric-cell">PJ</th>
+                            <th class="numeric-cell">PG</th>
+                            <th class="numeric-cell">PE</th>
+                            <th class="numeric-cell">PP</th>
+                            <th class="numeric-cell">DG</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpoTablaPos">
+                        <tr>
+                            <td id="indice0" class="label-cell"></td>
+                            <td id="indicePTS0" class="numeric-cell"></td>
+                            <td id="indiceJUG0" class="numeric-cell"></td>
+                            <td id="indiceGAN0" class="numeric-cell"></td>
+                            <td id="indiceEMP0" class="numeric-cell"></td>
+                            <td id="indicePER0" class="numeric-cell"></td>
+                            <td id="indiceDIF0" class="numeric-cell"></td>
+                        </tr>
+                        <tr>
+                            <td id="indice1" class="label-cell"></td>
+                            <td id="indicePTS1" class="numeric-cell"></td>
+                            <td id="indiceJUG1" class="numeric-cell"></td>
+                            <td id="indiceGAN1" class="numeric-cell"></td>
+                            <td id="indiceEMP1" class="numeric-cell"></td>
+                            <td id="indicePER1" class="numeric-cell"></td>
+                            <td id="indiceDIF1" class="numeric-cell"></td>
+                        </tr>
+                        <tr>
+                            <td id="indice2" class="label-cell"></td>
+                            <td id="indicePTS2" class="numeric-cell"></td>
+                            <td id="indiceJUG2" class="numeric-cell"></td>
+                            <td id="indiceGAN2" class="numeric-cell"></td>
+                            <td id="indiceEMP2" class="numeric-cell"></td>
+                            <td id="indicePER2" class="numeric-cell"></td>
+                            <td id="indiceDIF2" class="numeric-cell"></td>
+                        </tr>
+                        <tr>
+                            <td id="indice3" class="label-cell"></td>
+                            <td id="indicePTS3" class="numeric-cell"></td>
+                            <td id="indiceJUG3" class="numeric-cell"></td>
+                            <td id="indiceGAN3" class="numeric-cell"></td>
+                            <td id="indiceEMP3" class="numeric-cell"></td>
+                            <td id="indicePER3" class="numeric-cell"></td>
+                            <td id="indiceDIF3" class="numeric-cell"></td>
+                        </tr>
+                        <tr>
+                            <td id="indice4" class="label-cell"></td>
+                            <td id="indicePTS4" class="numeric-cell"></td>
+                            <td id="indiceJUG4" class="numeric-cell"></td>
+                            <td id="indiceGAN4" class="numeric-cell"></td>
+                            <td id="indiceEMP4" class="numeric-cell"></td>
+                            <td id="indicePER4" class="numeric-cell"></td>
+                            <td id="indiceDIF4" class="numeric-cell"></td>
+                        </tr>
+                        <tr>
+                            <td id="indice5" class="label-cell"></td>
+                            <td id="indicePTS6" class="numeric-cell"></td>
+                            <td id="indiceJUG6" class="numeric-cell"></td>
+                            <td id="indiceGAN6" class="numeric-cell"></td>
+                            <td id="indiceEMP6" class="numeric-cell"></td>
+                            <td id="indicePER6" class="numeric-cell"></td>
+                            <td id="indiceDIF6" class="numeric-cell"></td>
+                        </tr>
+                        <tr>
+                            <td id="indice6" class="label-cell"></td>
+                            <td id="indicePTS6" class="numeric-cell"></td>
+                            <td id="indiceJUG6" class="numeric-cell"></td>
+                            <td id="indiceGAN6" class="numeric-cell"></td>
+                            <td id="indiceEMP6" class="numeric-cell"></td>
+                            <td id="indicePER6" class="numeric-cell"></td>
+                            <td id="indiceDIF6" class="numeric-cell"></td>
+                        </tr>
+                        <tr>
+                            <td id="indice7" class="label-cell"></td>
+                            <td id="indicePTS7" class="numeric-cell"></td>
+                            <td id="indiceJUG7" class="numeric-cell"></td>
+                            <td id="indiceGAN7" class="numeric-cell"></td>
+                            <td id="indiceEMP7" class="numeric-cell"></td>
+                            <td id="indicePER7" class="numeric-cell"></td>
+                            <td id="indiceDIF7" class="numeric-cell"></td>
+                        </tr>
+                        <tr>
+                            <td id="indice8" class="label-cell"></td>
+                            <td id="indicePTS8" class="numeric-cell"></td>
+                            <td id="indiceJUG8" class="numeric-cell"></td>
+                            <td id="indiceGAN8" class="numeric-cell"></td>
+                            <td id="indiceEMP8" class="numeric-cell"></td>
+                            <td id="indicePER8" class="numeric-cell"></td>
+                            <td id="indiceDIF8" class="numeric-cell"></td>
+                        </tr>
+                        <tr>
+                            <td id="indice9" class="label-cell"></td>
+                            <td id="indicePTS9" class="numeric-cell"></td>
+                            <td id="indiceJUG9" class="numeric-cell"></td>
+                            <td id="indiceGAN9" class="numeric-cell"></td>
+                            <td id="indiceEMP9" class="numeric-cell"></td>
+                            <td id="indicePER9" class="numeric-cell"></td>
+                            <td id="indiceDIF9" class="numeric-cell"></td>
+                        </tr>
+                        <tr>
+                            <td id="indice10" class="label-cell"></td>
+                            <td id="indicePTS10" class="numeric-cell"></td>
+                            <td id="indiceJUG10" class="numeric-cell"></td>
+                            <td id="indiceGAN10" class="numeric-cell"></td>
+                            <td id="indiceEMP10" class="numeric-cell"></td>
+                            <td id="indicePER10" class="numeric-cell"></td>
+                            <td id="indiceDIF10" class="numeric-cell"></td>
+                        </tr>
+                        <tr>
+                            <td id="indice11" class="label-cell"></td>
+                            <td id="indicePTS11" class="numeric-cell"></td>
+                            <td id="indiceJUG11" class="numeric-cell"></td>
+                            <td id="indiceGAN11" class="numeric-cell"></td>
+                            <td id="indiceEMP11" class="numeric-cell"></td>
+                            <td id="indicePER11" class="numeric-cell"></td>
+                            <td id="indiceDIF11" class="numeric-cell"></td>
+                        </tr>
+                        <tr>
+                            <td id="indice12" class="label-cell"></td>
+                            <td id="indicePTS12" class="numeric-cell"></td>
+                            <td id="indiceJUG12" class="numeric-cell"></td>
+                            <td id="indiceGAN12" class="numeric-cell"></td>
+                            <td id="indiceEMP12" class="numeric-cell"></td>
+                            <td id="indicePER12" class="numeric-cell"></td>
+                            <td id="indiceDIF12" class="numeric-cell"></td>
+                        </tr>
+                        <tr>
+                            <td id="indice13" class="label-cell"></td>
+                            <td id="indicePTS13" class="numeric-cell"></td>
+                            <td id="indiceJUG13" class="numeric-cell"></td>
+                            <td id="indiceGAN13" class="numeric-cell"></td>
+                            <td id="indiceEMP13" class="numeric-cell"></td>
+                            <td id="indicePER13" class="numeric-cell"></td>
+                            <td id="indiceDIF13" class="numeric-cell"></td>
+                        </tr>
+                        <tr>
+                            <td id="indice14" class="label-cell"></td>
+                            <td id="indicePTS14" class="numeric-cell"></td>
+                            <td id="indiceJUG14" class="numeric-cell"></td>
+                            <td id="indiceGAN14" class="numeric-cell"></td>
+                            <td id="indiceEMP14" class="numeric-cell"></td>
+                            <td id="indicePER14" class="numeric-cell"></td>
+                            <td id="indiceDIF14" class="numeric-cell"></td>
+                        </tr>
+                        <tr>
+                            <td id="indice15" class="label-cell"></td>
+                            <td id="indicePTS15" class="numeric-cell"></td>
+                            <td id="indiceJUG15" class="numeric-cell"></td>
+                            <td id="indiceGAN15" class="numeric-cell"></td>
+                            <td id="indiceEMP15" class="numeric-cell"></td>
+                            <td id="indicePER15" class="numeric-cell"></td>
+                            <td id="indiceDIF15" class="numeric-cell"></td>
+                        </tr>
+                        <tr>
+                            <td id="indice16" class="label-cell"></td>
+                            <td id="indicePTS16" class="numeric-cell"></td>
+                            <td id="indiceJUG16" class="numeric-cell"></td>
+                            <td id="indiceGAN16" class="numeric-cell"></td>
+                            <td id="indiceEMP16" class="numeric-cell"></td>
+                            <td id="indicePER16" class="numeric-cell"></td>
+                            <td id="indiceDIF16" class="numeric-cell"></td>
+                        </tr>
+                        <tr>
+                            <td id="indice17" class="label-cell"></td>
+                            <td id="indicePTS17" class="numeric-cell"></td>
+                            <td id="indiceJUG17" class="numeric-cell"></td>
+                            <td id="indiceGAN17" class="numeric-cell"></td>
+                            <td id="indiceEMP17" class="numeric-cell"></td>
+                            <td id="indicePER17" class="numeric-cell"></td>
+                            <td id="indiceDIF17" class="numeric-cell"></td>
+                        </tr>
+                        <tr>
+                            <td id="indice18" class="label-cell"></td>
+                            <td id="indicePTS18" class="numeric-cell"></td>
+                            <td id="indiceJUG18" class="numeric-cell"></td>
+                            <td id="indiceGAN18" class="numeric-cell"></td>
+                            <td id="indiceEMP18" class="numeric-cell"></td>
+                            <td id="indicePER18" class="numeric-cell"></td>
+                            <td id="indiceDIF18" class="numeric-cell"></td>
+                        </tr>
+                        <tr>
+                            <td id="indice19" class="label-cell"></td>
+                            <td id="indicePTS19" class="numeric-cell"></td>
+                            <td id="indiceJUG19" class="numeric-cell"></td>
+                            <td id="indiceGAN19" class="numeric-cell"></td>
+                            <td id="indiceEMP19" class="numeric-cell"></td>
+                            <td id="indicePER19" class="numeric-cell"></td>
+                            <td id="indiceDIF19" class="numeric-cell"></td>
+                        </tr>
+                        <tr>
+                            <td id="indice20" class="label-cell"></td>
+                            <td id="indicePTS20" class="numeric-cell"></td>
+                            <td id="indiceJUG20" class="numeric-cell"></td>
+                            <td id="indiceGAN20" class="numeric-cell"></td>
+                            <td id="indiceEMP20" class="numeric-cell"></td>
+                            <td id="indicePER20" class="numeric-cell"></td>
+                            <td id="indiceDIF20" class="numeric-cell"></td>
+                        </tr>
+                        <tr>
+                            <td id="indice21" class="label-cell"></td>
+                            <td id="indicePTS21" class="numeric-cell"></td>
+                            <td id="indiceJUG21" class="numeric-cell"></td>
+                            <td id="indiceGAN21" class="numeric-cell"></td>
+                            <td id="indiceEMP21" class="numeric-cell"></td>
+                            <td id="indicePER21" class="numeric-cell"></td>
+                            <td id="indiceDIF21" class="numeric-cell"></td>
+                        </tr>
+                        <tr>
+                            <td id="indice22" class="label-cell"></td>
+                            <td id="indicePTS22" class="numeric-cell"></td>
+                            <td id="indiceJUG22" class="numeric-cell"></td>
+                            <td id="indiceGAN22" class="numeric-cell"></td>
+                            <td id="indiceEMP22" class="numeric-cell"></td>
+                            <td id="indicePER22" class="numeric-cell"></td>
+                            <td id="indiceDIF22" class="numeric-cell"></td>
+                        </tr>
+                        <tr>
+                            <td id="indice23" class="label-cell"></td>
+                            <td id="indicePTS23" class="numeric-cell"></td>
+                            <td id="indiceJUG23" class="numeric-cell"></td>
+                            <td id="indiceGAN23" class="numeric-cell"></td>
+                            <td id="indiceEMP23" class="numeric-cell"></td>
+                            <td id="indicePER23" class="numeric-cell"></td>
+                            <td id="indiceDIF23" class="numeric-cell"></td>
+                        </tr>
+                        <tr>
+                            <td id="indice24" class="label-cell"></td>
+                            <td id="indicePTS24" class="numeric-cell"></td>
+                            <td id="indiceJUG24" class="numeric-cell"></td>
+                            <td id="indiceGAN24" class="numeric-cell"></td>
+                            <td id="indiceEMP24" class="numeric-cell"></td>
+                            <td id="indicePER24" class="numeric-cell"></td>
+                            <td id="indiceDIF24" class="numeric-cell"></td>
+                        </tr>
+                        <tr>
+                            <td id="indice25" class="label-cell"></td>
+                            <td id="indicePTS25" class="numeric-cell"></td>
+                            <td id="indiceJUG25" class="numeric-cell"></td>
+                            <td id="indiceGAN25" class="numeric-cell"></td>
+                            <td id="indiceEMP25" class="numeric-cell"></td>
+                            <td id="indicePER25" class="numeric-cell"></td>
+                            <td id="indiceDIF25" class="numeric-cell"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="block">
+            <div class="row">
+                <button class="col-100 button button-raised button-fill" id="btnRVolver">Volver</button>
+            </div>
         </div>
     </div>
 </div>

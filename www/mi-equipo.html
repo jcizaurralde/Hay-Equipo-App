@@ -3,7 +3,7 @@
     <div class="page-content">
         <div class="block">
             <div class="row" style="height: 40px">
-                    <a href="#" id="hamburguesa" class="button button-small panel-toggle display-flex hamburguesa" data-panel="left">
+                    <a href="#" id="hamburguesa6" class="button button-small panel-toggle display-flex hamburguesa" data-panel="left">
                         <i class="f7-icons">bars</i>
                     </a>
             </div>
@@ -16,7 +16,7 @@
                         <li><a class="list-button" href="#" id="btnPerfil">Mi perfil</a></li>
                         <li><a class="list-button" href="#" id="btnConfiguracion">Configuración</a></li>
                         <li><a class="list-button" href="#" id="btnAyuda">Ayuda</a></li>
-                        <li><a class="list-button" href="#" id="btnLogout">Cerrar Cesión</a></li>
+                        <li><a class="list-button" href="#" id="btnLogout">Cerrar Sesión</a></li>
                     </ul>
                 </div>
             </div>
@@ -28,34 +28,17 @@
                     <caption id="tituloTabla">Jugadores</caption>
                     <thead>
                         <tr>
-                            <th class="input-cell">
-                                <span class="table-head-label">Dorsal</span>
-                                <div class="text" style="width: 50px">
-                                    <input class="datosTabla" type="text">
-                                </div>
-                            </th>
-                            <th class="input-cell">
-                                <span class="table-head-label">Usuario/Nombre</span>
-                                <div class="input">
-                                    <input class="datosTabla" type="text">
-                                </div>
-                            </th>
-                            ...
-                            <th class="input-cell">
-                                <span class="table-head-label">Puesto</span>
-                                <div class="input">
-                                    <input class="datosTabla" type="text">
-                                </div>
-                            </th>
+                            <th class="numeric-cell">Dorsal</th>
+                            <th class="label-cell">Usuario/Nombre</th>
+                            <th class="label-cell">Puesto</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td id="tablaDorsal"></td>
-                            <td id="tablaUsuario"></td>
-                            <td id="tablaPuesto"></td>
+                            <td id="tablaDorsal" class="numeric-cell"></td>
+                            <td id="tablaUsuario" class="label-cell"></td>
+                            <td id="tablaPuesto" class="label-cell"></td>
                         </tr>
-                        ...
                     </tbody>
                 </table>
             </div>

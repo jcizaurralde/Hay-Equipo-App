@@ -95,7 +95,7 @@ body{
 }
 
 .titulos{
-  color: #007d0b;
+  color: #c9ec2a;
   text-align: center;
 }
 
@@ -136,26 +136,56 @@ input{
 #logotipo{
     height: 20vh;
     width: 30vw;
-    margin-left: 29vw;
+    margin-left: 28vw;
     margin-right: 50vw;
     padding-bottom: 0vw;
 }
 /*PONER ID HAMBURGUESA EN TODAS LAS VISTAS*/
-#hamburguesa{
+#hamburguesa1{
   color: #007d0b;
   background-color: #3d3d3d;
 }
-#hamburguesaPerfil{
+#hamburguesa2{
   color: #007d0b;
   background-color: #3d3d3d;
 }
-
-#hamburguesaDCL{
+#hamburguesa3{
   color: #007d0b;
   background-color: #3d3d3d;
 }
-
-#hamburguesaDADM{
+#hamburguesa4{
+  color: #007d0b;
+  background-color: #3d3d3d;
+}
+#hamburguesa5{
+  color: #007d0b;
+  background-color: #3d3d3d;
+}
+#hamburguesa6{
+  color: #007d0b;
+  background-color: #3d3d3d;
+}
+#hamburguesa7{
+  color: #007d0b;
+  background-color: #3d3d3d;
+}
+#hamburguesa8{
+  color: #007d0b;
+  background-color: #3d3d3d;
+}
+#hamburguesa9{
+  color: #007d0b;
+  background-color: #3d3d3d;
+}
+#hamburguesa10{
+  color: #007d0b;
+  background-color: #3d3d3d;
+}
+#hamburguesa11{
+  color: #007d0b;
+  background-color: #3d3d3d;
+}
+#hamburguesa12{
   color: #007d0b;
   background-color: #3d3d3d;
 }
@@ -163,66 +193,53 @@ input{
   color: #ffffd3;
   font-size: 22px;
 }
-
 #volverLogin{
   color: #ffffd3;
   font-size: 15px;
 }
-
 #pelota{
   height: 18vh;
   width: 25vw;
   margin-left: 38vw;
   margin-right: 50vw;
 }
-
 #pelotaChica{
   height: 6vh;
   width: 8vw;
 }
-
 #facebook{
   height: 6vh;
   width: 8vw;
 }
-
 #google{
   height: 6vh;
   width: 8vw;
 }
-
 #camiseta{
   height: 6vh;
   width: 8vw;
 }
-
 .btnPortada{
   height: 8vh;
 }
-
 #LScreen{
   background-color: #3d3d3d;
 }
 #pageLScreen{
   background-color: #3d3d3d;
 }
-
 #tituloPrincipal{
   margin-top: 0px;
 }
-
 .portada{
   height: 9vh;
 }
-
 .item-label{
   color: #ffffd3;
 }
-
 input{
   color: #ffffd3;
 }
-
 .panel{
   background-color: #3d3d3d;
 }
@@ -230,7 +247,6 @@ input{
 #barraBusqueda{
   background-color: #3d3d3d;
 }
-
 .notification.modal-in{
   background-color: #3d3d3d;
 }
@@ -240,7 +256,6 @@ input{
 .notification-close-button{
   color: #ffffd3;
 }
-
 .notification-subtitle{
   color: #ffffd3;
 }
@@ -250,7 +265,6 @@ input{
 .notification-text{
   color: #ffffd3;
 }
-
 .list .item-after{
   color: #c9ec2a;
 }
@@ -278,7 +292,6 @@ input{
 .list .item-floating-label{
     color: #ffffd3;
 }
-
 .block-strong{
   background-color: #3d3d3d;
 }
@@ -347,4 +360,15 @@ input{
 }
 .datosTabla{
   color: #ffffd3;
+}
+.data-table thead td:not(.sortable-cell-active), .data-table thead th:not(.sortable-cell-active){
+  background-color: #ffffd3;
+  color: #007d0b;
+}
+#fotoPerfilCl{
+  height: 14vh;
+  width: 20vw;
+  border: solid 5px #c9ec2a;
+  border-radius: 100%;
+  margin-left: 35vw;
 }

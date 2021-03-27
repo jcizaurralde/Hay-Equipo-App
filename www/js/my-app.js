@@ -30,6 +30,7 @@ var app = new Framework7({
       { path: '/ver-dia-cliente/', url: 'ver-dia-cliente.html', },
       { path: '/invita-amigos/', url: 'invita-amigos.html', },
       { path: '/ranking-cliente/', url: 'ranking-cliente.html', },
+      { path: '/agrega-integrantes/', url: 'agrega-integrantes.html', },
     ]
     // ... other parameters
   });
@@ -116,6 +117,12 @@ var dorsalJugador = "";
 var nombreJugador = "";
 var puestoJugador = "";
 var notificationRegJuError = "";
+var tabla = "";
+var fechaConcat2 = "";
+var pedidoUsuario = "";
+var nombreJugador2 = "";
+var puestoJugador2 = "";
+var dorsalJugador2 = "";
 
 $$(document).on('deviceready', function() {
     console.log("Device is ready!");
@@ -319,7 +326,6 @@ $$(document).on('page:init', '.page[data-name="agenda-cliente"]', function (e) {
   function fnAbreCalendar2() {
     calendario2.open();
   }
-  //ACA FALTA TRABAJAR EL DIA SELECCIONADO PARA QUE SEA FORMATO 2021-04-23
   function fnMuestraDiaSeleccionadoCl() {
     var hoy = new Date(diaSelecCl);
     var dia = hoy.getDate().toString();
@@ -333,6 +339,7 @@ $$(document).on('page:init', '.page[data-name="agenda-cliente"]', function (e) {
     }
     var fechaConcat = año + "-" + mes + "-" + dia;
     console.log("Fecha Concatenada: " + fechaConcat);
+    fechaConcat2 = dia + "-" + mes + "-" + año;
     idDias = correoCancha + fechaConcat;
     console.log("ID del dia: " + idDias);
     mainView.router.navigate('/ver-dia-cliente/');
@@ -371,62 +378,63 @@ $$(document).on('page:init', '.page[data-name="ver-dia-cliente"]', function (e) 
       },
     ]
   })
+  $$('#tituloFechaCl').text("La fecha seleccionada: "+ fechaConcat2);
   //Me traigo de la colección "Dias", los turnos, para ponerlos como texto, 
   //dentro de los botones en "ver-dia-cliente" -->
   diaRef = colDias.doc(idDias);
   console.log("El dia de referencia: " + diaRef);
   diaRef.get().then((doc) => {
     if (doc.exists) {
-      turno1 = doc.data().Turno1;
+      turno1 = doc.data().Turno1[0];
       console.log("Turno 1: " + turno1);
       if (turno1 == undefined) {
         console.log("No existe este horario");
       } else {
         $$('#clienteTurnos1').text(turno1);
       }
-      turno2 = doc.data().Turno2;
+      turno2 = doc.data().Turno2[0];
       console.log("Turno 2: " + turno2);
       if (turno2 == undefined) {
         console.log("No existe este horario");
       } else {
         $$('#clienteTurnos2').text(turno2);
       }
-      turno3 = doc.data().Turno3;
+      turno3 = doc.data().Turno3[0];
       console.log("Turno 3: " + turno3);
       if (turno3 == undefined) {
         console.log("No existe este horario");
       } else {
         $$('#clienteTurnos3').text(turno3);
       }
-      turno4 = doc.data().Turno4;
+      turno4 = doc.data().Turno4[0];
       console.log("Turno 4: " + turno4);
       if (turno4 == undefined) {
         console.log("No existe este horario");
       } else {
         $$('#clienteTurnos4').text(turno4);
       }
-      turno5 = doc.data().Turno5;
+      turno5 = doc.data().Turno5[0];
       console.log("Turno 5: " + turno5);
       if (turno5 == undefined) {
         console.log("No existe este horario");
       } else {
         $$('#clienteTurnos5').text(turno5);
       }
-      turno6 = doc.data().Turno6;
+      turno6 = doc.data().Turno6[0];
       console.log("Turno 6: " + turno6);
       if (turno6 == undefined) {
         console.log("No existe este horario");
       } else {
         $$('#clienteTurnos6').text(turno6);
       }
-      turno7 = doc.data().Turno7;
+      turno7 = doc.data().Turno7[0];
       console.log("Turno 7: " + turno7);
       if (turno7 == undefined) {
         console.log("No existe este horario");
       } else {
         $$('#clienteTurnos7').text(turno7);
       }
-      turno8 = doc.data().Turno8;
+      turno8 = doc.data().Turno8[0];
       console.log("Turno 8: " + turno8);
       if (turno8 == undefined) {
         console.log("No existe este horario");
@@ -448,17 +456,46 @@ $$(document).on('page:init', '.page[data-name="ver-dia-cliente"]', function (e) 
     btnHorario = this.id;
     accionTurnos2.open();
   });
+  $$('#clienteTurnos2').on('click', function () {
+    btnHorario = this.id;
+    accionTurnos2.open();
+  });
+  $$('#clienteTurnos3').on('click', function () {
+    btnHorario = this.id;
+    accionTurnos2.open();
+  });
+  $$('#clienteTurnos4').on('click', function () {
+    btnHorario = this.id;
+    accionTurnos2.open();
+  });
+  $$('#clienteTurnos5').on('click', function () {
+    btnHorario = this.id;
+    accionTurnos2.open();
+  });
+  $$('#clienteTurnos6').on('click', function () {
+    btnHorario = this.id;
+    accionTurnos2.open();
+  });
+  $$('#clienteTurnos7').on('click', function () {
+    btnHorario = this.id;
+    accionTurnos2.open();
+  });
+  $$('#clienteTurnos8').on('click', function () {
+    btnHorario = this.id;
+    accionTurnos2.open();
+  });
   //Actualizo cada uno de los turnos del dia ID (diaRef), de la coleccion (dias),
   //enviandole un nuevo valor ("disponible" u "ocupado") -->
   function fnModificaTurnoCl(dispTurno) {
     console.log("Boton seleccionado: " + btnHorario);
+    pedidoUsuario = emailLogin;
     switch (btnHorario) {
       case "clienteTurnos1":
         btnHorario = turno1;
         horario1 = turno1.slice(0, 5);
         console.log("El turno a modificar es: " + btnHorario);
         console.log("Este horario: " + horario1);
-        diaRef.update({ Turno1: horario1 + "-" + dispTurno })
+        diaRef.update({ Turno1: [horario1 + "-" + dispTurno, pedidoUsuario]})
           .then(function () {
             console.log("actualizado ok");
             mainView.router.navigate('/agenda-cliente/');
@@ -472,7 +509,7 @@ $$(document).on('page:init', '.page[data-name="ver-dia-cliente"]', function (e) 
         horario2 = turno2.slice(0, 5);
         console.log("El turno a modificar es: " + btnHorario);
         console.log("Este horario: " + horario2);
-        diaRef.update({ Turno2: horario2 + "-" + dispTurno })
+        diaRef.update({ Turno2: [horario2 + "-" + dispTurno, pedidoUsuario]})
           .then(function () {
             console.log("actualizado ok");
             mainView.router.navigate('/agenda-cliente/');
@@ -485,7 +522,7 @@ $$(document).on('page:init', '.page[data-name="ver-dia-cliente"]', function (e) 
         btnHorario = turno3;
         horario3 = turno3.slice(0, 5);
         console.log("El turno a modificar es: " + btnHorario);
-        diaRef.update({ Turno3: horario3 + "-" + dispTurno })
+        diaRef.update({ Turno3: [horario3 + "-" + dispTurno, pedidoUsuario]})
           .then(function () {
             console.log("actualizado ok");
             mainView.router.navigate('/agenda-cliente/');
@@ -498,7 +535,7 @@ $$(document).on('page:init', '.page[data-name="ver-dia-cliente"]', function (e) 
         btnHorario = turno4;
         horario4 = turno4.slice(0, 5);
         console.log("El turno a modificar es: " + btnHorario);
-        diaRef.update({ Turno4: horario4 + "-" + dispTurno })
+        diaRef.update({ Turno4: [horario4 + "-" + dispTurno, pedidoUsuario]})
           .then(function () {
             console.log("actualizado ok");
             mainView.router.navigate('/agenda-cliente/');
@@ -511,7 +548,7 @@ $$(document).on('page:init', '.page[data-name="ver-dia-cliente"]', function (e) 
         btnHorario = turno5;
         horario5 = turno5.slice(0, 5);
         console.log("El turno a modificar es: " + btnHorario);
-        diaRef.update({ Turno5: horario5 + "-" + dispTurno })
+        diaRef.update({ Turno5: [horario5 + "-" + dispTurno, pedidoUsuario]})
           .then(function () {
             console.log("actualizado ok");
             mainView.router.navigate('/agenda-cliente/');
@@ -524,7 +561,7 @@ $$(document).on('page:init', '.page[data-name="ver-dia-cliente"]', function (e) 
         btnHorario = turno6;
         horario6 = turno6.slice(0, 5);
         console.log("El turno a modificar es: " + btnHorario);
-        diaRef.update({ Turno6: horario6 + "-" + dispTurno })
+        diaRef.update({ Turno6: [horario6 + "-" + dispTurno, pedidoUsuario]})
           .then(function () {
             console.log("actualizado ok");
             mainView.router.navigate('/agenda-cliente/');
@@ -537,7 +574,7 @@ $$(document).on('page:init', '.page[data-name="ver-dia-cliente"]', function (e) 
         btnHorario = turno7;
         horario7 = turno7.slice(0, 5);
         console.log("El turno a modificar es: " + btnHorario);
-        diaRef.update({ Turno7: horario7 + "-" + dispTurno })
+        diaRef.update({ Turno7: [horario7 + "-" + dispTurno, pedidoUsuario]})
           .then(function () {
             console.log("actualizado ok");
             mainView.router.navigate('/agenda-cliente/');
@@ -550,7 +587,7 @@ $$(document).on('page:init', '.page[data-name="ver-dia-cliente"]', function (e) 
         btnHorario = turno8;
         horario8 = turno8.slice(0, 5);
         console.log("El turno a modificar es: " + btnHorario);
-        diaRef.update({ Turno8: horario8 + "-" + dispTurno })
+        diaRef.update({ Turno8: [horario8 + "-" + dispTurno, pedidoUsuario]})
           .then(function () {
             console.log("actualizado ok");
             mainView.router.navigate('/agenda-cliente/');
@@ -595,7 +632,11 @@ $$(document).on('page:init', '.page[data-name="registro-equipo"]', function (e) 
     if (nombreEquipo == ""){
       notificationRegEqError.open();
     }else{
-      var datosEquipo = { NombreEquipo: nombreEquipo, Capitan: emailLogin, Jugadores: "" };
+      var datosEquipo = { NombreEquipo: nombreEquipo, Capitan: emailLogin, Jugadores1: "", Jugadores2: "",
+        Jugadores3: "", Jugadores4: "", Jugadores5: "", Jugadores6: "", Jugadores7: "", Jugadores8: "",
+        Jugadores9: "", Jugadore10: "", Jugadores11: "", Jugadores12: "", Jugadores13: "",
+        Jugadores14: "", Jugadores15: "", Jugadore16: "", Jugadores17: "", Jugadore18: "",
+        Jugadore19: "", Jugadores20: "", };
       colEquipos.doc(emailLogin).set(datosEquipo);
       console.log("Equipo: " + nombreEquipo + " agregado exitosamente");
       $$('#nomEquipo').val("");
@@ -752,64 +793,57 @@ $$(document).on('page:init', '.page[data-name="agenda-admin"]', function (e) {
       console.log("idDias: "+ idDias);
       switch ((cantHoras+1)) {
         case 1:
-          var datosAgenda = { Usuario: emailLogin, Turno1: horario1 +"-"+"Libre"}
+          var datosAgenda = { Usuario: emailLogin, Turno1: [horario1 +"-"+"Libre", pedidoUsuario]}
           console.log("Datos agenda: " + datosAgenda);
           colDias.doc(idDias).set(datosAgenda);
           break;
         case 2:
-          var datosAgenda = { Usuario: emailLogin, Turno1: horario1 +"-"+"Libre", Turno2: horario2 +"-"+"Libre" }
+          var datosAgenda = { Usuario: emailLogin, Turno1: [horario1 + "-" + "Libre", pedidoUsuario], Turno2: [horario2 + "-" + "Libre", pedidoUsuario] }
           console.log("Datos agenda: " + datosAgenda);
           colDias.doc(idDias).set(datosAgenda);
           break;
         case 3:
           var datosAgenda = {
-            Usuario: emailLogin, Turno1: horario1 +"-"+"Libre", Turno2: horario2 +"-"+"Libre",
-            Turno3: horario3 +"-"+"Libre"}
-          console.log("Datos agenda: " + datosAgenda);
-          colDias.doc(idDias).set(datosAgenda);
-          break;
-        case 3:
-          var datosAgenda = {
-            Usuario: emailLogin, Turno1: horario1 +"-"+"Libre", Turno2: horario2 +"-"+"Libre",
-            Turno3: horario3 +"-"+"Libre"}
+            Usuario: emailLogin, Turno1: [horario1 + "-" + "Libre", pedidoUsuario], Turno2: [horario2 + "-" + "Libre", pedidoUsuario],
+            Turno3: [horario3 + "-" + "Libre", pedidoUsuario]}
           console.log("Datos agenda: " + datosAgenda);
           colDias.doc(idDias).set(datosAgenda);
           break;
         case 4:
           var datosAgenda = {
-            Usuario: emailLogin, Turno1: horario1 +"-"+"Libre", Turno2: horario2 +"-"+"Libre",
-            Turno3: horario3 +"-"+"Libre", Turno4: horario4 +"-"+"Libre"}
+            Usuario: emailLogin, Turno1: [horario1 + "-" + "Libre", pedidoUsuario], Turno2: [horario2 + "-" + "Libre", pedidoUsuario],
+            Turno3: [horario3 + "-" + "Libre", pedidoUsuario], Turno4: [horario4 + "-" + "Libre", pedidoUsuario]}
           console.log("Datos agenda: " + datosAgenda);
           colDias.doc(idDias).set(datosAgenda);
           break;
         case 5:
           var datosAgenda = {
-            Usuario: emailLogin, Turno1: horario1 +"-"+"Libre", Turno2: horario2 +"-"+"Libre",
-            Turno3: horario3 +"-"+"Libre", Turno4: horario4 +"-"+"Libre", Turno5: horario5 +"-"+"Libre"}
+            Usuario: emailLogin, Turno1: [horario1 + "-" + "Libre", pedidoUsuario], Turno2: [horario2 + "-" + "Libre", pedidoUsuario],
+            Turno3: [horario3 + "-" + "Libre", pedidoUsuario], Turno4: [horario4 + "-" + "Libre", pedidoUsuario], Turno5: [horario5 + "-" + "Libre", pedidoUsuario]}
           console.log("Datos agenda: " + datosAgenda);
           colDias.doc(idDias).set(datosAgenda);
           break;
         case 6:
           var datosAgenda = {
-            Usuario: emailLogin, Turno1: horario1 +"-"+"Libre", Turno2: horario2 +"-"+"Libre",
-            Turno3: horario3 +"-"+"Libre", Turno4: horario4 +"-"+"Libre", Turno5: horario5 +"-"+"Libre",
-            Turno6: horario6 +"-"+"Libre"}
+            Usuario: emailLogin, Turno1: [horario1 + "-" + "Libre", pedidoUsuario], Turno2: [horario2 + "-" + "Libre", pedidoUsuario],
+            Turno3: [horario3 + "-" + "Libre", pedidoUsuario], Turno4: [horario4 + "-" + "Libre", pedidoUsuario], Turno5: [horario5 + "-" + "Libre", pedidoUsuario],
+            Turno6: [horario6 + "-" + "Libre", pedidoUsuario]}
           console.log("Datos agenda: " + datosAgenda);
           colDias.doc(idDias).set(datosAgenda);
           break;
         case 7:
           var datosAgenda = {
-            Usuario: emailLogin, Turno1: horario1 +"-"+"Libre", Turno2: horario2 +"-"+"Libre",
-            Turno3: horario3 +"-"+"Libre", Turno4: horario4 +"-"+"Libre", Turno5: horario5 +"-"+"Libre",
-            Turno6: horario6 +"-"+"Libre", Turno7: horario7 +"-"+"Libre"}
+            Usuario: emailLogin, Turno1: [horario1 + "-" + "Libre", pedidoUsuario], Turno2: [horario2 + "-" + "Libre", pedidoUsuario],
+            Turno3: [horario3 + "-" + "Libre", pedidoUsuario], Turno4: [horario4 + "-" + "Libre", pedidoUsuario], Turno5: [horario5 + "-" + "Libre", pedidoUsuario],
+            Turno6: [horario6 + "-" + "Libre", pedidoUsuario], Turno7: [horario7 + "-" + "Libre", pedidoUsuario]}
           console.log("Datos agenda: " + datosAgenda);
           colDias.doc(idDias).set(datosAgenda);
           break;
         case 8:
           var datosAgenda = {
-            Usuario: emailLogin, Turno1: horario1 +"-"+"Libre", Turno2: horario2 +"-"+"Libre",
-            Turno3: horario3 +"-"+"Libre", Turno4: horario4 +"-"+"Libre", Turno5: horario5 +"-"+"Libre",
-            Turno6: horario6 +"-"+"Libre", Turno7: horario7 +"-"+"Libre", Turno8: horario8 +"-"+"Libre"}
+            Usuario: emailLogin, Turno1: [horario1 + "-" + "Libre", pedidoUsuario], Turno2: [horario2 + "-" + "Libre", pedidoUsuario],
+            Turno3: [horario3 + "-" + "Libre", pedidoUsuario], Turno4: [horario4 + "-" + "Libre", pedidoUsuario], Turno5: [horario5 + "-" + "Libre", pedidoUsuario],
+            Turno6: [horario6 + "-" + "Libre", pedidoUsuario], Turno7: [horario7 + "-" + "Libre", pedidoUsuario], Turno8: [horario8 + "-" + "Libre", pedidoUsuario]}
           console.log("Datos agenda: " + datosAgenda);
           colDias.doc(idDias).set(datosAgenda);
           break;
@@ -911,61 +945,109 @@ $$(document).on('page:init', '.page[data-name="ver-dia-admin"]', function (e) {
   console.log(fechaRef);
   fechaRef.get().then((doc) => {
     if (doc.exists) {
-      turno1 = doc.data().Turno1;
+      turno1 = doc.data().Turno1[0];
+      var consultaUsuario1 = doc.data().Turno1[1];
       console.log("Turno 1: " + turno1);
       if (turno1 == undefined){
         console.log("No existe este horario");
       }else{
         $$('#btnesTurnos1').text(turno1);
+        if (consultaUsuario1 == "") {
+          console.log("No ocupado");
+        }else{
+          $$('#muestraOcupado1').text('Turno: ' + turno1 + ' por: ' + consultaUsuario1);
+        }
       }
-      turno2 = doc.data().Turno2;
+      turno2 = doc.data().Turno2[0];
+      var consultaUsuario2 = doc.data().Turno2[1];
       console.log("Turno 2: " + turno2);
       if (turno2 == undefined){
         console.log("No existe este horario");
       }else{
         $$('#btnesTurnos2').text(turno2);
+        if (consultaUsuario2 == "") {
+          console.log("No ocupado");
+        } else {
+          $$('#muestraOcupado2').text('Turno: ' + turno2 + ' por: ' + consultaUsuario2);
+        }
       }
-      turno3 = doc.data().Turno3;
+      turno3 = doc.data().Turno3[0];
+      var consultaUsuario3 = doc.data().Turno3[1];
       console.log("Turno 3: " + turno3);
       if (turno3 == undefined){
         console.log("No existe este horario");
       }else{
         $$('#btnesTurnos3').text(turno3);
+        if (consultaUsuario3 == "") {
+          console.log("No ocupado");
+        } else {
+          $$('#muestraOcupado3').text('Turno: ' + turno3 + ' por: ' + consultaUsuario3);
+        }
       }
-      turno4 = doc.data().Turno4;
+      turno4 = doc.data().Turno4[0];
+      var consultaUsuario4 = doc.data().Turno4[1];
       console.log("Turno 4: " + turno4);
       if (turno4 == undefined){
         console.log("No existe este horario");
       }else{
         $$('#btnesTurnos4').text(turno4);
+        if (consultaUsuario4 == "") {
+          console.log("No ocupado");
+        } else {
+          $$('#muestraOcupado4').text('Turno: ' + turno4 + ' por: ' + consultaUsuario4);
+        }
       }
-      turno5 = doc.data().Turno5;
+      turno5 = doc.data().Turno5[0];
+      var consultaUsuario5 = doc.data().Turno5[1];
       console.log("Turno 5: " + turno5);
       if (turno5 == undefined){
         console.log("No existe este horario");
       }else{
         $$('#btnesTurnos5').text(turno5);
+        if (consultaUsuario5 == "") {
+          console.log("No ocupado");
+        } else {
+          $$('#muestraOcupado5').text('Turno: ' + turno5 + ' por: ' + consultaUsuario5);
+        }
       }
-      turno6 = doc.data().Turno6;
+      turno6 = doc.data().Turno6[0];
+      var consultaUsuario6 = doc.data().Turno6[1];
       console.log("Turno 6: " + turno6);
       if (turno6 == undefined){
         console.log("No existe este horario");
       }else{
         $$('#btnesTurnos6').text(turno6);
+        if (consultaUsuario6 == "") {
+          console.log("No ocupado");
+        } else {
+          $$('#muestraOcupado6').text('Turno: ' + turno6 + ' por: ' + consultaUsuario6);
+        }
       }
-      turno7 = doc.data().Turno7;
+      turno7 = doc.data().Turno7[0];
+      var consultaUsuario7 = doc.data().Turno7[1];
       console.log("Turno 7: " + turno7);
       if (turno7 == undefined){
         console.log("No existe este horario");
       }else{
         $$('#btnesTurnos7').text(turno7);
+        if (consultaUsuario7 == "") {
+          console.log("No ocupado");
+        } else {
+          $$('#muestraOcupado7').text('Turno: ' + turno7 + ' por: ' + consultaUsuario7);
+        }
       }
-      turno8 = doc.data().Turno8;
+      turno8 = doc.data().Turno8[0];
+      var consultaUsuario8 = doc.data().Turno8[1];
       console.log("Turno 8: " + turno8);
       if (turno8 == undefined){
         console.log("No existe este horario");
       } else{
         $$('#btnesTurnos8').text(turno8);
+        if (consultaUsuario8 == "") {
+          console.log("No ocupado");
+        } else {
+          $$('#muestraOcupado8').text('Turno: ' + turno8 + ' por: ' + consultaUsuario8);
+        }
       }
     } else {
       console.log("No such document!");
@@ -1227,20 +1309,51 @@ $$(document).on('page:init', '.page[data-name="registro-canchas"]', function (e)
 //********************************************************************************************** 
 $$(document).on('page:init', '.page[data-name="ranking-cliente"]', function (e) {
   console.log(e);
-  var url = "https://livescore-api.com/api-client/leagues/table.json?competition_id=23&key=zNhvJsSyZqu0fwjq&secret=G40rIiomk50eTQ1sDjXmLQVLgpLwW4XC";
+  var url = "https://livescore-api.com/api-client/leagues/table.json?competition_id=23&key=6nb3rgrddqoI79Ab&secret=kwrWQACpEPASxk2EIdH9u8mHzLpGU0Se";
   app.request.json(url, function (datos) {
-    var tabla = datos[26];
-    for (var i = 0; i < tabla.lenght; i++) {
-      var equipo = tabla.name;
-      var puntos = tabla.points;
-      var parJugados = tabla.matches;
-      var parGanados = tabla.won;
-      var parEmpatados = tabla.drawn;
-      var parPerdidos = tabla.lost;
-      var difGol = tabla.goal_diff;
-      $$('#cuerpoTablaPos').append('<tr><td class="label-cell">'+equipo+'</td>< td class= "numeric-cell" > '+puntos+'</td ><td class="numeric-cell">'+parJugados+'</td><td class="numeric-cell">'+parGanados+'</td><td class="numeric-cell">'+parEmpatados+'</td><td class="numeric-cell">'+parPerdidos+'</td><td class="numeric-cell">'+difGol+'</td></tr>');
+    tabla = datos.data.table;
+    console.log("Tabla: " + tabla);
+    for (var i = 0; i <tabla.length; i++) {
+      var equipo = tabla[i].name;
+      console.log("Equipo: " + equipo);
+      var puntos = tabla[i].points;
+      console.log("Puntos: " + puntos);
+      var parJugados = tabla[i].matches;
+      console.log("parJugados: " + parJugados);
+      var parGanados = tabla[i].won;
+      console.log("parGanados: " + parGanados);
+      var parEmpatados = tabla[i].drawn;
+      console.log("parEmpatados: " + parEmpatados);
+      var parPerdidos = tabla[i].lost;
+      console.log("parPerdidos: " + parPerdidos);
+      var difGol = tabla[i].goal_diff;
+      console.log("difGol: " + difGol);
+      var indice = "indice";
+      indice += [i];
+      var indicePTS = "indicePTS";
+      indicePTS += [i];
+      var indiceJUG = "indiceJUG";
+      indiceJUG += [i];
+      var indiceGAN = "indiceGAN";
+      indiceGAN += [i];
+      var indiceEMP = "indiceEMP";
+      indiceEMP += [i];
+      var indicePER = "indicePER";
+      indicePER += [i];
+      var indiceDIF = "indiceDIF";
+      indiceDIF += [i];
+      $$('#' + indice).text(equipo);
+      $$('#' + indicePTS).text(puntos);
+      $$('#' + indiceJUG).text(parJugados);
+      $$('#' + indiceGAN).text(parGanados);
+      $$('#' + indiceEMP).text(parEmpatados);
+      $$('#' + indicePER).text(parPerdidos);
+      $$('#' + indiceDIF).text(difGol);
     }
   }); 
+  $$('#btnRVolver').on('click', function () {
+    mainView.router.navigate('/ingreso/');
+  })
 })
 //************************************ VISTA "INVITA-AMIGOS" ***************************************
 //********************************************************************************************** 
@@ -1272,7 +1385,7 @@ $$(document).on('page:init', '.page[data-name="invita-amigos"]', function (e) {
     usuInvitadoRef.get().then((doc) => {
       if (doc.exists) {
         console.log("Esto funciona: " + doc.data().Nombre);
-        var datosEquipo = { Jugadores: [nombreJugador, puestoJugador, dorsalJugador]};
+        var datosEquipo = { Jugadores1: [nombreJugador, puestoJugador, dorsalJugador]};
         colEquipos.doc(emailLogin).update(datosEquipo);
         notificationRegJu.open();
         mainView.router.navigate('/mi-equipo/');
@@ -1301,8 +1414,10 @@ $$(document).on('page:init', '.page[data-name="mi-equipo"]', function (e) {
     if (doc.exists) {
       var nombreEq = doc.data().NombreEquipo;
       console.log("Nombre del equipo: " + nombreEq);
-      var jugadoresEq = doc.data().Jugadores;
+      var jugadoresEq = doc.data().Jugadores1;
       console.log("Jugadores del equipo: " + jugadoresEq);
+      var jugadoresEq2 = doc.data().Jugadores2;
+      console.log("Jugadores del equipo2: " + jugadoresEq2);
       var usuarioEq = jugadoresEq[0];
       var posicionEq = jugadoresEq[1];
       var dorsalEq = jugadoresEq[2];
@@ -1313,6 +1428,16 @@ $$(document).on('page:init', '.page[data-name="mi-equipo"]', function (e) {
       $$('#tablaDorsal').text(dorsalEq);
       $$('#tablaUsuario').text(usuarioEq);
       $$('#tablaPuesto').text(posicionEq);
+      var usuarioEq2 = jugadoresEq2[0];
+      var posicionEq2 = jugadoresEq2[1];
+      var dorsalEq2= jugadoresEq2[2];
+      console.log("Usuario jugador2: " + usuarioEq2);
+      console.log("Posicion jugador2: " + posicionEq2);
+      console.log("Dorsal jugador2: " + dorsalEq2);
+      $$('#tituloEquipo2').text(nombreEq2);
+      $$('#tablaDorsal2').text(dorsalEq2);
+      $$('#tablaUsuario2').text(usuarioEq2);
+      $$('#tablaPuesto2').text(posicionEq2);
     } else {
       console.log("No such document!");
       $$('#agregaBtnRE').html('<button class="col button button-raised button-fill" id="btnRegistraEquipo">Registra un equipo</button>');
@@ -1334,11 +1459,46 @@ $$(document).on('page:init', '.page[data-name="mi-equipo"]', function (e) {
   })
 
   $$('#agregaIntegrantes').on('click', function () {
-   //FALTA ESTA********************************************************* 
+    mainView.router.navigate('/agrega-integrantes/');
   });
 
   $$('#btnReInvita').on('click', function () {
     mainView.router.navigate('/invita-amigos/');
+  })
+})
+//************************************ VISTA "AGREGA-INTEGRANTES" ***************************************
+//********************************************************************************************** 
+$$(document).on('page:init', '.page[data-name="agrega-integrantes"]', function (e) {
+  console.log(e);
+  $$('#btnPerfil').on('click', function fnVistaPerfil() {
+    mainView.router.navigate('/perfil/');
+  })
+  var usuEquip = colEquipos.doc(emailLogin);
+  usuEquip.get().then((doc) => {
+    if (doc.exists) {
+      var nombreEq = doc.data().NombreEquipo;
+      console.log("Nombre del equipo: " + nombreEq);
+      $$('#tituloEquipoInt2').text(nombreEq);
+    } else {
+      console.log("No such document!");
+    }
+  }).catch((error) => {
+    console.log("Error getting document:", error);
+  })
+  //ACA FALTA HACER QUE VAYA AGREGANDO JUGADORES A BD, EN CAMBPO JUGADORES, Y NO QUE LOS REEMPLACE
+  $$('#agregaIntegrante').on('click', fnAgregaAmigo);
+  function fnAgregaAmigo() {
+    nombreJugador2 = $$('#nomJugador2').val();
+    puestoJugador2 = $$('#puesJugador2').val();
+    dorsalJugador2 = $$('#dorsalJugador2').val();
+    var datosEquipo = { Jugadores2: [nombreJugador2, puestoJugador2, dorsalJugador2] };
+    colEquipos.doc(emailLogin).update(datosEquipo);
+    notificationRegJu.open();
+    mainView.router.navigate('/mi-equipo/');
+  }
+
+  $$('#invitaIntegranteV').on('click', function () {
+    mainView.router.navigate('/mi-equipo/');
   })
 })
 //************************************ VISTA "INDEX" ***************************************
