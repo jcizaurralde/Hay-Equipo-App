@@ -123,6 +123,9 @@ var pedidoUsuario = "";
 var nombreJugador2 = "";
 var puestoJugador2 = "";
 var dorsalJugador2 = "";
+var trDias ="";
+var notificaAdmin = "";
+var notificacionTurnoAdmin = "";
 
 $$(document).on('deviceready', function() {
     console.log("Device is ready!");
@@ -202,6 +205,7 @@ $$(document).on('deviceready', function() {
       text: 'El correo ingresado no es usuario de Hay Equipo',
       closeButton: true,
     });
+    
     
 });
 $$(document).on('page:init', function (e) {
@@ -651,6 +655,9 @@ $$(document).on('page:init', '.page[data-name="registro-equipo"]', function (e) 
 $$(document).on('page:init', '.page[data-name="ingreso-admin"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
+  if (notificaAdmin == true) {
+    notificacionTurnoAdmin.open();
+  }
   $$('#btnAdmAgenda').on('click', fnAgendaAdm);
   $$('#btnPerfil').on('click', function fnPerfil() {
     mainView.router.navigate('/perfil/');
@@ -686,10 +693,28 @@ $$(document).on('page:init', '.page[data-name="ingreso-admin"]', function (e) {
     }
   }
 
+  /*function fnCargaVistaAgenda() {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        //resolve());
+        if (notificaAdmin == true) {
+          notificacionTurnoAdmin.open();
+        }
+      }, 500);
+    });
+  }
+  async function asyncCall() {
+    mainView.router.navigate('/ver-agenda-admin/');
+    console.log('calling');
+    const result = await fnCargaVistaAgenda();
+    console.log(result);
+    // expected output: "resolved"
+  }*/
   function fnAgendaAdm() {
+    //asyncCall();
     mainView.router.navigate('/ver-agenda-admin/');
   }
-
+    
 })
 //************************************ VISTA "AGENDA-ADMIN" ***************************************
 //********************************************************************************************** 
@@ -770,7 +795,7 @@ $$(document).on('page:init', '.page[data-name="agenda-admin"]', function (e) {
     fin = new Date (fechaFinal);
     var transcurso = fin.getTime() - inicio.getTime();
     console.log("Transcurso: "+ transcurso);
-    var trDias= transcurso/1000/60/60/24;
+    trDias= transcurso/1000/60/60/24;
     console.log("dias: "+trDias);
     console.log("Cantidad de horas de juego: "+ (cantHoras+1));
     var hoy = new Date(inicio.getTime() + 86400000);
@@ -956,6 +981,19 @@ $$(document).on('page:init', '.page[data-name="ver-dia-admin"]', function (e) {
           console.log("No ocupado");
         }else{
           $$('#muestraOcupado1').text('Turno: ' + turno1 + ' por: ' + consultaUsuario1);
+          notificacionTurnoAdmin = app.notification.create({
+            icon: '<i class="f7-icons">calendar_today</i>',
+            title: 'Hay Equipo App',
+            subtitle: 'Atención',
+            text: 'Nuevo turno reservado en el dia: '+ tituloFecha,
+            closeButton: true,
+            on: {
+              closed: function () {
+                notificaAdmin = false;
+              }
+            }
+          });
+          notificaAdmin = true;
         }
       }
       turno2 = doc.data().Turno2[0];
@@ -969,6 +1007,19 @@ $$(document).on('page:init', '.page[data-name="ver-dia-admin"]', function (e) {
           console.log("No ocupado");
         } else {
           $$('#muestraOcupado2').text('Turno: ' + turno2 + ' por: ' + consultaUsuario2);
+          notificacionTurnoAdmin = app.notification.create({
+            icon: '<i class="f7-icons">calendar_today</i>',
+            title: 'Hay Equipo App',
+            subtitle: 'Atención',
+            text: 'Nuevo turno reservado en el dia: '+ tituloFecha,
+            closeButton: true, 
+            on: {
+              closed: function () {
+                notificaAdmin = false;
+              }
+            }
+          });
+          notificaAdmin = true;
         }
       }
       turno3 = doc.data().Turno3[0];
@@ -982,6 +1033,19 @@ $$(document).on('page:init', '.page[data-name="ver-dia-admin"]', function (e) {
           console.log("No ocupado");
         } else {
           $$('#muestraOcupado3').text('Turno: ' + turno3 + ' por: ' + consultaUsuario3);
+          notificacionTurnoAdmin = app.notification.create({
+            icon: '<i class="f7-icons">calendar_today</i>',
+            title: 'Hay Equipo App',
+            subtitle: 'Atención',
+            text: 'Nuevo turno reservado en el dia: '+ tituloFecha,
+            closeButton: true,
+            on: {
+              closed: function () {
+                notificaAdmin = false;
+              }
+            }
+          });
+          notificaAdmin = true;
         }
       }
       turno4 = doc.data().Turno4[0];
@@ -995,6 +1059,19 @@ $$(document).on('page:init', '.page[data-name="ver-dia-admin"]', function (e) {
           console.log("No ocupado");
         } else {
           $$('#muestraOcupado4').text('Turno: ' + turno4 + ' por: ' + consultaUsuario4);
+          notificacionTurnoAdmin = app.notification.create({
+            icon: '<i class="f7-icons">calendar_today</i>',
+            title: 'Hay Equipo App',
+            subtitle: 'Atención',
+            text: 'Nuevo turno reservado en el dia: '+ tituloFecha,
+            closeButton: true,
+            on: {
+              closed: function () {
+                notificaAdmin = false;
+              }
+            }
+          });
+          notificaAdmin = true;
         }
       }
       turno5 = doc.data().Turno5[0];
@@ -1008,6 +1085,19 @@ $$(document).on('page:init', '.page[data-name="ver-dia-admin"]', function (e) {
           console.log("No ocupado");
         } else {
           $$('#muestraOcupado5').text('Turno: ' + turno5 + ' por: ' + consultaUsuario5);
+          notificacionTurnoAdmin = app.notification.create({
+            icon: '<i class="f7-icons">calendar_today</i>',
+            title: 'Hay Equipo App',
+            subtitle: 'Atención',
+            text: 'Nuevo turno reservado en el dia: '+ tituloFecha,
+            closeButton: true,
+            on: {
+              closed: function () {
+                notificaAdmin = false;
+              }
+            }
+          });
+          notificaAdmin = true;
         }
       }
       turno6 = doc.data().Turno6[0];
@@ -1021,6 +1111,19 @@ $$(document).on('page:init', '.page[data-name="ver-dia-admin"]', function (e) {
           console.log("No ocupado");
         } else {
           $$('#muestraOcupado6').text('Turno: ' + turno6 + ' por: ' + consultaUsuario6);
+          notificacionTurnoAdmin = app.notification.create({
+            icon: '<i class="f7-icons">calendar_today</i>',
+            title: 'Hay Equipo App',
+            subtitle: 'Atención',
+            text: 'Nuevo turno reservado en el dia: '+ tituloFecha,
+            closeButton: true,
+            on: {
+              closed: function () {
+                notificaAdmin = false;
+              }
+            }
+          });
+          notificaAdmin = true;
         }
       }
       turno7 = doc.data().Turno7[0];
@@ -1034,6 +1137,19 @@ $$(document).on('page:init', '.page[data-name="ver-dia-admin"]', function (e) {
           console.log("No ocupado");
         } else {
           $$('#muestraOcupado7').text('Turno: ' + turno7 + ' por: ' + consultaUsuario7);
+          notificacionTurnoAdmin = app.notification.create({
+            icon: '<i class="f7-icons">calendar_today</i>',
+            title: 'Hay Equipo App',
+            subtitle: 'Atención',
+            text: 'Nuevo turno reservado en el dia: '+ tituloFecha,
+            closeButton: true,
+            on: {
+              closed: function () {
+                notificaAdmin = false;
+              }
+            }
+          });
+          notificaAdmin = true;
         }
       }
       turno8 = doc.data().Turno8[0];
@@ -1047,6 +1163,19 @@ $$(document).on('page:init', '.page[data-name="ver-dia-admin"]', function (e) {
           console.log("No ocupado");
         } else {
           $$('#muestraOcupado8').text('Turno: ' + turno8 + ' por: ' + consultaUsuario8);
+          notificacionTurnoAdmin = app.notification.create({
+            icon: '<i class="f7-icons">calendar_today</i>',
+            title: 'Hay Equipo App',
+            subtitle: 'Atención',
+            text: 'Nuevo turno reservado en el dia: '+ tituloFecha,
+            closeButton: true,
+            on: {
+              closed: function () {
+                notificaAdmin = false;
+              }
+            }
+          });
+          notificaAdmin = true;
         }
       }
     } else {
@@ -1210,6 +1339,7 @@ $$(document).on('page:init', '.page[data-name="ver-dia-admin"]', function (e) {
         break;
     }
   }
+
 //Accion para volver a vista "Ver agenda administrador"-->
   $$('#btnVolverDia').on('click', function () {
     mainView.router.navigate('/ver-agenda-admin/');
@@ -1414,30 +1544,42 @@ $$(document).on('page:init', '.page[data-name="mi-equipo"]', function (e) {
     if (doc.exists) {
       var nombreEq = doc.data().NombreEquipo;
       console.log("Nombre del equipo: " + nombreEq);
-      var jugadoresEq = doc.data().Jugadores1;
-      console.log("Jugadores del equipo: " + jugadoresEq);
-      var jugadoresEq2 = doc.data().Jugadores2;
-      console.log("Jugadores del equipo2: " + jugadoresEq2);
-      var usuarioEq = jugadoresEq[0];
-      var posicionEq = jugadoresEq[1];
-      var dorsalEq = jugadoresEq[2];
-      console.log("Usuario jugador: " + usuarioEq);
-      console.log("Posicion jugador: " + posicionEq);
-      console.log("Dorsal jugador: " + dorsalEq);
       $$('#tituloEquipo').text(nombreEq);
-      $$('#tablaDorsal').text(dorsalEq);
-      $$('#tablaUsuario').text(usuarioEq);
-      $$('#tablaPuesto').text(posicionEq);
-      var usuarioEq2 = jugadoresEq2[0];
-      var posicionEq2 = jugadoresEq2[1];
-      var dorsalEq2= jugadoresEq2[2];
-      console.log("Usuario jugador2: " + usuarioEq2);
-      console.log("Posicion jugador2: " + posicionEq2);
-      console.log("Dorsal jugador2: " + dorsalEq2);
-      $$('#tituloEquipo2').text(nombreEq2);
-      $$('#tablaDorsal2').text(dorsalEq2);
-      $$('#tablaUsuario2').text(usuarioEq2);
-      $$('#tablaPuesto2').text(posicionEq2);
+        var jugadoresEq1 = doc.data().Jugadores1;
+        var jugadoresEq2 = doc.data().Jugadores2;
+        var jugadoresEq3 = doc.data().Jugadores3;
+        var jugadoresEq4 = doc.data().Jugadores4;
+        var jugadoresEq5 = doc.data().Jugadores5;
+        var usuarioEq1 = jugadoresEq1[0];
+        var posicionEq1 = jugadoresEq1[1];
+        var dorsalEq1 = jugadoresEq1[2];
+        $$('#tablaDorsal1').text(dorsalEq1);
+        $$('#tablaUsuario1').text(usuarioEq1);
+        $$('#tablaPuesto1').text(posicionEq1);
+        var usuarioEq2 = jugadoresEq2[0];
+        var posicionEq2 = jugadoresEq2[1];
+        var dorsalEq2 = jugadoresEq2[2];
+        $$('#tablaDorsal2').text(dorsalEq2);
+        $$('#tablaUsuario2').text(usuarioEq2);
+        $$('#tablaPuesto2').text(posicionEq2);
+        var usuarioEq3 = jugadoresEq3[0];
+        var posicionEq3 = jugadoresEq3[1];
+        var dorsalEq3 = jugadoresEq3[2];
+        $$('#tablaDorsal3').text(dorsalEq3);
+        $$('#tablaUsuario3').text(usuarioEq3);
+        $$('#tablaPuesto3').text(posicionEq3);
+        var usuarioEq4 = jugadoresEq4[0];
+        var posicionEq4 = jugadoresEq4[1];
+        var dorsalEq4 = jugadoresEq4[2];
+        $$('#tablaDorsal4').text(dorsalEq4);
+        $$('#tablaUsuario4').text(usuarioEq4);
+        $$('#tablaPuesto4').text(posicionEq4);
+        var usuarioEq5 = jugadoresEq5[0];
+        var posicionEq5 = jugadoresEq5[1];
+        var dorsalEq5 = jugadoresEq5[2];
+        $$('#tablaDorsal5').text(dorsalEq5);
+        $$('#tablaUsuario5').text(usuarioEq5);
+        $$('#tablaPuesto5').text(posicionEq5);
     } else {
       console.log("No such document!");
       $$('#agregaBtnRE').html('<button class="col button button-raised button-fill" id="btnRegistraEquipo">Registra un equipo</button>');
