@@ -1369,6 +1369,17 @@ $$(document).on('page:init', '.page[data-name="registro"]', function (e) {
             var datos = {Nombre: nombre, Celular: celular, TipoUsuario: tipoUs1};
             colUsuarios.doc(email).set(datos);
             notificationWithButton.open();
+            firebase.auth().onAuthStateChanged(function (user) {
+              console.log("user.displayName: " + user.displayName);
+              user
+                .updateProfile({
+                  displayName: nombre,
+                })
+                .then(function () {
+                  console.log("user.displayName: " + user.displayName);
+                  user.sendEmailVerification();
+                });
+            });
           })
           .catch(function (error) {
             var errorCode = error.code;
@@ -1652,6 +1663,7 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
   $$('#btnRegistro').on('click', fnRegistro);
   $$('#btnRegComplejo').on('click', fnRegComplejo);
   $$('#volverLogin').on('click', fnCierraLogin);
+  $$('#recupPass').on('click', fnRecupPass);
   function fnIngreso() {
     $$('.login-screen').on('loginscreen:opened', function (e) {
       console.log('Login screen opened');
@@ -1697,7 +1709,7 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
         notificacionErrorPass.open();
       });
   }
-
+  //Funcion para iniciar sesión:
   function fnActivaLoginAd(email, pass) {
     firebase.auth().signInWithEmailAndPassword(email, pass)
       .then((user) => {
@@ -1713,19 +1725,30 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
         notificacionErrorPass.open();
       });
   }
-
   function fnRegistro() {
     mainView.router.navigate('/registro/');
   }
-
   function fnRegComplejo() {
     mainView.router.navigate('/registro-canchas/');
   }
-
+  //Función para cerrar el popup de login:
   function fnCierraLogin() {
     $$('.login-screen').on('loginscreen:close', function (e) {
       console.log('Login screen close');
     })
   }
-
+  //Función pata recuperar contraseña:
+  function fnRecupPass() {
+    emailLogin = $$('#usuarioLogin').val();
+    if (emailLogin != "") {
+      firebase.auth().sendPasswordResetEmail(emailLogin)
+        .then(function () {
+          app.dialog.alert("Te hemos enviado un correo para recuperar tu contraseña");
+        })
+        .catch(function (error) {
+        });
+    } else {
+      app.dialog.alert("Por favor ingresa tu correo electrónico");
+    };
+  }
 })
