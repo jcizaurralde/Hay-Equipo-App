@@ -126,6 +126,7 @@ var dorsalJugador2 = "";
 var trDias ="";
 var notificaAdmin = "";
 var notificacionTurnoAdmin = "";
+var provider = new firebase.auth.FacebookAuthProvider();
 
 $$(document).on('deviceready', function() {
     console.log("Device is ready!");
@@ -1664,6 +1665,7 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
   $$('#btnRegComplejo').on('click', fnRegComplejo);
   $$('#volverLogin').on('click', fnCierraLogin);
   $$('#recupPass').on('click', fnRecupPass);
+  $$('#btnIngresarF').on('click', fnIngresoFacebook);
   function fnIngreso() {
     $$('.login-screen').on('loginscreen:opened', function (e) {
       console.log('Login screen opened');
@@ -1750,5 +1752,32 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
     } else {
       app.dialog.alert("Por favor ingresa tu correo electrónico");
     };
+  }
+  //Función para ingresar con cuenta Facebook:
+  function fnIngresoFacebook() {
+    firebase.auth().signInWithRedirect(provider);
+    firebase.auth()
+      .getRedirectResult()
+      .then((result) => {
+        if (result.credential) {
+          /** @type {firebase.auth.OAuthCredential} */
+          var credential = result.credential;
+
+          // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+          var token = credential.accessToken;
+          // ...
+        }
+        // The signed-in user info.
+        var user = result.user;
+      }).catch((error) => {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        // ...
+      });
   }
 })
