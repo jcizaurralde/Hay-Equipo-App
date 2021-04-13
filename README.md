@@ -1,22 +1,30 @@
 
-# Bienvenid@!! 
+# Hay Equipo 
 
-En este repositorio podés encontrar un template de Framework7 listo para usar para el desarrollo de aplicaciones con Apache Cordova.
+Buscá rival, reserva cancha y a jugar !!
 
-## Qué es [Framework7](https://framework7.io/)?
+## Qué es Hay Equipo?
 
-Es un framework CSS con una librería propia de manejo del DOM, similar a JQuery.
-El resultado de las aplicaciones respeta los estilos de iOS/Android como si fueran nativas.
+Una aplicación que fomenta el deporte en equipo, facilitando el juego, organización de torneros
+y reservas de canchas.
+Brinda por un lado gestión para los complejos de canchas de fútbol, paddle, tenis, 
+con herramientas fáciles de utilizar. Y por el otro lado, una interacción efectiva entre usuarios
+y equipos.
 
-## [Apache Cordova](https://cordova.apache.org/)
+## Si sos usuario:
 
-Nos permite el desarrollo de aplicaciones híbridas. Y de esta manera con un solo código poner tener aplicaciones para Android e iOS.
+1- Registrarte y registrar a tu equipo (pudiendo modificarlo cuando quieras).
+2- Encontrar un rival, si aún no está armado el partido.
+3- Reservar cancha de 5, 7 o 11 en cualquiera de los complejos registrados en la APP, según disponibilidad.
+4- Chatear con los complejos y con los rivales.
+6- Registrarse en torneos internos que realizan los complejos, ver fixture, tabla de posiciones y resultados.
+7- Recibir novedades y promociones.
 
-## Cómo descargo el template?
+## Si sos dueño/encargado de un complejo de canchas de futbol:
 
-Crea y/o ingresa a tu carpeta inicial del desarrollo. Descarga el template con el comando:
+1- Registrar tu complejo por una suscripción mensual
+2- Administrar turnos, clientes registrados, pagos y señas, torneos internos.
+3- Chatear con clientes.
+4- Hacer promociones, lanzar novedades
 
-    git clone https://github.com/JorgePHI/f7-v606
-
-Ingresando luego en la carpeta f7-v606 podrá usar el template de Framework 7, Version 6.0.6
 
