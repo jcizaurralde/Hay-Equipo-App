@@ -207,21 +207,14 @@ input{
   margin-left: 38vw;
   margin-right: 50vw;
 }
-#pelotaChica{
-  height: 6vh;
-  width: 8vw;
-}
-#facebook{
-  height: 6vh;
-  width: 8vw;
-}
-#google{
-  height: 6vh;
-  width: 8vw;
-}
-#camiseta{
-  height: 6vh;
-  width: 8vw;
+.iconsPortada{
+  background-color: #007d0b;
+  width: 12vw;
+  height: 8vh;
+  color: #ffffd3;
+  display:block;
+  position: absolute;
+  left: 0vw;
 }
 .btnPortada{
   height: 8vh;
