@@ -82,61 +82,50 @@
 
 * {
 	font-family: 'Poppins', Arial, sans-serif;
-  background-color: #3d3d3d;
-  color: #ffffd3;
+  background-color: #171717;
+  color: #86FF2E;
 }
-
 body{
-  background-color: #3d3d3d;
+  background-color: #171717;
+  color: #86FF2E;
 }
 .tituloPrincipal{
-  font-family: 'Dela Gothic One', cursive;
-  color: #c9ec2a;
+  font-family: 'Poppins', Arial, sans-serif;
+  color: #86FF2E;
   text-align: center;
 }
 #contenedorIndex{
-  background-color: #3d3d3d;
+  background-color: #171717;
 }
-
 .titulos{
-  color: #c9ec2a;
+  color: #86FF2E;
   text-align: center;
 }
-
 .button{
-  background-color: #ffffd3;
+  background-color: #86FF2E;
   font-weight: bold;
-  color: #007d0b;
-  
+  color: #171717; 
 }
-
 .list-button{
-  color: #ffffd3;
-  
+  color: #86FF2E;
 }
-
 h3{
-  color: #ffffd3;
+  color: #86FF2E;
   text-align: center;
 }
-
 p{
-  color: #ffffd3;
+  color: #86FF2E;
   text-align: center;
 }
-
 .titLabels{
   color: white;
 }
-
 input{
   color: white;
 }
-
 #ingresoLogin{
   color: white;
 }
-
 #logotipo{
     height: 20vh;
     width: 30vw;
@@ -146,59 +135,57 @@ input{
 }
 /*PONER ID HAMBURGUESA EN TODAS LAS VISTAS*/
 #hamburguesa1{
-  color: #007d0b;
-  background-color: #3d3d3d;
+  color: #86FF2E;
+  background-color: #171717;
 }
 #hamburguesa2{
-  color: #007d0b;
-  background-color: #3d3d3d;
+  color: #86FF2E;
+  background-color: #171717;
 }
 #hamburguesa3{
-  color: #007d0b;
-  background-color: #3d3d3d;
+  color: #86FF2E;
+  background-color: #171717;
 }
 #hamburguesa4{
-  color: #007d0b;
-  background-color: #3d3d3d;
+  color: #86FF2E;
+  background-color: #171717;
 }
 #hamburguesa5{
-  color: #007d0b;
-  background-color: #3d3d3d;
+  color: #86FF2E;
+  background-color: #171717;
 }
 #hamburguesa6{
-  color: #007d0b;
-  background-color: #3d3d3d;
+  color: #86FF2E;
+  background-color: #171717;
 }
 #hamburguesa7{
-  color: #007d0b;
-  background-color: #3d3d3d;
+  color: #86FF2E;
+  background-color: #171717;
 }
 #hamburguesa8{
-  color: #007d0b;
-  background-color: #3d3d3d;
+  color: #86FF2E;
+  background-color: #171717;
 }
 #hamburguesa9{
-  color: #007d0b;
-  background-color: #3d3d3d;
+  color: #86FF2E;
+  background-color: #171717;
 }
 #hamburguesa10{
-  color: #007d0b;
-  background-color: #3d3d3d;
+  color: #86FF2E;
+  background-color: #171717;
 }
 #hamburguesa11{
-  color: #007d0b;
-  background-color: #3d3d3d;
+  color: #86FF2E;
+  background-color: #171717;
 }
 #hamburguesa12{
-  color: #007d0b;
-  background-color: #3d3d3d;
+  color: #86FF2E;
+  background-color: #171717;
 }
 #ingresoLogin{
-  color: #ffffd3;
   font-size: 22px;
 }
 #volverLogin{
-  color: #ffffd3;
   font-size: 15px;
 }
 #pelota{
