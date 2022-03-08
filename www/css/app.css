@@ -110,28 +110,16 @@ body{
   color: #86FF2E;
 }
 h3{
-  color: #86FF2E;
   text-align: center;
 }
 p{
-  color: #86FF2E;
   text-align: center;
 }
 .titLabels{
   color: white;
 }
-input{
-  color: white;
-}
 #ingresoLogin{
-  color: white;
-}
-#logotipo{
-    height: 20vh;
-    width: 30vw;
-    margin-left: 27vw;
-    margin-right: 50vw;
-    padding-bottom: 0vw;
+  color: #86FF2E;
 }
 /*PONER ID HAMBURGUESA EN TODAS LAS VISTAS*/
 #hamburguesa1{
@@ -188,26 +176,11 @@ input{
 #volverLogin{
   font-size: 15px;
 }
-#pelota{
-  height: 18vh;
-  width: 25vw;
-  margin-left: 38vw;
-  margin-right: 50vw;
-}
-.iconsPortada{
-  background-color: #007d0b;
-  width: 12vw;
-  height: 8vh;
-  color: #ffffd3;
-  display:block;
-  position: absolute;
-  left: 0vw;
-}
 #LScreen{
-  background-color: #3d3d3d;
+  background-color: #171717;
 }
 #pageLScreen{
-  background-color: #3d3d3d;
+  background-color: #171717;
 }
 #tituloPrincipal{
   margin-top: 0px;
@@ -222,17 +195,17 @@ input{
   color: #ffffd3;
 }
 .panel{
-  background-color: #3d3d3d;
+  background-color: #171717;
 }
 /*PONER A TODAS LAS BARRAS ESTE ID*/
 #barraBusqueda{
-  background-color: #3d3d3d;
+  background-color: #ffffd3;
 }
 .notification.modal-in{
-  background-color: #3d3d3d;
+  background-color: #171717;
 }
 .notification-title{
-  color: #c9ec2a;
+  color: #86FF2E;
 }
 .notification-close-button{
   color: #ffffd3;
@@ -241,31 +214,31 @@ input{
   color: #ffffd3;
 }
 .notification-icon i{
-  color: #c9ec2a;
+  color: #86FF2E;
 }
 .notification-text{
   color: #ffffd3;
 }
 .list .item-after{
-  color: #c9ec2a;
+  color: #86FF2E;
 }
 .calendar-footer{
-  background-color: #3d3d3d;
+  background-color: #171717;
 }
 .calendar-header{
-  background-color: #3d3d3d;
+  background-color: #171717;
 }
 .calendar-footer a {
-    color: #007d0b;
+    color: #86FF2E;
 }
 .toolbar a.current-month-value{
-  color: #c9ec2a;
+  color: #86FF2E;
 }
 .toolbar a.current-year-value{
-  color: #c9ec2a;
+  color: #86FF2E;
 }
 .calendar-day-today .calendar-day-number{
-  color: #c9ec2a;
+  color: #86FF2E;
 }
 .list .item-label{
   color: #ffffd3;
@@ -274,36 +247,37 @@ input{
     color: #ffffd3;
 }
 .block-strong{
-  background-color: #3d3d3d;
+  background-color: #171717;
 }
 .list input[type=date], .list input[type=datetime-local], .list input[type=month], .list input[type=time] {
-    color: #c9ec2a;
+    color: #86FF2E;
 }
 .list input[type=number]{
-  color: #c9ec2a;
+  color: #86FF2E;
 }
 .list input[type=password]{
-  color: #c9ec2a;
+  color: #86FF2E;
 }
 .list input[type=search]{
-  color: #c9ec2a;
+  color: #86FF2E;
 }
 #horDesde{
-  color: #c9ec2a;
+  color: #86FF2E;
 }
 #horHasta{
-  color: #c9ec2a;
+  color: #86FF2E;
 }
+/*VER CSS DESDE ACA PARA ABAJO Y BOTONES*/
 .actions-button{
-  background-color: #ffffd3;
+  background-color: #86FF2E;
 
 }
 .actions-button-text{
-  background-color: #ffffd3;
-  color: #3d3d3d;
+  background-color: #86FF2E;
+  color: #171717;
 }
  .list input[type=email]{
-   background-color: #3d3d3d;
+   background-color: #171717;
    color: #c9ec2a;
  }
 .list input[type=text]{
