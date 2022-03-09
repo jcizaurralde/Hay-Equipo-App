@@ -102,9 +102,15 @@ body{
   text-align: center;
 }
 .button{
-  /*background-color: #86FF2E;*/
   font-weight: bold;
-  /*color: #171717;*/ 
+}
+.botones{
+  background-color: #86FF2E;
+  color: #171717;
+}
+.botoneslink{
+  color: #ffffd3;
+  font-size: 15px;
 }
 .list-button{
   color: #86FF2E;
